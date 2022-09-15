@@ -2,6 +2,7 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos.configurations;
 
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,8 +24,13 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                .antMatchers("/rest/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
+                .antMatchers(HttpMethod.POST,"/api/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/api/clients/current").hasAuthority("USER")
+                .antMatchers("/api/clients", "/rest/**").hasAuthority("ADMIN")
                 .antMatchers("/api/**").permitAll();
+
+
 
 
 

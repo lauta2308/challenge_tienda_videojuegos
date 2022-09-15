@@ -2,10 +2,12 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos;
 
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.*;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -21,12 +23,14 @@ public class ChallengeTiendaVideojuegosApplication {
 
 
 
+	@Autowired
+	PasswordEncoder passwordEncoder;
 
 	@Bean
 	public CommandLineRunner initData(ClientRepository userRepository, DiscountRepository discountRepository, PedidoRepository pedidoRepository , FavouriteProductRepository favouriteProductRepository, ProductRepository productRepository, ProductPedidoRepository productPedidoRepository) {
 		return (args) -> {
 
-			Client userOne = new Client("melba", "morel", 30, "melba@test.com", Rol.USER, 20000.00, "123");
+			Client userOne = new Client("melba", "morel", LocalDate.of(1985,07,04), "melba@test.com", Rol.USER,  passwordEncoder.encode("123"));
 
 			//userRepository.save(userOne);
 
@@ -75,6 +79,15 @@ public class ChallengeTiendaVideojuegosApplication {
 			ProductPedido productPedido3 = new ProductPedido(pedido2, productTwo);
 
 			productPedidoRepository.save(productPedido3);
+
+
+			FavouriteProduct favouriteProductOne = new FavouriteProduct(userOne, productOne);
+
+			favouriteProductRepository.save(favouriteProductOne);
+
+			Client admin = new Client("matias", "admin", LocalDate.of(1991,05,03), "admin@test.com", Rol.ADMIN,  passwordEncoder.encode("123"));
+
+			userRepository.save(admin);
 
 		};
 

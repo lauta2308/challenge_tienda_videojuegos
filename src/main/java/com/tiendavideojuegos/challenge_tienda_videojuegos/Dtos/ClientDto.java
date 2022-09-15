@@ -7,6 +7,7 @@ import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Rol;
 
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,17 +20,17 @@ public class ClientDto {
 
     private String lastName;
 
-    private Integer age;
+    private LocalDate birthDate;
 
     private String email;
 
     private Rol rol;
 
-    private Double balance;
+
 
     private Set<PedidoDto> pedidos;
 
-    private Set <FavouriteProduct> favouritesProducts;
+    private Set <FavouriteProductsDto> favouritesProducts;
 
     public ClientDto() {
     }
@@ -38,12 +39,11 @@ public class ClientDto {
         this.id = client.getId();
         this.name = client.getName();
         this.lastName = client.getLastName();
-        this.age = client.getAge();
+        this.birthDate= client.getBirthDate();
         this.email = client.getEmail();
         this.rol = client.getRol();
-        this.balance = client.getBalance();
         this.pedidos = client.getPedidos().stream().map(pedido -> new PedidoDto(pedido)).collect(Collectors.toSet());
-        this.favouritesProducts = client.getFavouritesProducts();
+        this.favouritesProducts = client.getFavouritesProducts().stream().map(favouriteProduct -> new FavouriteProductsDto(favouriteProduct)).collect(Collectors.toSet());
     }
 
     public long getId() {
@@ -58,8 +58,8 @@ public class ClientDto {
         return lastName;
     }
 
-    public Integer getAge() {
-        return age;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     public String getEmail() {
@@ -70,15 +70,12 @@ public class ClientDto {
         return rol;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
 
     public Set<PedidoDto> getPedidos() {
         return pedidos;
     }
 
-    public Set<FavouriteProduct> getFavouritesProducts() {
+    public Set<FavouriteProductsDto> getFavouritesProducts() {
         return favouritesProducts;
     }
 }

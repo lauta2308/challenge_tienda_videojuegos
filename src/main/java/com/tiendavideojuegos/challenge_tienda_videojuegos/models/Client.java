@@ -3,6 +3,7 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos.models;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,13 +19,12 @@ public class Client {
 
     private String lastName;
 
-    private Integer age;
+    private LocalDate birthDate;
 
     private String email;
 
     private Rol rol;
 
-    private Double balance;
 
     private String password;
 
@@ -38,13 +38,13 @@ public class Client {
     public Client() {
     }
 
-    public Client(String name, String lastName, Integer age, String email, Rol rol, Double balance, String password) {
+    public Client(String name, String lastName, LocalDate birthDate, String email, Rol rol, String password) {
         this.name = name;
         this.lastName = lastName;
-        this.age = age;
+        this.birthDate = birthDate;
         this.email = email;
         this.rol = rol;
-        this.balance = balance;
+
         this.password = password;
     }
 
@@ -69,12 +69,13 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public Integer getAge() {
-        return age;
+
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     public String getEmail() {
@@ -93,13 +94,7 @@ public class Client {
         this.rol = rol;
     }
 
-    public Double getBalance() {
-        return balance;
-    }
 
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
 
     public Set<Pedido> getPedidos() {
         return pedidos;
