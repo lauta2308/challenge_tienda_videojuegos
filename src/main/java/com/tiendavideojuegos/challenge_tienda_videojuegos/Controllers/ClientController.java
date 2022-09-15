@@ -1,25 +1,18 @@
-package com.tiendavideojuegos.challenge_tienda_videojuegos.Controllers;
+package com.tiendavideojuegos.challenge_tienda_videojuegos.controllers;
 
 
-import com.tiendavideojuegos.challenge_tienda_videojuegos.Dtos.ClientDto;
-import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Client;
-import com.tiendavideojuegos.challenge_tienda_videojuegos.models.FavouriteProduct;
-import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Product;
-import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Rol;
+import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.ClientDto;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ClientRepository;
-
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.FavouriteProductRepository;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ProductRepository;
+import com.tiendavideojuegos.challenge_tienda_videojuegos.services.interfaces.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class ClientController {
@@ -28,10 +21,19 @@ public class ClientController {
     @Autowired
     ClientRepository clientRepository;
 
+    @Autowired
+    ClientServiceInterface clientService;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    FavouriteProductRepository favouriteProductRepository;
+
     @GetMapping("/api/admin/clients")
     public List<ClientDto> getClients(){
 
-        return clientRepository.findAll().stream().map(client -> new ClientDto(client)).collect(Collectors.toList());
+        return clientService.findAll();
     }
 
 
@@ -40,41 +42,27 @@ public class ClientController {
     public ClientDto getClient(@PathVariable Long id){
 
 
-        return clientRepository.findById(id).map(client -> new ClientDto(client)).orElse(null);
+        return clientService.findById(id);
 
 
 
     }
 
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+
 
     @PostMapping("/api/clients")
-    public ResponseEntity<Object> register(
+    public ResponseEntity<String> register(
 
             @RequestParam String name, @RequestParam String lastName,
 
             @RequestParam String email, @RequestParam String birthDate, @RequestParam String password) {
 
 
-        if (name.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty()) {
-
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
-
-        }
+        return clientService.registerClient(name, lastName, email, birthDate, password);
 
 
-        if (clientRepository.findByEmail(email) != null) {
 
-            return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
-
-        }
-
-        Client newClient = new Client(name, lastName, LocalDate.parse(birthDate), email, Rol.USER, passwordEncoder.encode(password));
-        clientRepository.save(newClient);
-
-        return new ResponseEntity<>("User created", HttpStatus.CREATED);
 
     }
 
@@ -82,54 +70,38 @@ public class ClientController {
 
     public ClientDto getClientInfo (Authentication authentication){
 
-       return new ClientDto(clientRepository.findByEmail(authentication.getName()));
+
+       return clientService.getClientInfo(authentication);
 
     }
 
     @PatchMapping("/api/admin/clients/rol")
     public ResponseEntity<Object> changeRol(Authentication authentication, @RequestParam String email) {
 
-        Client client = clientRepository.findByEmail(email);
+        clientService.changeRol(authentication, email);
 
-        client.setRol(Rol.ADMIN);
-
-        clientRepository.save(client);
 
         return new ResponseEntity<>("User rol changed", HttpStatus.CREATED);
     }
 
 
-    @Autowired
-    ProductRepository productRepository;
 
-    @Autowired
-    FavouriteProductRepository favouriteProductRepository;
 
     @PatchMapping("/api/clients/current/favourites")
-    public ResponseEntity<Object> addFavouriteProduct(Authentication authentication, @RequestParam Long productId) {
-
-        Client client = clientRepository.findByEmail(authentication.getName());
-
-        Product productFound = productRepository.findById(productId).get();
+    public ResponseEntity<String> addFavouriteProduct(Authentication authentication, @RequestParam Long productId){
 
 
-        FavouriteProduct newFavouriteProduct = new FavouriteProduct(client, productFound);
 
-        favouriteProductRepository.save(newFavouriteProduct);
-
-
-        return new ResponseEntity<>("Favourite Product added", HttpStatus.CREATED);
+        return  clientService.addFavouriteProduct(authentication, productId);
     }
 
 
     @DeleteMapping("/api/clients/current/favourites")
     public ResponseEntity<Object> deleteFavourite(Authentication authentication, @RequestParam Long favouriteProductId) {
 
-        Client client = clientRepository.findByEmail(authentication.getName());
 
-        FavouriteProduct favouriteProductFound = favouriteProductRepository.findById(favouriteProductId).get();
+        clientService.deleteFavourite(authentication, favouriteProductId);
 
-        favouriteProductRepository.delete(favouriteProductFound);
 
 
         return new ResponseEntity<>("Favourite Product deleted", HttpStatus.CREATED);

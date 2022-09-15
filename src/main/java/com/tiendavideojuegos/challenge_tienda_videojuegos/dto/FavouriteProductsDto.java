@@ -1,12 +1,7 @@
-package com.tiendavideojuegos.challenge_tienda_videojuegos.Dtos;
+package com.tiendavideojuegos.challenge_tienda_videojuegos.dto;
 
-import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Client;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.FavouriteProduct;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Product;
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class FavouriteProductsDto {
 

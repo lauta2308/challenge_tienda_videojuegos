@@ -2,9 +2,10 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Discount {

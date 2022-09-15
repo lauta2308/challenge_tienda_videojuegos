@@ -24,10 +24,14 @@ public class WebAuthorization extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
+                .antMatchers(HttpMethod.GET,"/api/admin/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.PATCH,"/api/admin/**").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,"/api/clients").permitAll()
                 .antMatchers(HttpMethod.POST,"/api/admin/**").hasAuthority("ADMIN")
                 .antMatchers("/api/clients/current").hasAuthority("USER")
-                .antMatchers("/api/clients", "/rest/**").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/api/clients/current/**").hasAuthority("USER")
+                .antMatchers(HttpMethod.PATCH,"/api/clients/current/**").hasAuthority("USER")
+                .antMatchers("/api/clients/**", "/rest/**").hasAuthority("ADMIN")
                 .antMatchers("/api/**").permitAll();
 
 

@@ -1,0 +1,286 @@
+{
+	"info": {
+		"_postman_id": "b8a61572-ad06-46dc-8a08-feaed99bd141",
+		"name": "Challenge final",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get clients",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admin/clients",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get products",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logear admin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clients",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clients"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logear cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/login?email=melba@test.com&password=123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "melba@test.com"
+						},
+						{
+							"key": "password",
+							"value": "123"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear producto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admin/products?name=fifa2022&price=10.00&stock=10&sales=0&releaseDate=2022-05-02&category=deporte&platform=XBOX&productStatus=LAUNCHED",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"products"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "fifa2022"
+						},
+						{
+							"key": "price",
+							"value": "10.00"
+						},
+						{
+							"key": "stock",
+							"value": "10"
+						},
+						{
+							"key": "sales",
+							"value": "0"
+						},
+						{
+							"key": "releaseDate",
+							"value": "2022-05-02"
+						},
+						{
+							"key": "category",
+							"value": "deporte"
+						},
+						{
+							"key": "platform",
+							"value": "XBOX"
+						},
+						{
+							"key": "productStatus",
+							"value": "LAUNCHED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Registrar cliente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clients?name=test&lastName=test&email=test@test.com&birthDate=2000-05-04&password=12345",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clients"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "test"
+						},
+						{
+							"key": "lastName",
+							"value": "test"
+						},
+						{
+							"key": "email",
+							"value": "test@test.com"
+						},
+						{
+							"key": "birthDate",
+							"value": "2000-05-04"
+						},
+						{
+							"key": "password",
+							"value": "12345"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "info cliente autenticado",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clients/current",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clients",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user rol a admin",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admin/clients/rol?melba@test.com",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"clients",
+						"rol"
+					],
+					"query": [
+						{
+							"key": "melba@test.com",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agregar producto favorito",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clients/current/favourites?productId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clients",
+						"current",
+						"favourites"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "agregar producto favorito Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/clients/current/favourites",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clients",
+						"current",
+						"favourites"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

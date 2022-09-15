@@ -27,7 +27,7 @@ public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
             Client user = userRepository.findByEmail(inputName);
 
             if (user != null) {
-                if (user.getRol().toString().contains("admin")){
+                if (user.getRol().toString().contains("ADMIN")){
 
                     return new User(user.getEmail(), user.getPassword(), AuthorityUtils.commaSeparatedStringToAuthorityList ("ADMIN"));
                 }

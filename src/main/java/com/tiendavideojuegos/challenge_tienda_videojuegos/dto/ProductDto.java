@@ -1,9 +1,7 @@
-package com.tiendavideojuegos.challenge_tienda_videojuegos.Dtos;
+package com.tiendavideojuegos.challenge_tienda_videojuegos.dto;
 
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.*;
 
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
