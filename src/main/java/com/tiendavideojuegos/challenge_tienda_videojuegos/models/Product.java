@@ -25,20 +25,23 @@ public class Product {
 
     private LocalDate releaseDate;
 
-    private String category;
+    private ProductCategory category;
 
     private Platform platform;
 
     private ProductStatus productStatus;
 
+    private Integer discount;
 
     @OneToMany(mappedBy="product", fetch=FetchType.EAGER)
     private Set<ProductPedido> productsPedidos = new HashSet<>();
 
+
+
     public Product() {
     }
 
-    public Product(String name, Double price, Integer stock, Integer sales, LocalDate releaseDate, String category, Platform platform, ProductStatus productStatus) {
+    public Product(String name, Double price, Integer stock, Integer sales, LocalDate releaseDate, ProductCategory category, Platform platform, ProductStatus productStatus, Integer discount) {
         this.name = name;
         this.price = price;
         this.stock = stock;
@@ -47,7 +50,7 @@ public class Product {
         this.category = category;
         this.platform = platform;
         this.productStatus = productStatus;
-
+        this.discount = discount;
     }
 
     public long getId() {
@@ -95,11 +98,11 @@ public class Product {
         this.releaseDate = releaseDate;
     }
 
-    public String getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(ProductCategory category) {
         this.category = category;
     }
 
@@ -120,13 +123,11 @@ public class Product {
     }
 
 
-   /* public Set<ProductPedido> getProductsPedidos() {
-        return productsPedidos;
-    }*/
+    public Integer getDiscount() {
+        return discount;
+    }
 
-    /*public void setProductsPedidos(Set<ProductPedido> productsPedidos) {
-        this.productsPedidos = productsPedidos;
-    }*/
-
-
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
 }

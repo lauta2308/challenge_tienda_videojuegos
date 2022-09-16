@@ -2,6 +2,7 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos.controllers;
 
 import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.ProductDto;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Platform;
+import com.tiendavideojuegos.challenge_tienda_videojuegos.models.ProductCategory;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.ProductStatus;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ProductRepository;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.services.interfaces.ProductService;
@@ -29,15 +30,21 @@ public class ProductController {
 
     }
 
-    @PostMapping("/api/admin/products")
-    public ResponseEntity<Object> addProduct(Authentication authentication, @RequestParam String name, @RequestParam Double price, @RequestParam  Integer stock, @RequestParam  Integer sales, @RequestParam String releaseDate, @RequestParam  String category, @RequestParam Platform platform, @RequestParam ProductStatus productStatus ){
+    @GetMapping("/api/products/categories")
+    public List <String> getProductsCategories(){
+        return productService.getProductCategories();
+    }
 
-        productService.addProduct(authentication, name, price, stock, sales, releaseDate, category, platform, productStatus);
+    @PostMapping("/api/admin/products")
+    public ResponseEntity<Object> addProduct(Authentication authentication, @RequestParam String name, @RequestParam Double price, @RequestParam  Integer stock, @RequestParam  Integer sales, @RequestParam String releaseDate, @RequestParam ProductCategory category, @RequestParam Platform platform, @RequestParam ProductStatus productStatus, @RequestParam Integer productDiscount){
+
+        productService.addProduct(authentication, name, price, stock, sales, releaseDate, category, platform, productStatus, productDiscount);
 
 
 
         return new ResponseEntity<>("Product added", HttpStatus.CREATED);
     }
+
 
 
 }

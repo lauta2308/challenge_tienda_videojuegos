@@ -8,6 +8,7 @@ import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ClientRep
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.PedidoRepository;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ProductPedidoRepository;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ProductRepository;
+import com.tiendavideojuegos.challenge_tienda_videojuegos.services.interfaces.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,41 +30,19 @@ import java.util.Set;
 @RestController
 public class PedidoController {
 
-    @Autowired
-    PedidoRepository pedidoRepository;
+
 
     @Autowired
-    ClientRepository clientRepository;
-
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    ProductPedidoRepository productPedidoRepository;
+    PedidoService pedidoService;
 
     @PostMapping("/api/clients/current/pedido")
     public ResponseEntity<Object> addPedido(@RequestBody RequestPedido requestPedido, Authentication authentication){
 
-        Client client = clientRepository.findByEmail(authentication.getName());
 
-        Pedido pedido = new Pedido(requestPedido.getShippingAddress(), requestPedido.getShippingCity(), requestPedido.getZipCode(), LocalDate.now().plusDays(1) , LocalDate.now().plusDays(3), OrderStatus.READYTOSEND, requestPedido.getPaymentMethod(), client);
-
-
-        pedidoRepository.save(pedido);
-
-        requestPedido.getProducts().stream().forEach(productOrderDto -> {
-
-            for (int i = 0; i < productOrderDto.getProductQuantity(); i++) {
-                ProductPedido productPedido = new ProductPedido(pedido, productRepository.findById(productOrderDto.getIdProducto()).get());
-
-                productPedidoRepository.save(productPedido);
-            }
-
-        }
-        );
+        return pedidoService.addPedido(requestPedido, authentication);
 
 
 
-        return new ResponseEntity<>("Pedido added", HttpStatus.CREATED);
+
     }
 }

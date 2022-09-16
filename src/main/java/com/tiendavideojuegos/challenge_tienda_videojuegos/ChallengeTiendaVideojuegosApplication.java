@@ -34,11 +34,11 @@ public class ChallengeTiendaVideojuegosApplication {
 			//userRepository.save(userOne);
 
 
-			Product productOne = new Product("fifa", 20.00, 10, 16, LocalDate.now(), "deporte", Platform.PC, ProductStatus.LAUNCHED);
+			Product productOne = new Product("fifa", 20.00, 10, 16, LocalDate.now(), ProductCategory.SPORTS, Platform.PC, ProductStatus.LAUNCHED, 0);
 
 					productRepository.save(productOne);
 
-			Product productTwo = new Product("pes", 20.00, 10, 16, LocalDate.now(), "deporte", Platform.PC, ProductStatus.LAUNCHED);
+			Product productTwo = new Product("pes", 20.00, 10, 16, LocalDate.now(), ProductCategory.SPORTS, Platform.PC, ProductStatus.LAUNCHED, 0);
 
 
 			productRepository.save(productTwo);
@@ -71,7 +71,7 @@ public class ChallengeTiendaVideojuegosApplication {
 
 			pedidoRepository.save(pedido2);
 
-			Product product3 = new Product("pes", 20.00, 10, 16, LocalDate.now(), "deporte", Platform.PC, ProductStatus.LAUNCHED);
+			Product product3 = new Product("pes", 20.00, 10, 16, LocalDate.now(), ProductCategory.SPORTS, Platform.PC, ProductStatus.LAUNCHED, 0);
 
 			productRepository.save(product3);
 

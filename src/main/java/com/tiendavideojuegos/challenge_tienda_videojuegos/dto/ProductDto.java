@@ -20,12 +20,13 @@ public class ProductDto {
 
     private LocalDate releaseDate;
 
-    private String category;
+    private ProductCategory category;
 
     private Platform platform;
 
     private ProductStatus productStatus;
 
+    private Integer discount;
     private Set<ProductPedido> productsPedidos = new HashSet<>();
 
 
@@ -38,12 +39,13 @@ public class ProductDto {
         this.id = product.getId();
         this.name = product.getName();
         this.price = product.getPrice();
-        this.stock = product.getSales();
+        this.stock = product.getStock();
         this.sales = product.getSales();
         this.releaseDate = product.getReleaseDate();
         this.category = product.getCategory();
         this.platform = product.getPlatform();
         this.productStatus = product.getProductStatus();
+        this.discount = product.getDiscount();
 
     }
 
@@ -71,7 +73,7 @@ public class ProductDto {
         return releaseDate;
     }
 
-    public String getCategory() {
+    public ProductCategory getCategory() {
         return category;
     }
 
@@ -81,6 +83,10 @@ public class ProductDto {
 
     public ProductStatus getProductStatus() {
         return productStatus;
+    }
+
+    public Integer getDiscount() {
+        return discount;
     }
 
     public Set<ProductPedido> getProductsPedidos() {

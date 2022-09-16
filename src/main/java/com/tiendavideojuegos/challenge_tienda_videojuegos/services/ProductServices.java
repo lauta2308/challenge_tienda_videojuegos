@@ -3,6 +3,7 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos.services;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.ProductDto;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Platform;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.Product;
+import com.tiendavideojuegos.challenge_tienda_videojuegos.models.ProductCategory;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.ProductStatus;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.ProductRepository;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.services.interfaces.ProductService;
@@ -31,12 +32,16 @@ public class ProductServices implements ProductService {
     }
 
     @Override
-    public void addProduct(Authentication authentication, String name, Double price, Integer stock, Integer sales, String releaseDate, String category, Platform platform, ProductStatus productStatus) {
-        Product product = new Product(name, price, stock, sales,  LocalDate.parse(releaseDate), category, platform, productStatus);
+    public void addProduct(Authentication authentication, String name, Double price, Integer stock, Integer sales, String releaseDate, ProductCategory category, Platform platform, ProductStatus productStatus, Integer productDiscount) {
+        Product product = new Product(name, price, stock, sales,  LocalDate.parse(releaseDate), category, platform, productStatus, productDiscount);
 
         productRepository.save(product);
     }
 
+    @Override
+    public List<String> getProductCategories() {
+        return ProductCategory.stream().map(productCategory -> productCategory.getProductCategory()).collect(Collectors.toList());
+    }
 
 
 }
