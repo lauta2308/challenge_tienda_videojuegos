@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class ChallengeTiendaVideojuegosApplication {
@@ -31,24 +32,24 @@ public class ChallengeTiendaVideojuegosApplication {
 
 			Client userOne = new Client("melba", "morel", LocalDate.of(1985,07,04), "melba@test.com", Rol.USER,  passwordEncoder.encode("123"));
 
-			//userRepository.save(userOne);
 
 
-			Product productOne = new Product("fifa", 20.00, 10, 16, LocalDate.now(), ProductCategory.SPORTS, Platform.PC, ProductStatus.LAUNCHED, 0);
 
-					productRepository.save(productOne);
+			Product productOne = new Product("fifa", 20.00, 10, 16, LocalDate.now(),List.of(ProductCategory.SPORTS,ProductCategory.ADVENTURE), Platform.PC, ProductStatus.LAUNCHED, 0,"https://assets-prd.ignimgs.com/2021/09/27/fifa-22-20210927161754-1632775274574.jpg","Test Description");
 
-			Product productTwo = new Product("pes", 20.00, 10, 16, LocalDate.now(), ProductCategory.SPORTS, Platform.PC, ProductStatus.LAUNCHED, 0);
+			productRepository.save(productOne);
+
+			Product productTwo = new Product("pes", 20.00, 10, 16, LocalDate.now(), List.of(ProductCategory.SPORTS), Platform.PC, ProductStatus.LAUNCHED, 0,"https://assets-prd.ignimgs.com/2021/09/27/fifa-22-20210927161754-1632775274574.jpg","Test Description");
 
 
 			productRepository.save(productTwo);
-		/*	Discount discountOne = new Discount("deportes", 20.00, "deportes");
 
-			discountRepository.save(discountOne);*/
+			Discount discountOne = new Discount("Sin Descuento", 0.00, "Sin Descuento",LocalDate.now().plusYears(999),99999999);
+			discountRepository.save(discountOne);
 
 
 
-			Pedido pedido = new Pedido("testAddress", "testCity", "123", LocalDate.now(), LocalDate.now().plusDays(1), OrderStatus.SENDING, PaymentMethod.PAYPAL, userOne);
+			Pedido pedido = new Pedido("testAddress", "testCity", "123", LocalDate.now(), LocalDate.now().plusDays(1), OrderStatus.SENDING, PaymentMethod.PAYPAL, userOne,discountOne);
 
 
 
@@ -58,24 +59,24 @@ public class ChallengeTiendaVideojuegosApplication {
 
 
 
-			ProductPedido productPedidoOne = new ProductPedido(pedido, productOne);
-			ProductPedido productPedidoTwo = new ProductPedido(pedido, productTwo);
+			ProductPedido productPedidoOne = new ProductPedido(1,pedido, productOne);
+			ProductPedido productPedidoTwo = new ProductPedido(2,pedido, productTwo);
 
 			productPedidoRepository.save(productPedidoOne);
 			productPedidoRepository.save(productPedidoTwo);
 
 
-			Pedido pedido2 = new Pedido("testAddress", "testCity", "123", LocalDate.now(), LocalDate.now().plusDays(1), OrderStatus.SENDING, PaymentMethod.PAYPAL, userOne);
+			Pedido pedido2 = new Pedido("testAddress", "testCity", "123", LocalDate.now(), LocalDate.now().plusDays(1), OrderStatus.SENDING, PaymentMethod.PAYPAL, userOne,discountOne);
 
 			userRepository.save(userOne);
 
 			pedidoRepository.save(pedido2);
 
-			Product product3 = new Product("pes", 20.00, 10, 16, LocalDate.now(), ProductCategory.SPORTS, Platform.PC, ProductStatus.LAUNCHED, 0);
+			Product product3 = new Product("pes", 20.00, 10, 16, LocalDate.now(), List.of( ProductCategory.ARCADE), Platform.PC, ProductStatus.LAUNCHED, 0,"https://assets-prd.ignimgs.com/2021/09/27/fifa-22-20210927161754-1632775274574.jpg","Test Description");
 
 			productRepository.save(product3);
 
-			ProductPedido productPedido3 = new ProductPedido(pedido2, productTwo);
+			ProductPedido productPedido3 = new ProductPedido(3,pedido2, productTwo);
 
 			productPedidoRepository.save(productPedido3);
 
@@ -87,6 +88,19 @@ public class ChallengeTiendaVideojuegosApplication {
 			Client admin = new Client("matias", "admin", LocalDate.of(1991,05,03), "admin@test.com", Rol.ADMIN,  passwordEncoder.encode("123"));
 
 			userRepository.save(admin);
+
+
+			Discount discountLimit = new Discount("test",1.2,"mati01",LocalDate.of(2022,10,20),25);
+			discountRepository.save(discountLimit);
+
+			Pedido pedidoDiscount= new Pedido("testAddress", "testCity", "123", LocalDate.now(), LocalDate.now().plusDays(1), OrderStatus.SENDING, PaymentMethod.PAYPAL, userOne, discountLimit);
+
+			pedidoRepository.save(pedidoDiscount);
+
+			ProductPedido productPedidothree = new ProductPedido(2,pedidoDiscount, productOne);
+			productPedidoRepository.save(productPedidothree);
+
+
 
 		};
 

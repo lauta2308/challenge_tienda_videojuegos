@@ -37,7 +37,7 @@ public class PedidoServices implements PedidoService {
     DiscountRepository discountRepository;
 
     @Override
-    public ResponseEntity<Object> addPedido(RequestPedido requestPedido, Authentication authentication) {
+    public ResponseEntity<Object> addPedido(RequestPedido requestPedido, Authentication authentication, String codeDiscount) {
         Client client = clientRepository.findByEmail(authentication.getName());
 
         if(requestPedido.getShippingAddress().isEmpty() || requestPedido.getShippingCity().isEmpty() || requestPedido.getZipCode().isEmpty() || requestPedido.getProducts().isEmpty() || requestPedido.getPaymentMethod() == null){
@@ -61,22 +61,17 @@ public class PedidoServices implements PedidoService {
             }
         }
 
+        Discount discount= discountRepository.findByCode(codeDiscount);
 
 
-        Pedido pedido = new Pedido(requestPedido.getShippingAddress(), requestPedido.getShippingCity(), requestPedido.getZipCode(), LocalDate.now().plusDays(1), LocalDate.now().plusDays(3), OrderStatus.READYTOSEND, requestPedido.getPaymentMethod(), client);
+
+        Pedido pedido = new Pedido(requestPedido.getShippingAddress(), requestPedido.getShippingCity(), requestPedido.getZipCode(), LocalDate.now().plusDays(1), LocalDate.now().plusDays(3), OrderStatus.READYTOSEND, requestPedido.getPaymentMethod(), client, discount);
 
         pedidoRepository.save(pedido);
 
 
 
-/*        {
-            Product productMoment = productRepository.findById(productPedido.getId()).get();
 
-            //productMoment.setStock(productMoment.getStock() -1);
-            //productRepository.save(productMoment);
-        }
-
-                )*/
 
 
 
@@ -84,18 +79,18 @@ public class PedidoServices implements PedidoService {
         requestPedido.getProducts().stream().forEach(productOrderDto -> {
             Product product = productRepository.findById(productOrderDto.getIdProducto()).get();
 
-            Integer totalProduct = productOrderDto.getProductQuantity();
-            for (int i = 0; i < productOrderDto.getProductQuantity(); i++) {
-                ProductPedido productPedido = new ProductPedido(pedido, product);
+
+            //for (int i = 0; i < productOrderDto.getProductQuantity(); i++) {
+                ProductPedido productPedido = new ProductPedido(productOrderDto.getProductQuantity(),pedido, product);
 
 
-                product.setStock(product.getStock() -1);
-                product.setSales(product.getSales() + 1);
+                product.setStock(product.getStock() -productOrderDto.getProductQuantity());
+                product.setSales(product.getSales() + productOrderDto.getProductQuantity());
                 productPedidoRepository.save(productPedido);
 
                 productRepository.save(product);
 
-            }
+
 
 
 

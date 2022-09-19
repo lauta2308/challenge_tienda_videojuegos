@@ -4,5 +4,6 @@ public enum Platform {
     XBOX,
     PLAYSTATION,
     SWITCH,
-    PC
+    PC,
+    RETRO
 }

@@ -13,6 +13,8 @@ public class ProductPedido {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
 
+    private Integer quantity;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="pedido_id")
     private Pedido pedido;
@@ -27,6 +29,12 @@ public class ProductPedido {
     }
 
     public ProductPedido(Pedido pedido, Product product) {
+        this.pedido = pedido;
+        this.product = product;
+    }
+
+    public ProductPedido(Integer quantity, Pedido pedido, Product product) {
+        this.quantity = quantity;
         this.pedido = pedido;
         this.product = product;
     }
@@ -51,5 +59,13 @@ public class ProductPedido {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

@@ -18,7 +18,9 @@ public interface ClientServiceInterface {
 
     ClientDto getClientInfo(Authentication authentication);
 
-    void changeRol(Authentication authentication, String email);
+    void changeRolAdmin(Authentication authentication, String email);
+
+    void changeRolUser(Authentication authentication, String email);
 
     ResponseEntity<String> addFavouriteProduct(Authentication authentication, Long productId);
 

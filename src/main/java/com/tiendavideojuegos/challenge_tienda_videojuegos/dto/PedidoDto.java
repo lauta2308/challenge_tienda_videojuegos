@@ -45,6 +45,7 @@ public class PedidoDto {
         this.orderStatus = pedido.getOrderStatus();
         this.paymentMethod = pedido.getPaymentMethod();
         this.products = pedido.getProducts();
+        this.discount=pedido.getDiscount();
 
     }
 

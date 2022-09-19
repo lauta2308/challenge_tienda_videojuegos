@@ -10,7 +10,9 @@ public enum ProductCategory {
     ARCADE("ARCADE"),
     SIMULATION("SIMULATION"),
     SPORTS("SPORTS"),
-    STRATEGY("STRATEGY");
+    STRATEGY("STRATEGY"),
+    TERROR("TERROR"),
+    SHOOTER("SHOOTER");
 
     private String productCategory;
 

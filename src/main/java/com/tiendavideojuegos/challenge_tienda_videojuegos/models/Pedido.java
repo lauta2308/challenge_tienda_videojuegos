@@ -41,9 +41,9 @@ public class Pedido {
     private Set<ProductPedido> products = new HashSet<>();
 
 
-/*    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="discount_id")
-    private Discount discount;*/
+    private Discount discount;
 
 
     public Pedido() {
@@ -68,6 +68,18 @@ public class Pedido {
         this.orderStatus = orderStatus;
         this.paymentMethod = paymentMethod;
         this.user = user;
+    }
+
+    public Pedido(String shippingAddress, String shippingCity, String zipCode, LocalDate shippingDate, LocalDate deliveryDate, OrderStatus orderStatus, PaymentMethod paymentMethod, Client user, Discount discount) {
+        this.shippingAddress = shippingAddress;
+        this.shippingCity = shippingCity;
+        this.zipCode = zipCode;
+        this.shippingDate = shippingDate;
+        this.deliveryDate = deliveryDate;
+        this.orderStatus = orderStatus;
+        this.paymentMethod = paymentMethod;
+        this.user = user;
+        this.discount = discount;
     }
 
     public long getId() {
@@ -133,18 +145,18 @@ public class Pedido {
     }
 
 
-/*    public Discount getDiscount() {
+   public Discount getDiscount() {
         return discount;
     }
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
-    }*/
+    }
 
 
-/*    public Client getUser() {
+   public Client getUser() {
         return user;
-    }*/
+    }
 
     public void setUser(Client user) {
         this.user = user;
