@@ -52,6 +52,12 @@ public class ProductController {
         return productService.addStock(idProduct, stockQuantity);
     }
 
+    @GetMapping("/api/admin/products/productstatus")
+    public List<ProductStatus> productStatus(){
+
+        return ProductStatus.stream().collect(Collectors.toList());
+    };
+
 
 
 

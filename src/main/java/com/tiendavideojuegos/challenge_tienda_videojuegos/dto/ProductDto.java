@@ -28,6 +28,10 @@ public class ProductDto {
     private ProductStatus productStatus;
 
     private Integer discount;
+
+    private String image;
+
+    private String description;
     private Set<ProductPedido> productsPedidos = new HashSet<>();
 
 
@@ -47,7 +51,8 @@ public class ProductDto {
         this.platform = product.getPlatform();
         this.productStatus = product.getProductStatus();
         this.discount = product.getDiscount();
-
+        this.image=product.getImage();
+        this.description=product.getDescription();
     }
 
     public long getId() {
@@ -90,9 +95,18 @@ public class ProductDto {
         return discount;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public Set<ProductPedido> getProductsPedidos() {
         return productsPedidos;
     }
+
 
 
 }
