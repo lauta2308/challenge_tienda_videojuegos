@@ -1,98 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/style-inicio.css">
-    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="./web/styles/style.css">
 </head>
-<body id="App">
 
-<div class="container-form sign-up">
-    <div class="welcome-back">
-        <div class="message">
-            <h2>Bienvenido a BankU</h2>
-            <p>Si ya tienes una cuenta por favor inicia sesion aquí</p>
-            <button class="sign-up-btn"  @click="agregarClase">Iniciar Sesion</button>
-        </div>
+<body>
+    <div id="app">
+        <main>
+            <a href="./web/carrito.html">carrito</a>
+            <div class="filters-container">
+                <input type="text" v-model="search" @keyUp="" class=" search">
+                <button @click="upNumber()"> - Price</button>
+                <button @click="downNumber()">+ Price</button>
+                <br>
+                <button @click="upPage()">page</button>
+                <button @click="downyear()">+year</button>
+                <button @click="upyear()">-year</button>
+                <div class="contenedor-check" @change="">
+
+                    {{listaCheck}}
+                    <div v-for="category in categories">
+                        <input type="checkbox" :name="category" :value="category" v-model="listaCheck" :id="category" class="checks">
+                        <label :for="category" class="cont">{{category}}</label>
+                    </div>
+                    {{filterSearch}}
+
+                </div>
+            </div>
+            <div class="contenedor">
+
+                <div v-if="filterProducts.length == 0" class="peliculas">
+                    <img src="data:image/png;base64,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"
+                        alt="">
+                    <h2>nonono</h2>
+                    <p>chango estas buscando algo que no existe</p>
+
+                </div>
+
+
+                <div v-else v-for="game in filterProducts">
+                    <div class="games">
+                        <img alt="">
+                        <h2>{{game.name}}</h2>
+
+                        <p>Price: ${{game.price}}</p>
+
+
+                        <button @click="addToCart(game)">Eliminar</button>
+                        <button @click="deleteFromCart(game)">agregar al carrito</button>
+
+
+                    </div>
+
+                </div>
+
+
+                <!--                <div v-else v-for="data in filtrado.slice(0,15)">
+                    <div class="peliculas">
+                        <img :src="data.thumbnail" alt="">
+                        <h2>{{data.title}}</h2>
+                        <p>{{data.genre}}</p>
+                        <button @click="agregarCarrito(data)">agregar al carrito</button>
+
+
+                    </div>
+
+                </div>-->
+            </div>
+            <!-- <div class="box-business">
+                <div class="box-business-logo">
+                    <i class="fa-brands fa-steam"></i>
+                </div>
+                <div class="box-business-txt">
+                    <h3>Steam</h3>
+                </div>
+            </div> -->
+            <!-- <div class="box-category">
+                <h4>1111</h4>
+                <h3><i class="fa-sharp fa-solid fa-dragon"></i></h3>
+                <h4>category</h4>
+            </div> -->
+        </main>
+        <!-- guuille pidio juegos mame y atari -->
     </div>
-    <form class="formulario">
-        <h2 class="create-account">Crea una cuenta</h2>
-        <div class="iconos">
-            <div class="border-icon">
-                <i class='bx bxl-instagram'></i>
-            </div>
-            <div class="border-icon">
-                <i class='bx bxl-facebook-circle'></i>
-
-            </div>
-            <div class="border-icon">
-                <i class='bx bxl-linkedin'></i>
-
-            </div>
-        </div>
-        <p class="cuenta-gratis">Crear una cuenta gratis</p>
-
-        <input type="text" placeholder="Nombre" v-model="nombre">
-        <input type="email" placeholder="Email" v-model="email">
-        <input type="password" placeholder="Contraseña" v-model="password">
-        <input type="button" value="Registrate" @click="registrarNuevoUsuario">
-        <div class="responsive responsive-signUp">
-            <span class="btnResponsive btn1"   @click="agregarClase">Inicia Sesion</span>
-        </div>
 
 
 
-    </form>
-
-</div>
-<div class="container-form sign-in">
-
-    <form class="formulario">
-        <h2 class="create-account">Iniciar Sesion</h2>
-        <div class="iconos">
-            <div class="border-icon">
-                <i class='bx bxl-instagram'></i>
-            </div>
-            <div class="border-icon">
-                <i class='bx bxl-facebook-circle'></i>
-
-            </div>
-            <div class="border-icon">
-                <i class='bx bxl-linkedin'></i>
-
-            </div>
-        </div>
-        <p class="cuenta-gratis">¿Aun no tienes Cuenta?</p>
-
-
-        <input type="email" placeholder="Email" v-model="email">
-        <input type="password" placeholder="Contraseña" v-model="password">
-        <input type="button" value="Iniciar Sesion" @click="InicioSesion">
-        <div class="responsive responsive-signIn">
-            <span class="btnResponsive btn2"  @click="agregarClase">Regisitrarse</span>
-        </div>
-
-    </form>
-
-
-    <div class="welcome-back">
-        <div class="message">
-            <h2>Bienvenido a BankU</h2>
-            <p>Si aun no tienes cuenta por favor registrese aquí</p>
-            <button class="sign-in-btn"  @click="agregarClase">Regisitrarse</button>
-        </div>
-    </div>
-
-
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://unpkg.com/vue@3"> </script>
-<script src="JS/index.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-
+    <script src="https://kit.fontawesome.com/db55518b9d.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="./web/js/index.js"></script>
 </body>
+
 </html>
