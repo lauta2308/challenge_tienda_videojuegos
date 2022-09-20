@@ -1,5 +1,4 @@
 package com.tiendavideojuegos.challenge_tienda_videojuegos.controllers;
-
 import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.PedidoDto;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.ProductOrderDto;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.RequestPedido;
@@ -36,10 +35,10 @@ public class PedidoController {
     PedidoService pedidoService;
 
     @PostMapping("/api/clients/current/pedido")
-    public ResponseEntity<Object> addPedido(@RequestBody RequestPedido requestPedido, Authentication authentication){
+    public ResponseEntity<Object> addPedido(@RequestBody RequestPedido requestPedido, Authentication authentication,@RequestParam String codeDiscount){
 
 
-        return pedidoService.addPedido(requestPedido, authentication);
+        return pedidoService.addPedido(requestPedido, authentication, codeDiscount );
 
 
 

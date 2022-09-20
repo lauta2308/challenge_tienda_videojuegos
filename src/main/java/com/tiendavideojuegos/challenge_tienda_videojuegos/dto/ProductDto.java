@@ -4,6 +4,7 @@ import com.tiendavideojuegos.challenge_tienda_videojuegos.models.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ProductDto {
@@ -20,7 +21,7 @@ public class ProductDto {
 
     private LocalDate releaseDate;
 
-    private ProductCategory category;
+    private List <ProductCategory> category;
 
     private Platform platform;
 
@@ -73,7 +74,7 @@ public class ProductDto {
         return releaseDate;
     }
 
-    public ProductCategory getCategory() {
+    public List <ProductCategory> getCategory() {
         return category;
     }
 

@@ -16,7 +16,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -75,11 +74,18 @@ public class ClientServices implements ClientServiceInterface {
     }
 
     @Override
-    public void changeRol(Authentication authentication, String email) {
+    public void changeRolAdmin(Authentication authentication, String email) {
         Client client = clientRepository.findByEmail(email);
 
         client.setRol(Rol.ADMIN);
 
+        clientRepository.save(client);
+    }
+
+    @Override
+    public void changeRolUser(Authentication authentication, String email) {
+        Client client = clientRepository.findByEmail(email);
+        client.setRol(Rol.USER);
         clientRepository.save(client);
     }
 

@@ -75,14 +75,25 @@ public class ClientController {
 
     }
 
-    @PatchMapping("/api/admin/clients/rol")
+    @PatchMapping("/api/admin/clients/rol/admin")
     public ResponseEntity<Object> changeRol(Authentication authentication, @RequestParam String email) {
 
-        clientService.changeRol(authentication, email);
+        clientService.changeRolAdmin(authentication, email);
 
 
         return new ResponseEntity<>("User rol changed", HttpStatus.CREATED);
     }
+            @PatchMapping("/api/admin/clients/rol/user")
+    public ResponseEntity<Object> changeRolUser(Authentication authentication, @RequestParam String email) {
+
+
+
+        clientService.changeRolUser(authentication, email);
+
+
+        return new ResponseEntity<>("User rol changed", HttpStatus.CREATED);
+    }
+
 
 
 

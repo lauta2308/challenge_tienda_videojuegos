@@ -26,6 +26,27 @@
 			"response": []
 		},
 		{
+			"name": "get clients 1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/admin/clients/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"admin",
+						"clients",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "get products",
 			"request": {
 				"method": "GET",
@@ -39,6 +60,26 @@
 					"path": [
 						"api",
 						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "categorias de productos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/products/categories",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"categories"
 					]
 				}
 			},
@@ -93,12 +134,42 @@
 			"response": []
 		},
 		{
+			"name": "agregar pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"shippingAddress\": \"ADD\",\r\n    \"shippingCity\": \"ADD\",\r\n    \"zipCode\": \"123\",\r\n    \"paymentMethod\": \"PAYPAL\",\r\n    \"products\": [\r\n        {\r\n            \"idProducto\": 1,\r\n            \"productQuantity\": 1\r\n        },\r\n            {\r\n            \"idProducto\": 1,\r\n            \"productQuantity\": 1\r\n        },\r\n           {\r\n            \"idProducto\": 1,\r\n            \"productQuantity\": 1\r\n        }\r\n    ]\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/clients/current/pedido",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"clients",
+						"current",
+						"pedido"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Crear producto",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/admin/products?name=fifa2022&price=10.00&stock=10&sales=0&releaseDate=2022-05-02&category=deporte&platform=XBOX&productStatus=LAUNCHED",
+					"raw": "localhost:8080/api/admin/products?name=fifa2022&price=10.00&stock=10&sales=0&releaseDate=2022-05-02&category=deporte&platform=XBOX&productStatus=LAUNCHED&productDiscount=10",
 					"host": [
 						"localhost"
 					],
@@ -140,6 +211,10 @@
 						{
 							"key": "productStatus",
 							"value": "LAUNCHED"
+						},
+						{
+							"key": "productDiscount",
+							"value": "10"
 						}
 					]
 				}
@@ -262,12 +337,12 @@
 			"response": []
 		},
 		{
-			"name": "agregar producto favorito Copy",
+			"name": "borrar producto favorito",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/clients/current/favourites",
+					"raw": "localhost:8080/api/clients/current/favourites?favouriteProductId=1",
 					"host": [
 						"localhost"
 					],
@@ -277,6 +352,12 @@
 						"clients",
 						"current",
 						"favourites"
+					],
+					"query": [
+						{
+							"key": "favouriteProductId",
+							"value": "1"
+						}
 					]
 				}
 			},

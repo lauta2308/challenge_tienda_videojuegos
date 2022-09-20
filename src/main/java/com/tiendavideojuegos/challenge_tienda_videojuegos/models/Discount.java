@@ -2,10 +2,10 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Discount {
@@ -19,19 +19,24 @@ public class Discount {
 
     private Double discount;
 
-    private String discountCode;
+    private String code;
 
-/*   @OneToMany(mappedBy="discount", fetch=FetchType.EAGER)
-    private Set<Pedido> pedidos = new HashSet<>();*/
+    private LocalDate thruDate;
+
+    private Integer stock;
+
+    @OneToMany(mappedBy="discount", fetch=FetchType.EAGER)
+    private Set<Pedido> pedidos = new HashSet<>();
 
     public Discount() {
     }
 
-    public Discount(String name, Double discount, String discountCode) {
+    public Discount(String name, Double discount, String code, LocalDate thruDate, Integer stock) {
         this.name = name;
         this.discount = discount;
-        this.discountCode = discountCode;
-
+        this.code = code;
+        this.thruDate = thruDate;
+        this.stock = stock;
     }
 
     public long getId() {
@@ -56,19 +61,35 @@ public class Discount {
         this.discount = discount;
     }
 
-    public String getDiscountCode() {
-        return discountCode;
+    public String getCode() {
+        return code;
     }
 
-    public void setDiscountCode(String discountCode) {
-        this.discountCode = discountCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-/*    public Set<Pedido> getPedidos() {
+    public LocalDate getThruDate() {
+        return thruDate;
+    }
+
+    public void setThruDate(LocalDate thruDate) {
+        this.thruDate = thruDate;
+    }
+
+    public Integer getStock() {
+        return stock;
+    }
+
+    public void setStock(Integer stock) {
+        this.stock = stock;
+    }
+
+    public Set<Pedido> getPedidos() {
         return pedidos;
     }
 
     public void setPedidos(Set<Pedido> pedidos) {
         this.pedidos = pedidos;
-    }*/
+    }
 }
