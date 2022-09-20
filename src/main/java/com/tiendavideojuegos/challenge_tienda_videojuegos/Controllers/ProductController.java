@@ -42,11 +42,16 @@ public class ProductController {
     @PostMapping("/api/admin/products")
     public ResponseEntity<Object> addProduct(Authentication authentication, @RequestBody RequestProduct requestProduct){
 
-
          return productService.addProduct(authentication, requestProduct.getName(), requestProduct.getPrice(), requestProduct.getStock(), requestProduct.getReleaseDate(), requestProduct.getCategory(),requestProduct.getPlatform(),requestProduct.getProductStatus(), requestProduct.getProductDiscount(),requestProduct.getImage(),requestProduct.getDescription());
 
-
     }
+
+    @PatchMapping("/api/admin/products/addstock")
+    public ResponseEntity <Object> stockadd( @RequestParam Long idProduct, @RequestParam Integer stockQuantity){
+
+        return productService.addStock(idProduct, stockQuantity);
+    }
+
 
 
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -68,6 +69,19 @@ public class ProductServices implements ProductService {
     @Override
     public List<String> getProductCategories() {
         return ProductCategory.stream().map(productCategory -> productCategory.getProductCategory()).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity <Object> addStock(Long idProduct, Integer stockQuantity){
+
+        Optional<Product> product= productRepository.findById(idProduct);
+
+        product.get().setStock(product.get().getStock()+stockQuantity);
+
+        productRepository.save(product.get());
+
+
+        return new ResponseEntity<>("Stock Added",HttpStatus.ACCEPTED);
     }
 
 
