@@ -58,6 +58,19 @@ public class ProductController {
         return ProductStatus.stream().collect(Collectors.toList());
     };
 
+    @GetMapping("/api/admin/products/productcategory")
+    public List<ProductCategory> productCategories(){
+
+        return ProductCategory.stream().collect(Collectors.toList());
+    };
+
+    @GetMapping("/api/admin/products/platform")
+    public List<Platform> platforms(){
+
+        return Platform.stream().collect(Collectors.toList());
+    };
+
+
 
 
 
