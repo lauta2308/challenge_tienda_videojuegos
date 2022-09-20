@@ -2,6 +2,7 @@ package com.tiendavideojuegos.challenge_tienda_videojuegos;
 
 import com.tiendavideojuegos.challenge_tienda_videojuegos.models.*;
 import com.tiendavideojuegos.challenge_tienda_videojuegos.repositories.*;
+import org.apache.catalina.LifecycleState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -151,6 +152,50 @@ public class ChallengeTiendaVideojuegosApplication {
 			productRepository.save(animalCr);
 			Product alicemd = new Product("Alice: Madness Returns",19.99,40,1,LocalDate.of(2011,6,14),List.of(ProductCategory.ADVENTURE),Platform.XBOX,ProductStatus.LAUNCHED,0, "https://static.wikia.nocookie.net/alice/images/c/c6/AMR_Cover.png/revision/latest?cb=20140525122322&path-prefix=es", "Alice: Madness Returns is a third-person, single-player, action adventure platformer. Visit the grim reality of Victorian London and travel to the beautiful yet ghastly Wonderland to uncover the root of Alice's madness.");
 			productRepository.save(alicemd);
+
+			Product asteroids = new Product("Asteroids",19.99,20,5,LocalDate.of(1979,6,14),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOwNX78EnGnSi3GE-8I9_ILO7WLRgEl1_QUg&usqp=CAU", "The objective of Asteroids is to destroy asteroids and saucers. The player controls a triangular ship that can rotate left and right, fire shots straight forward, and thrust forward.");
+			productRepository.save(asteroids);
+
+
+			Product donkeyKong = new Product("Donkey Kong",19.99,35,10,LocalDate.of(1981,6,14),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Donkey_Kong_flier.jpg/220px-Donkey_Kong_flier.jpg", "Donkey Kong is a 1981 arcade platform video game developed and published by Nintendo. Its gameplay involves maneuvering Mario across platforms to ascend a construction site and rescue Pauline from the giant gorilla named Donkey Kong");
+			productRepository.save(donkeyKong);
+
+			Product spaceInvaders = new Product("Space Invaders",19.99,35,10,LocalDate.of(1978,4,1),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Space_Invaders_flyer%2C_1978.jpg/220px-Space_Invaders_flyer%2C_1978.jpg", "Space Invaders is a fixed shooter in which the player moves a laser cannon horizontally across the bottom of the screen and fires at aliens overhead.");
+			productRepository.save(spaceInvaders);
+
+
+			Product frogger = new Product("Frogger",19.99,25,5,LocalDate.of(1981,8,1),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Frogger_arcade_flyer.jpg/220px-Frogger_arcade_flyer.jpg", "Frogger is a 1981 arcade action game developed by Konami. The object of the game is to direct frogs to their homes one by one by crossing a busy road and navigating a river full of hazards.");
+			productRepository.save(frogger);
+
+			Product pacMan = new Product("Pac-man",19.99,10,2,LocalDate.of(1980,7,1),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/1/16/Pac_flyer.png/220px-Pac_flyer.png", "Pac-Man is an action maze chase video game. The player controls the eponymous character through an enclosed maze. The objective of the game is to eat all of the dots placed in the maze while avoiding four colored ghosts");
+			productRepository.save(pacMan);
+
+			Product mortalKombat = new Product("Mortal Kombat",19.99,10,2,LocalDate.of(1992,10,8),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/3/33/Mortal_Kombat_cover.JPG", "Mortal Kombat is an arcade fighting game developed and published by Midway in 1992.  The game focuses on several characters of various intentions who enter a martial arts tournament with worldly consequences.");
+			productRepository.save(mortalKombat);
+
+
+			Product doom = new Product("Doom",19.99,7,4,LocalDate.of(1993,12,10),List.of(ProductCategory.ARCADE), Platform.RETRO,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/5/57/Doom_cover_art.jpg/220px-Doom_cover_art.jpg", "Doom is a 1993 first-person shooter (FPS) game developed by id Software for MS-DOS. Players assume the role of a space marine, popularly known as Doomguy, fighting their way through hordes of invading demons from hell.");
+			productRepository.save(doom);
+
+
+			Product counterStrike = new Product("Doom",9.99,20,10,LocalDate.of(2000,11,9),List.of(ProductCategory.SHOOTER), Platform.PC,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/6/67/Counter-Strike_Box.jpg/220px-Counter-Strike_Box.jpg", "Doom is a 1993 first-person shooter (FPS) game developed by id Software for MS-DOS. Players assume the role of a space marine, popularly known as Doomguy, fighting their way through hordes of invading demons from hell.");
+			productRepository.save(counterStrike);
+
+			Product batlefield = new Product("Batlefield 2042",49.99,20,5,LocalDate.of(2021,11,19),List.of(ProductCategory.SHOOTER), Platform.PC,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Battlefield_2042_cover_art.jpg/220px-Battlefield_2042_cover_art.jpg", "Battlefield 2042 is a multiplayer-focused first-person shooter. As the game is set in the near future, it features futuristic weapons and gadgets like deployable turrets and drones, as well as vehicles that players can control.");
+			productRepository.save(batlefield);
+
+
+			Product batlefieldFive = new Product("Batlefield V",49.99,30,8,LocalDate.of(2018,11,20),List.of(ProductCategory.SHOOTER), Platform.PC,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/e/ec/Battlefield_2042_cover_art.jpg/220px-Battlefield_2042_cover_art.jpg", "Battlefield V is a first-person shooter game developed by DICE and published by Electronic Arts. Focuses extensively on party-based features and mechanics, scarcity of resources, and removing abstractions from game mechanics to increase realism.");
+			productRepository.save(batlefieldFive);
+
+
+			Product codModernWF = new Product("Call of Duty: Modern Warfare",29.99,12,6,LocalDate.of(2019,10,25),List.of(ProductCategory.SHOOTER), Platform.PC,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Call_of_Duty_Modern_Warfare_%282019%29_cover.jpg/220px-Call_of_Duty_Modern_Warfare_%282019%29_cover.jpg", "Call of Duty: Modern Warfare's single-player campaign focuses on realism and features tactically-based moral choices whereupon the player is evaluated and assigned a score at the end of each level ");
+			productRepository.save(codModernWF);
+
+			Product csGo = new Product("Counter Strike Global Offensive",24.99,30,15,LocalDate.of(2014,9,23),List.of(ProductCategory.SHOOTER), Platform.PC,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/CSGOcoverMarch2020.jpg/220px-CSGOcoverMarch2020.jpg", "Counter-Strike: Global Offensive (CS:GO) is a 2012 multiplayer first-person shooter developed by Valve and Hidden Path Entertainment. It is the fourth game in the Counter-Strike series.");
+			productRepository.save(csGo);
+
+
 
 
 		};
