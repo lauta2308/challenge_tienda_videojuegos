@@ -35,10 +35,10 @@
 
                 </a>
 
-                <div class="user-section">
+                <div  class="user-section">
 
                     <!-- R E G I S T R A D O -->
-                    <a href="favs.html">
+                    <a  v-if="existClient == true" href="favs.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="44"
                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -48,7 +48,7 @@
                         </svg>
                     </a>
 
-                    <a href="cart.html">
+                    <a   href="cart.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
                             width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -60,7 +60,7 @@
                         </svg>
                     </a>
 
-                    <svg @click="moveUser" xmlns="http://www.w3.org/2000/svg"
+                    <svg   v-if="existClient == true" @click="moveUser" xmlns="http://www.w3.org/2000/svg"
                         class="icon icon-tabler icon-tabler-user-circle" width="44" height="44" viewBox="0 0 24 24"
                         stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -70,13 +70,13 @@
                     </svg>
 
                     <!-- N O   R E G I S T R A D O -->
-                    <!-- <div class="no-register">
+                    <div  v-if="existClient == false"class="no-register">
                         <a href="sesion.html">Log In | Register</a>
-                    </div> -->
+                    </div>
 
                 </div>
-
-                <div class="user-dropdown">
+                
+                <div v-if="existClient == true" class="user-dropdown">
 
                     <div class="user-in">
 
@@ -93,11 +93,11 @@
                             </a>
 
                             <div class="info">
-                                <span>Santino Stimoli</span>
-                                <span class="email">santinostimoli@gmail.com</span>
+                                <span>{{clientInformation.name}} {{clientInformation.lastName}}</span>
+                                <span class="email">{{clientInformation.email}}</span>
                             </div>
 
-                            <span class="pocket">$ 912</span>
+                            <span class="pocket"></span>
 
                         </div>
 
@@ -114,7 +114,7 @@
                                 <line x1="12" y1="8" x2="12" y2="16" />
                                 <line x1="16" y1="12" x2="12" y2="8" />
                             </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-x"
+                            <svg @click="logOut()" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-x"
                                 width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -136,8 +136,8 @@
 
                 <a href="index.html">Home</a>
                 <a href="search.html">Shop</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+                <a href="about.html">About Us</a>
 
             </nav>
 
@@ -148,8 +148,8 @@
 
                 <a href="index.html">Home</a>
                 <a href="search.html">Shop</a>
-                <a href="contact.html">Contact Us</a>
-                <a href="#">About Us</a>
+                <a href="#">Contact Us</a>
+                <a href="about.html">About Us</a>
 
                 <div @click="moveSidebar" class="span-categories">
                     <span class="span-categories">Categories</span>

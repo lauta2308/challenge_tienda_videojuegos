@@ -176,8 +176,8 @@
                         <div class="producto-carrito-info">
                             <h3>{{producto.name}}</h3>
                             <span>{{producto.platform}}</span>
-                            <span class="price">$ {{producto.total}}</span>
-                            <span class="price">$ {{producto.price}}</span>
+                            <span class="price">{{amountFixed(producto.total) }}</span>
+                            <span class="price">${{producto.price}}</span>
                         </div>
                     </div>
 
@@ -261,7 +261,7 @@
                         </span>
 
                     </div>
-                    <button type="submit" class="cssbuttons-io"><span>Buy now</span>
+                    <button @click="vaciarCarrito()" type="submit" class="cssbuttons-io"><span>Buy now</span>
                     </button>
                 </div>
 

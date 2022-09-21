@@ -34,6 +34,16 @@ createApp({
 
     },
     methods: {
+        vaciarCarrito(){
+            let todosProductos = JSON.parse(localStorage.getItem("productos"))
+            todosProductos.forEach(response =>{
+                if (response.carrito == true) {
+                    response.carrito = false
+                    this.productos()
+                }
+            })
+            localStorage.setItem("productos", JSON.stringify(todosProductos) )
+        },
         amountFixed(number) {
             return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(number);
         },

@@ -198,6 +198,10 @@ public class ChallengeTiendaVideojuegosApplication {
 			Product superMario = new Product("Super Mario Bros",49.99,20,5,LocalDate.of(1985,9,13),List.of(ProductCategory.ARCADE,ProductCategory.ADVENTURE), Platform.SWITCH,ProductStatus.LAUNCHED,0, "https://i.blogs.es/638318/super_mario_bros_logo/1366_2000.jpeg", "Jump with Mario in search of the princess, who is in the hands of the fearsome kooba king Bowser!");
 			productRepository.save(superMario);
 
+			Product minecraft = new Product("Minecraft",21.00,20,50,LocalDate.of(2011,11,18),List.of(ProductCategory.ADVENTURE,ProductCategory.SIMULATION),Platform.PC,ProductStatus.LAUNCHED,0,"https://sm.ign.com/ign_es/screenshot/default/image-1_aeyp.jpg","Explore your own unique world, survive the night and create anything you can imagine!");
+			productRepository.save(minecraft);
+
+
 
 		};
 
