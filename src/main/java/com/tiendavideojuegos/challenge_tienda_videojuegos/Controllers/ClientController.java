@@ -1,4 +1,4 @@
-package com.tiendavideojuegos.challenge_tienda_videojuegos.controllers;
+package com.tiendavideojuegos.challenge_tienda_videojuegos.Controllers;
 
 
 import com.tiendavideojuegos.challenge_tienda_videojuegos.dto.ClientDto;
