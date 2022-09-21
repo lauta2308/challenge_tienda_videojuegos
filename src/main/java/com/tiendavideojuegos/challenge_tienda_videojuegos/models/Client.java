@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,9 @@ public class Client {
 
     @OneToMany(mappedBy="user", fetch=FetchType.EAGER)
     private Set <FavouriteProduct> favouritesProducts = new HashSet<>();
+
+    @ManyToMany
+    private List<Matches>matches;
 
 
     public Client() {
