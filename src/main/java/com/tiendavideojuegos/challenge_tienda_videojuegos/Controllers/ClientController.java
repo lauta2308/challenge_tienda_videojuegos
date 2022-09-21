@@ -70,7 +70,6 @@ public class ClientController {
 
     public ClientDto getClientInfo (Authentication authentication){
 
-
        return clientService.getClientInfo(authentication);
 
     }

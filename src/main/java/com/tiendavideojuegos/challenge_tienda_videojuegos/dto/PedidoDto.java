@@ -86,7 +86,5 @@ public class PedidoDto {
         return products;
     }
 
-    public Discount getDiscount() {
-        return discount;
-    }
+
 }
