@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles/carrito.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <main>
+            <a href="../index.html">index</a>
+            <label>
+                <input type="text" v-model="texto">
+                <input @click.prevent="prueba" type="submit">
+
+            </label>
+
+            <div class="contenedor">
+
+                <div class="contenedor-objetos-carrito">
+
+                    <!-- <div v-if="productosCarrito.length == 0" class="producto-carrito">
+                        <div class="contenedor-producto-info">
+
+                            <img class="gif" src="https://img.wattpad.com/f3ce64c7ba22d5c00f892e3d804daa195fc201bc/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f2d55566c5f6f56305653455279513d3d2d3934393038393339302e313633323339346565346638623661353738303338303538323435312e676966"
+                                alt="">
+
+                            <div class="producto-carrito-info">
+
+                                <h3>no tienes nada agregados al carrito</h3>
+                                <p>por favor agrega algun <a href="../index.html">producto</a> </p>
+                            </div>
+                        </div>
+
+                        <div class="producto-carrito-opciones">
+                            <div class="sumar-restar">
+
+                            </div>
+                            <div class="borrar-total">
+
+
+                            </div>
+
+
+                        </div>
+                    </div> -->
+
+                    <div v-else class="producto-carrito" v-for="data in listaJuegos">
+                        <div class=" contenedor-producto-info ">
+                            <div class="producto-carrito-img ">
+
+                            </div>
+                            <div class="producto-carrito-info ">
+                                <p>Play Station</p>
+                                <h3>{{data.name}}</h3>
+                                <p>todos los derechos</p>
+                            </div>
+                        </div>
+
+                        <div class="producto-carrito-opciones ">
+                            <div class="sumar-restar ">
+                                <div>
+                                    <i class="fa-solid fa-minus " @Click="deleteUnit(data) "></i>
+                                </div>
+
+                                <h2 :class="data.id.toString()">{{ data.cantidad}}</h2>
+
+                                <div>
+                                    <i class="fa-solid fa-plus " @click="addMoreUnits(data) "></i>
+                                </div>
+                            </div>
+                            <div class="borrar-total ">
+                                <div @click="eliminarCarrito(data) " class="trash ">
+                                    <i class="fa-solid fa-trash-can "></i>
+                                </div>
+                                <div class="d-flex ">
+
+                                    
+                                    <h2 :id="data.id.toString() ">{{amountFixed(data.total)}}</h2>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="contenedor-resumen ">
+                    <div class="resumen-titulo ">
+                        <div class="resumen-titulo-contenido ">
+                            <h3>Resumen</h3>
+
+                            <p>{{cantidadProductosCarrito}} productos</p>
+                        </div>
+                        <div class="total-cantidad ">
+                            <h2>{{ amountFixed(totalPrice)}}</h2>
+                        </div>
+
+                    </div>
+                    <div class="resumen-comprar ">
+                        <div class="resumen-comprar-total ">
+                            <h3>
+                                total:
+                            </h3>
+                            <h2>
+                                {{amountFixed(totalPrice)}}
+                            </h2>
+
+                        </div>
+                        <input class="boton " type="submit " value="submit ">
+                    </div>
+
+                </div>
+
+                <!-- <div   >
+                    <div class="peliculas ">
+                        <img :src=" " alt=" ">
+                        <h2 >{{}}</h2>
+                        <p>{{data.genre}}</p>
+                        <p>{{}}</p>
+                        <button >eliminar del carrito</button>
+                        
+                    </div>
+                    
+                </div> -->
+
+            </div>
+        </main>
+        <!-- guuille pidio juegos mame y atari -->
+    </div>
+
+
+
+    <script src="https://kit.fontawesome.com/db55518b9d.js " crossorigin="anonymous "></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js "></script>
+    <script src="https://unpkg.com/vue@3 "></script>
+    <script src="./js/carrito.js "></script>
+</body>
+
+</html>

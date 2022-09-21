@@ -195,7 +195,8 @@ public class ChallengeTiendaVideojuegosApplication {
 			Product csGo = new Product("Counter Strike Global Offensive",24.99,30,15,LocalDate.of(2014,9,23),List.of(ProductCategory.SHOOTER), Platform.PC,ProductStatus.LAUNCHED,0, "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/CSGOcoverMarch2020.jpg/220px-CSGOcoverMarch2020.jpg", "Counter-Strike: Global Offensive (CS:GO) is a 2012 multiplayer first-person shooter developed by Valve and Hidden Path Entertainment. It is the fourth game in the Counter-Strike series.");
 			productRepository.save(csGo);
 
-
+			Product superMario = new Product("Super Mario Bros",49.99,20,5,LocalDate.of(1985,9,13),List.of(ProductCategory.ARCADE,ProductCategory.ADVENTURE), Platform.SWITCH,ProductStatus.LAUNCHED,0, "https://i.blogs.es/638318/super_mario_bros_logo/1366_2000.jpeg", "Jump with Mario in search of the princess, who is in the hands of the fearsome kooba king Bowser!");
+			productRepository.save(superMario);
 
 
 		};
