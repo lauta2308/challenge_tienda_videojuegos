@@ -15,11 +15,6 @@
     src: url(../resources/fonts/Tanker_Complete/Fonts/OTF/Tanker-Regular.otf);
 }
 
-@font-face {
-    font-family: detalles;
-    src: url(../resources/fonts/Array_Complete_Detalles/Fonts/OTF/Array-Regular.otf);
-}
-
 
 /* G E N E R A L */
 * {
@@ -83,13 +78,14 @@ svg {
 }
 
 svg:hover {
-    stroke-width: 1.8px;
+    stroke-width: 1.5px;
     transition: var(--transition-200ms);
     -webkit-transition: var(--transition-200ms);
     -moz-transition: var(--transition-200ms);
     -ms-transition: var(--transition-200ms);
     -o-transition: var(--transition-200ms);
     opacity: 1;
+    stroke: var(--color-detalles-1);
 }
 
 h1,
@@ -391,13 +387,13 @@ header svg {
 }
 
 .user-dropdown {
-    @apply absolute right-0;
+    @apply absolute;
     width: 280px;
     height: auto;
     top: -10px;
     background-color: var(--color-fondo-2);
     padding: 1rem .9rem .4rem;
-    border-bottom-left-radius: var(--border-radius-1);
+    border-radius: var(--border-radius-1);
     z-index: -1;
     transition: var(--transition-300ms);
     -webkit-transition: var(--transition-300ms);
@@ -408,7 +404,7 @@ header svg {
 }
 
 .user-dropdown.active {
-    top: 125px;
+    top: 110px;
     transition: var(--transition-300ms);
     -webkit-transition: var(--transition-300ms);
     -moz-transition: var(--transition-300ms);
@@ -422,12 +418,12 @@ header svg {
 }
 
 .user-dropdown .user-info svg {
-    stroke: var(--color-detalles-1);
+    stroke: var(--color-letra-1);
     margin-right: .5rem
 }
 
 .user-dropdown svg {
-    stroke: var(--color-detalles-1);
+    stroke: var(--color-letra-1);
 }
 
 .user-dropdown .user-info .info {
@@ -645,11 +641,19 @@ hr {
     margin: 0;
 }
 
+.user-dropdown {
+    right: 10rem;
+}
+
 @media (max-width: 1349px) {
 
     .page-content,
     .contenedor {
         padding: 0 15rem;
+    }
+
+    .user-dropdown {
+        right: 15rem;
     }
 }
 
@@ -659,6 +663,10 @@ hr {
     .contenedor {
         padding: 0 10rem;
     }
+
+    .user-dropdown {
+        right: 10rem;
+    }
 }
 
 @media (max-width: 1097px) {
@@ -666,6 +674,10 @@ hr {
     .page-content,
     .contenedor {
         padding: 0 12rem;
+    }
+
+    .user-dropdown {
+        right: 12rem;
     }
 }
 
@@ -675,6 +687,10 @@ hr {
     .contenedor {
         padding: 0 8rem;
     }
+
+    .user-dropdown {
+        right: 8rem;
+    }
 }
 
 @media (max-width: 840px) {
@@ -683,6 +699,10 @@ hr {
     .contenedor {
         padding: 0 4rem;
     }
+
+    .user-dropdown {
+        right: 4rem;
+    }
 }
 
 @media (max-width: 712px) {
@@ -690,6 +710,10 @@ hr {
     .page-content,
     .contenedor {
         padding: 0 2rem;
+    }
+
+    .user-dropdown {
+        right: 2rem;
     }
 }
 
@@ -705,6 +729,10 @@ hr {
 
     .contenedor.carrusel {
         padding: 0
+    }
+
+    .user-dropdown {
+        right: 1rem;
     }
 }
 
@@ -1868,7 +1896,7 @@ aside {
     }
 
     .box-category {
-        padding: .4rem;
+        padding: .7rem;
         width: 6rem;
         height: 6rem;
     }
@@ -2079,6 +2107,10 @@ aside {
 }
 
 @media (max-width: 450px) {
+
+    .nav-search {
+        border-bottom: 1px solid var(--color-fondo-);
+    }
 
     .nav-categories {
         display: none;
@@ -2649,4 +2681,151 @@ section,
         height: 10rem;
     }
 
+}
+
+
+.info-user {
+    width: 48%;
+    border: 1px solid var(--color-fondo-2);
+    border-radius: var(--border-radius-1);
+    -webkit-border-radius: var(--border-radius-1);
+    -moz-border-radius: var(--border-radius-1);
+    -ms-border-radius: var(--border-radius-1);
+    -o-border-radius: var(--border-radius-1);
+    padding: 10px 15px;
+    @apply flex items-center
+}
+
+.section-user {
+    margin: 1.5rem 0;
+}
+
+.nombre-apellido span:nth-child(2) {
+    font-size: .6rem;
+}
+
+.info-user svg {
+    width: 70px;
+    height: 70px;
+}
+
+.info-user .nombre-apellido {
+    @apply flex flex-col
+}
+
+.info-user svg {
+    margin-right: 1rem;
+}
+
+.info-user * {
+    color: var(--color-fondo-2);
+}
+
+.dale {
+    @apply flex mt-10 justify-between
+}
+
+.pedidos {
+    width: 48%;
+    height: 50vh;
+    border: 1px solid var(--color-fondo-2);
+    border-radius: var(--border-radius-1);
+    -webkit-border-radius: var(--border-radius-1);
+    -moz-border-radius: var(--border-radius-1);
+    -ms-border-radius: var(--border-radius-1);
+    -o-border-radius: var(--border-radius-1);
+}
+
+.contenedor-pedido {
+    @apply flex justify-between items-center cursor-pointer;
+    border-bottom: 1px solid var(--color-fondo-2);
+    padding: 10px 15px;
+    user-select: none;
+}
+
+.contenedor-pedido h3 {
+    font-size: 1.4rem;
+}
+
+.contenedor-pedido span {
+    font-size: .7rem;
+    color: #8005d8c0;
+}
+
+.pedido-seleccionado {
+    width: 48%;
+    height: 50vh;
+    border: 1px solid var(--color-fondo-2);
+    border-radius: var(--border-radius-1);
+    -webkit-border-radius: var(--border-radius-1);
+    -moz-border-radius: var(--border-radius-1);
+    -ms-border-radius: var(--border-radius-1);
+    -o-border-radius: var(--border-radius-1);
+    padding: 10px;
+}
+
+.pedido-img {
+    width: 100%;
+    height: 12rem;
+    background-size: cover;
+    border-radius: var(--border-radius-1);
+    -webkit-border-radius: var(--border-radius-1);
+    -moz-border-radius: var(--border-radius-1);
+    -ms-border-radius: var(--border-radius-1);
+    -o-border-radius: var(--border-radius-1);
+    background-position: 50%;
+}
+
+.pedido-seleccionado span {
+    font-size: .8rem;
+    color: var(--color-fondo-2);
+}
+
+.producto-carrito-info {
+    @apply flex flex-col my-5
+}
+
+
+.pedido-seleccionado h3 {
+    font-size: 1.4rem;
+}
+
+.wacho {
+    @apply flex justify-between items-baseline mb-5
+}
+
+.pedido-seleccionado .price {
+    font-size: 1.2rem;
+    color: var(--color-detalles-1);
+}
+
+.section-user.users .info-user {
+    width: 100%;
+    height: 30vh;
+    flex-direction: column;
+}
+
+.client {
+    @apply flex items-center;
+    width: 100%;
+    border-bottom: 1px solid var(--color-fondo-2);
+}
+
+@media (max-width: 510px) {
+    .dale {
+        @apply flex-col
+    }
+
+    .info-user {
+        width: 100%;
+    }
+
+    .pedidos {
+        width: 100%;
+    }
+
+    .pedido-seleccionado {
+        width: 100%;
+        margin-top: 2rem;
+    }
 }

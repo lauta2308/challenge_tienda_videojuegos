@@ -1692,6 +1692,11 @@ video {
   margin: -1rem;
 }
 
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1700,6 +1705,14 @@ video {
 .mx-96 {
   margin-left: 24rem;
   margin-right: 24rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mb-5 {
+  margin-bottom: 1.25rem;
 }
 
 .ml-3 {
@@ -1734,8 +1747,16 @@ video {
   width: 50%;
 }
 
+.w-10 {
+  width: 2.5rem;
+}
+
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .resize {
@@ -1752,6 +1773,10 @@ video {
 
 .items-center {
   align-items: center;
+}
+
+.items-baseline {
+  align-items: baseline;
 }
 
 .justify-center {
@@ -2021,13 +2046,14 @@ svg {
 }
 
 svg:hover {
-  stroke-width: 1.8px;
+  stroke-width: 1.5px;
   transition: var(--transition-200ms);
   -webkit-transition: var(--transition-200ms);
   -moz-transition: var(--transition-200ms);
   -ms-transition: var(--transition-200ms);
   -o-transition: var(--transition-200ms);
   opacity: 1;
+  stroke: var(--color-detalles-1);
 }
 
 h1,
@@ -2326,13 +2352,12 @@ header svg {
 
 .user-dropdown {
   position: absolute;
-  right: 0px;
   width: 280px;
   height: auto;
   top: -10px;
   background-color: var(--color-fondo-2);
   padding: 1rem .9rem .4rem;
-  border-bottom-left-radius: var(--border-radius-1);
+  border-radius: var(--border-radius-1);
   z-index: -1;
   transition: var(--transition-300ms);
   -webkit-transition: var(--transition-300ms);
@@ -2343,7 +2368,7 @@ header svg {
 }
 
 .user-dropdown.active {
-  top: 125px;
+  top: 110px;
   transition: var(--transition-300ms);
   -webkit-transition: var(--transition-300ms);
   -moz-transition: var(--transition-300ms);
@@ -2358,12 +2383,12 @@ header svg {
 }
 
 .user-dropdown .user-info svg {
-  stroke: var(--color-detalles-1);
+  stroke: var(--color-letra-1);
   margin-right: .5rem
 }
 
 .user-dropdown svg {
-  stroke: var(--color-detalles-1);
+  stroke: var(--color-letra-1);
 }
 
 .user-dropdown .user-info .info {
@@ -2591,10 +2616,18 @@ hr {
   margin: 0;
 }
 
+.user-dropdown {
+  right: 10rem;
+}
+
 @media (max-width: 1349px) {
   .page-content,
     .contenedor {
     padding: 0 15rem;
+  }
+
+  .user-dropdown {
+    right: 15rem;
   }
 }
 
@@ -2603,12 +2636,20 @@ hr {
     .contenedor {
     padding: 0 10rem;
   }
+
+  .user-dropdown {
+    right: 10rem;
+  }
 }
 
 @media (max-width: 1097px) {
   .page-content,
     .contenedor {
     padding: 0 12rem;
+  }
+
+  .user-dropdown {
+    right: 12rem;
   }
 }
 
@@ -2617,6 +2658,10 @@ hr {
     .contenedor {
     padding: 0 8rem;
   }
+
+  .user-dropdown {
+    right: 8rem;
+  }
 }
 
 @media (max-width: 840px) {
@@ -2624,12 +2669,20 @@ hr {
     .contenedor {
     padding: 0 4rem;
   }
+
+  .user-dropdown {
+    right: 4rem;
+  }
 }
 
 @media (max-width: 712px) {
   .page-content,
     .contenedor {
     padding: 0 2rem;
+  }
+
+  .user-dropdown {
+    right: 2rem;
   }
 }
 
@@ -2644,6 +2697,10 @@ hr {
 
   .contenedor.carrusel {
     padding: 0
+  }
+
+  .user-dropdown {
+    right: 1rem;
   }
 }
 
@@ -4067,7 +4124,7 @@ aside {
   }
 
   .box-category {
-    padding: .4rem;
+    padding: .7rem;
     width: 6rem;
     height: 6rem;
   }
@@ -4279,6 +4336,10 @@ aside {
 }
 
 @media (max-width: 450px) {
+  .nav-search {
+    border-bottom: 1px solid var(--color-fondo-);
+  }
+
   .nav-categories {
     display: none;
   }
@@ -4860,6 +4921,167 @@ section,
 @media (max-width: 460px) {
   .section-about .img {
     height: 10rem;
+  }
+}
+
+.info-user {
+  width: 48%;
+  border: 1px solid var(--color-fondo-2);
+  border-radius: var(--border-radius-1);
+  -webkit-border-radius: var(--border-radius-1);
+  -moz-border-radius: var(--border-radius-1);
+  -ms-border-radius: var(--border-radius-1);
+  -o-border-radius: var(--border-radius-1);
+  padding: 10px 15px;
+  display: flex;
+  align-items: center
+}
+
+.section-user {
+  margin: 1.5rem 0;
+}
+
+.nombre-apellido span:nth-child(2) {
+  font-size: .6rem;
+}
+
+.info-user svg {
+  width: 70px;
+  height: 70px;
+}
+
+.info-user .nombre-apellido {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-user svg {
+  margin-right: 1rem;
+}
+
+.info-user * {
+  color: var(--color-fondo-2);
+}
+
+.dale {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pedidos {
+  width: 48%;
+  height: 50vh;
+  border: 1px solid var(--color-fondo-2);
+  border-radius: var(--border-radius-1);
+  -webkit-border-radius: var(--border-radius-1);
+  -moz-border-radius: var(--border-radius-1);
+  -ms-border-radius: var(--border-radius-1);
+  -o-border-radius: var(--border-radius-1);
+}
+
+.contenedor-pedido {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-fondo-2);
+  padding: 10px 15px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.contenedor-pedido h3 {
+  font-size: 1.4rem;
+}
+
+.contenedor-pedido span {
+  font-size: .7rem;
+  color: #8005d8c0;
+}
+
+.pedido-seleccionado {
+  width: 48%;
+  height: 50vh;
+  border: 1px solid var(--color-fondo-2);
+  border-radius: var(--border-radius-1);
+  -webkit-border-radius: var(--border-radius-1);
+  -moz-border-radius: var(--border-radius-1);
+  -ms-border-radius: var(--border-radius-1);
+  -o-border-radius: var(--border-radius-1);
+  padding: 10px;
+}
+
+.pedido-img {
+  width: 100%;
+  height: 12rem;
+  background-size: cover;
+  border-radius: var(--border-radius-1);
+  -webkit-border-radius: var(--border-radius-1);
+  -moz-border-radius: var(--border-radius-1);
+  -ms-border-radius: var(--border-radius-1);
+  -o-border-radius: var(--border-radius-1);
+  background-position: 50%;
+}
+
+.pedido-seleccionado span {
+  font-size: .8rem;
+  color: var(--color-fondo-2);
+}
+
+.producto-carrito-info {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.pedido-seleccionado h3 {
+  font-size: 1.4rem;
+}
+
+.wacho {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.pedido-seleccionado .price {
+  font-size: 1.2rem;
+  color: var(--color-detalles-1);
+}
+
+.section-user.users .info-user {
+  width: 100%;
+  height: 30vh;
+  flex-direction: column;
+}
+
+.client {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--color-fondo-2);
+}
+
+@media (max-width: 510px) {
+  .dale {
+    flex-direction: column;
+  }
+
+  .info-user {
+    width: 100%;
+  }
+
+  .pedidos {
+    width: 100%;
+  }
+
+  .pedido-seleccionado {
+    width: 100%;
+    margin-top: 2rem;
   }
 }
 

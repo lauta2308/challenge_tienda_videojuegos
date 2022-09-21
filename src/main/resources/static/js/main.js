@@ -10,6 +10,7 @@ createApp({
             products: [],
 
 
+
             datas: [],
 
             filtrado: [],
@@ -80,30 +81,24 @@ createApp({
         loadProducts() {
 
             axios.get("/api/products").then(response => {
-                
                 if (this.listaJuegos == null) {
 
                     this.products = response.data;
+
                     this.products.forEach(product => {
                         product.carrito = false;
                     })
                     this.filterProducts = this.products
                 } else {
-
                     this.products = this.listaJuegos;
-                    
                     this.filterProducts = this.products
-                    if (!this.listaJuegos.includes(response.data)){
-                        localStorage.removeItem(`productos`)
-                        window.location.reload();
-                    }
                 }
 
                 console.log(this.filterProducts);
 
             })
 
-            .catch(error => console.log(error));
+                .catch(error => console.log(error));
 
         },
 
@@ -121,7 +116,7 @@ createApp({
             console.log("added")
             filtrado[index].cantidad = 1;
             filtrado[index].carrito = true
-                //this.listaJuegos.push(addGame);
+            //this.listaJuegos.push(addGame);
 
             //console.log(this.listaJuegos);
 
