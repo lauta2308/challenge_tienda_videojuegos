@@ -5,14 +5,14 @@ createApp({
     data() {
 
         return {
-
+            option: "",
+            emailLogin: "",
+            clientInformation: [],
+            idProductFavorite: 0,
+            passwordLogin: "",
             categories: [],
             products: [],
-
-
-
             datas: [],
-
             filtrado: [],
             checks: [],
             listaCheck: [],
@@ -22,10 +22,13 @@ createApp({
             search: "",
             filterProducts: [],
             productsFilter: [],
+            existClient: false,
+            listIdFavourites: [],
         }
     },
     created() {
         this.loadCategories();
+        this.current();
         //this.loadProducts();
     },
     computed: {
@@ -42,7 +45,7 @@ createApp({
 
             } else if (this.search.length > 0 && this.listaCheck.length === 0) {
 
-                this.filterProducts = this.products.filter(product => product.name.toLowerCase().includes(this.search.toLowerCase()))
+                this.filterProducts = this.products.filter(product => product.name.toLowerCase().includes(this.search.toLowerCase()) || product.platform.toLowerCase().includes(this.search.toLowerCase()))
                 console.log(this.products);
                 console.log(this.filterProducts);
             } else if (this.search.length === 0 && this.listaCheck.length > 0) {
@@ -78,18 +81,68 @@ createApp({
 
     },
     methods: {
+        addToFaavorites(id){
+            axios.patch("/api/clients/current/favourites",`productId=${id}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => console.log(error))
+        },
+        deleteFavorites(id){
+            axios.delete("/api/clients/current/favourites",`favouriteProductId=${id}`)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => console.log(error))
+        },
+        logOut(){
+            axios.post("/api/logout")
+            .then(response => {
+                this.existClient = false
+                console.log("logged out")
+                window.location.href = "/index.html"
+            })
+        },
+        loginUser(){
+            axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+            
+            .then(response => {
+                console.log("registrado")
+                console.log(response)
+                
+                window.location.href = "/index.html"
+            })
+        },
+        current(){
+            axios.get("/api/clients/current")
+            .then(response => { 
+                console.log(response)
+                this.existClient = true
+                this.clientInformation = response.data
+                let listFavourites= this.clientInformation.favouritesProducts
+                listFavourites.forEach(response => {
+                    let pro = response
+                    console.log(pro)
+                    pro.forEach(response=>{
+                        console.log(response.product)
+                    })
+                })
+                console.log(this.listIdFavourites)
+                console.log(this.clientInformation)
+            })
+            .catch(err => console.error(err))
+        },
         loadProducts() {
-
             axios.get("/api/products").then(response => {
-                if (this.listaJuegos == null) {
-
-                    this.products = response.data;
+                this.products = response.data;
+                if (this.listaJuegos == null || this.listaJuegos.length != this.products.length ) {
 
                     this.products.forEach(product => {
                         product.carrito = false;
                     })
                     this.filterProducts = this.products
-                } else {
+                } else  {
+                    console.log(this.listaJuegos.length)
                     this.products = this.listaJuegos;
                     this.filterProducts = this.products
                 }
@@ -101,23 +154,14 @@ createApp({
                 .catch(error => console.log(error));
 
         },
-
         addToCart(addGame) {
-
             console.log(addGame);
             //let producto = this.listaJuegos.filter(item => item.id === addGame.id)
             index = this.filterProducts.findIndex(item => item.id === addGame.id);
-
-            //let prr = this.filterProducts
             let filtrado = this.filterProducts;
-
-
-
             console.log("added")
             filtrado[index].cantidad = 1;
             filtrado[index].carrito = true
-            //this.listaJuegos.push(addGame);
-
             //console.log(this.listaJuegos);
 
             localStorage.setItem('productos', JSON.stringify(filtrado));
@@ -168,33 +212,37 @@ createApp({
 
             }).then(response => this.loadProducts()).catch(error => console.log(error));
 
-
-
-
-
         },
-
-
-
-        upNumber() {
-            this.filterProducts.sort((a, b) => {
-                if (a.price > b.price) { return 1 }
-                if (a.price < b.price) { return -1 }
-                return 0
-            })
+        select(option){
+            if (option == "menos") {
+                this.filterProducts.sort((a, b) => {
+                    if (a.price > b.price) { return 1 }
+                    if (a.price < b.price) { return -1 }
+                    return 0
+                })
+            }
+            if (option == "mas") {
+                this.filterProducts.sort((a, b) => {
+                    if (a.price < b.price) { return 1 }
+                    if (a.price > b.price) { return -1 }
+                    return 0
+                })
+            }
+            if (option == "a") {
+                this.filterProducts.sort((a, b) => {
+                    if (a.name > b.name) { return 1 }
+                    if (a.name < b.name) { return -1 }
+                    return 0
+                })
+            }
+            if (option == "z") {
+                this.filterProducts.sort((a, b) => {
+                    if (a.name < b.name) { return 1 }
+                    if (a.name > b.name) { return -1 }
+                    return 0
+                })
+            }
         },
-
-        downNumber() {
-            this.filterProducts.sort((a, b) => {
-                if (a.price < b.price) { return 1 }
-                if (a.price > b.price) { return -1 }
-                return 0
-            })
-        },
-
-
-
-
 
 
         // Front detalles

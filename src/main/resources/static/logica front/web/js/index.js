@@ -141,19 +141,11 @@ createApp({
         
 
         upyear() {
-            this.filterProducts.sort((a, b) => {
-                if (a.releaseDate > b.releaseDate) { return 1 }
-                if (a.releaseDate < b.releaseDate) { return -1 }
-                return 0
-            })
+            
         },
 
         downyear() {
-            this.filterProducts.sort((a, b) => {
-                if (a.releaseDate < b.releaseDate) { return 1 }
-                if (a.releaseDate > b.releaseDate) { return -1 }
-                return 0
-            })
+            
         },
 
         upNumber() {

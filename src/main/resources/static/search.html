@@ -12,10 +12,12 @@
     <link rel="icon" href="./resources/logo/REBEL.png">
 
     <!-- fuentes / heroicons.com (SVG) / tablericons.com (SVG) -->
-
+    <!-- F O N T A W E S O M E -->
+    <script src="https://kit.fontawesome.com/db55518b9d.js" crossorigin="anonymous"></script>
     <!-- css -->
+    
     <link rel="stylesheet" href="./css/tailwind.css">
-
+    
 </head>
 
 <body>
@@ -170,10 +172,13 @@
             <aside>
                 <input v-model="search" type="text" @keyUp="" name="" required placeholder="Search"> {{filterSearch}}
 
-                <select name="types" id="select">
+                
+
+                <select @change="select(option)" v-model="option" name="types" id="select">
+                    <option value="" disabled >select a filter</option>
                     <optgroup label="Alphabetical">
-                        <option @click="upNumber">A - Z</option>
-                        <option @click="downNumber">Z - A</option>
+                        <option  value="a">A - Z</option>
+                        <option  value="z">Z - A</option>
                     </optgroup>
                     <optgroup label="Price">
                         <option value="mas">Max price</option>
@@ -274,7 +279,7 @@
 
                                 <!-- title -->
                                 <h1 class="title">
-                                    {{product.name}}
+                                    {{product.name}} 
                                 </h1>
 
                                 <!-- category and price -->
@@ -305,6 +310,8 @@
 
                                 <!-- descripcion -->
                                 <div class="description">
+                                    
+
 
                                     <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -330,15 +337,23 @@
                                         <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                         <path d="M15 6h6m-3 -3v6" />
                                     </svg>
+                                    
 
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
+                                    <svg @click="addToFaavorites(product.id)" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
                                         width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path
                                             d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    </svg> 
+                                    <svg @click="deleteFavorites(product.id)" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="44" height="44"
+                                        viewBox="0 0 24 24" stroke-width="5px!important" stroke="#FE59D7" fill="none" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                        <path d="M10 12l2 2l4 -4" />
                                     </svg>
-
+                                    
                                 </div>
 
                             </div>
