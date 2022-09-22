@@ -15,17 +15,17 @@
     <!-- F O N T A W E S O M E -->
     <script src="https://kit.fontawesome.com/db55518b9d.js" crossorigin="anonymous"></script>
     <!-- css -->
-    
+
     <link rel="stylesheet" href="./css/tailwind.css">
-    
+
 </head>
 
-<body>
+<body class="hidden">
 
     <!-- P A G I N A -->
     <div id="app">
         <!-- O N L O A D -->
-        <!-- <div id="onload">
+        <div id="onload">
             <img src="./resources/logo/REBEL.png" alt="">
             <div>
                 <div class="loader">
@@ -46,8 +46,7 @@
                     </svg>
                 </div>
             </div>
-        </div> -->
-
+        </div>
 
         <!-- E N C A B E Z A D O -->
         <header>
@@ -61,10 +60,10 @@
 
                 </a>
 
-                <div  class="user-section">
+                <div class="user-section">
 
                     <!-- R E G I S T R A D O -->
-                    <a  v-if="existClient == true" href="favs.html">
+                    <a v-if="existClient == true" href="favs.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="44"
                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -74,7 +73,7 @@
                         </svg>
                     </a>
 
-                    <a   href="cart.html">
+                    <a href="cart.html">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart"
                             width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                             stroke-linecap="round" stroke-linejoin="round">
@@ -86,71 +85,21 @@
                         </svg>
                     </a>
 
-                    <svg   v-if="existClient == true" @click="moveUser" xmlns="http://www.w3.org/2000/svg"
-                        class="icon icon-tabler icon-tabler-user-circle" width="44" height="44" viewBox="0 0 24 24"
-                        stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <circle cx="12" cy="12" r="9" />
-                        <circle cx="12" cy="10" r="3" />
-                        <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                    </svg>
+                    <a href="user.html">
+                        <svg v-if="existClient == true" xmlns="http://www.w3.org/2000/svg"
+                            class="icon icon-tabler icon-tabler-user-circle" width="44" height="44" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <circle cx="12" cy="12" r="9" />
+                            <circle cx="12" cy="10" r="3" />
+                            <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
+                        </svg>
+                    </a>
 
                     <!-- N O   R E G I S T R A D O -->
-                    <div  v-if="existClient == false"class="no-register">
+                    <div v-if="existClient == false" class="no-register">
                         <a href="sesion.html">Log In | Register</a>
-                    </div>
-
-                </div>
-                
-                <div v-if="existClient == true" class="user-dropdown">
-
-                    <div class="user-in">
-
-                        <div class="user-info">
-                            <a href="user.html">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle"
-                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <circle cx="12" cy="12" r="9" />
-                                    <circle cx="12" cy="10" r="3" />
-                                    <path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" />
-                                </svg>
-                            </a>
-
-                            <div class="info">
-                                <span>{{clientInformation.name}} {{clientInformation.lastName}}</span>
-                                <span class="email">{{clientInformation.email}}</span>
-                            </div>
-
-                            <span class="pocket"></span>
-
-                        </div>
-
-
-                        <div class="user-options">
-
-                            <svg  @click="moveUser" xmlns="http://www.w3.org/2000/svg"
-                                class="icon icon-tabler icon-tabler-arrow-up-circle" width="44" height="44"
-                                viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="12" cy="12" r="9" />
-                                <line x1="12" y1="8" x2="8" y2="12" />
-                                <line x1="12" y1="8" x2="12" y2="16" />
-                                <line x1="16" y1="12" x2="12" y2="8" />
-                            </svg>
-                            <svg @click="logOut()" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-x"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="9" cy="7" r="4" />
-                                <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                                <path d="M17 9l4 4m0 -4l-4 4" />
-                            </svg>
-
-                        </div>
-
                     </div>
 
                 </div>
@@ -161,9 +110,9 @@
             <nav class="nav-categories contenedor">
 
                 <a href="index.html">Home</a>
-                <a href="search.html">Shop</a>
-                <a href="#">Contact Us</a>
+                <a class="texto-active" href="#">Shop</a>
                 <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
 
             </nav>
 
@@ -173,12 +122,12 @@
                 <span>Navigation</span>
 
                 <a href="index.html">Home</a>
-                <a href="search.html">Shop</a>
-                <a href="#">Contact Us</a>
+                <a class="texto-active" href="#">Shop</a>
                 <a href="about.html">About Us</a>
+                <a href="contact.html">Contact Us</a>
 
                 <div @click="moveSidebar" class="span-categories">
-                    <span class="span-categories">Categories</span>
+                    <span class="span-categories">Navigation</span>
                     <div id="button-menu">
                         <span></span>
                         <span></span>
@@ -195,21 +144,21 @@
             <aside>
                 <input v-model="search" type="text" @keyUp="" name="" required placeholder="Search"> {{filterSearch}}
 
-                
+
 
                 <select @change="select(option)" v-model="option" name="types" id="select">
-                    <option value="" disabled >select a filter</option>
+                    <option value="" disabled>select a filter</option>
                     <optgroup label="Alphabetical">
-                        <option  value="a">A - Z</option>
-                        <option  value="z">Z - A</option>
+                        <option value="a">A - Z</option>
+                        <option value="z">Z - A</option>
                     </optgroup>
                     <optgroup label="Price">
                         <option value="mas">Max price</option>
                         <option value="menos">Min price</option>
                     </optgroup>
                 </select>
+                <h4>Categories</h4>
                 <div class="checkboxs">
-                    <h4>Categories</h4>
                     <div v-for="category in categories" class="cntr">
                         <input class="hidden-xs-up cbx" type="checkbox" :name="category" :value="category"
                             v-model="listaCheck" :id="category" class="checks">
@@ -217,62 +166,7 @@
                         <label :for="category" name="category" class="cont">{{category}}</label>
                     </div>
                 </div>
-                <!-- <div class="checkboxs platforms">
-                    <h4>Platforms</h4>
-                    <div class="cntr">
-                        <input type="checkbox" id="cbxP1" class="hidden-xs-up cbx">
-                        <label for="cbxP1" class="cbx"></label>
-                        <label for="cbxP1">Action</label>
-                    </div>
-                    <div class="cntr">
-                        <input type="checkbox" id="cbxP2" class="hidden-xs-up cbx">
-                        <label for="cbxP2" class="cbx"></label>
-                        <label for="cbxP2">Adventure</label>
-                    </div>
-                    <div class="cntr">
-                        <input type="checkbox" id="cbxP3" class="hidden-xs-up cbx">
-                        <label for="cbxP3" class="cbx"></label>
-                        <label for="cbxP3">Sports</label>
-                    </div>
-                </div> -->
-
             </aside>
-
-            <!-- <section class="section-search-2">
-
-                <input v-model="search" type="text" name="" required placeholder="Search">
-
-                {{filterSearch}}
-
-                <select name="types" id="select">
-                    <optgroup label="Alphabetical">
-                        <option value="a">A - Z</option>
-                        <option value="z">Z - A</option>
-                    </optgroup>
-                    <optgroup label="Price">
-                        <option @click="upNumber()" value="mas">Max price</option>
-                        <option @click="downNumber()" value="menos">Min price</option>
-                    </optgroup>
-                </select>
-
-                <div class="platforms-cbx">
-                    <div class="cntr">
-                        <input type="checkbox" id="c1" class="hidden-xs-up cbx">
-                        <label for="c1" class="cbx"></label>
-                        <label for="c1">PS</label>
-                    </div>
-                    <div class="cntr">
-                        <input type="checkbox" id="c2" class="hidden-xs-up cbx">
-                        <label for="c2" class="cbx"></label>
-                        <label for="c2">PC</label>
-                    </div>
-                    <div class="cntr">
-                        <input type="checkbox" id="c3" class="hidden-xs-up cbx">
-                        <label for="c3" class="cbx"></label>
-                        <label for="c3">XBOX</label>
-                    </div>
-                </div>
-            </section> -->
 
             <div class="searched">
 
@@ -300,12 +194,10 @@
 
                             <div class="product-description">
 
-                                <!-- title -->
                                 <h1 class="title">
-                                    {{product.name}} 
+                                    {{product.name}}
                                 </h1>
 
-                                <!-- category and price -->
                                 <div class="row category-price">
 
                                     <div class="col-xs-12 col-sm-8 category">
@@ -318,7 +210,6 @@
 
                                     </div>
 
-                                    <!-- Precio con descuento -->
                                     <div v-else class="col-xs-12 col-sm-4 prices offer">
 
                                         <span class="price">{{moneyFormat(product.price, 1) }}</span>
@@ -331,10 +222,7 @@
 
                                 <hr />
 
-                                <!-- descripcion -->
                                 <div class="description">
-                                    
-
 
                                     <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
                                         xmlns="http://www.w3.org/2000/svg"
@@ -360,25 +248,28 @@
                                         <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                         <path d="M15 6h6m-3 -3v6" />
                                     </svg>
-                                    
-                                    
-                                    
-                                    <svg v-if="product.favourite" @click="deleteFavorites(product.id)" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="44" height="44"
-                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        <path d="M10.3 10.4l4 4m0 -4l-4 4" />
-                                    </svg>
-                                    
-                                    <svg v-else @click="addToFaavorites(product.id)" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
+
+
+
+                                    <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                        xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
                                         width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                         fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path
                                             d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                    </svg> 
-                                    
+                                        <path d="M10.3 10.4l4 4m0 -4l-4 4" />
+                                    </svg>
+
+                                    <svg v-else @click="addToFaavorites(product.id)" xmlns="http://www.w3.org/2000/svg"
+                                        class="icon icon-tabler icon-tabler-heart" width="44" height="44"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path
+                                            d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                    </svg>
+
                                 </div>
 
                             </div>

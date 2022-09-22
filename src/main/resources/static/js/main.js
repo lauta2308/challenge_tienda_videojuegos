@@ -31,18 +31,22 @@ createApp({
             pedido: [],
             pedidoActivo: {},
             totalPedidoActivo: 0,
-            
-            
-            
+            allClients: [],
+            clienteSeleccionado: {},
+            pedidosClienteSeleccionado: [],
+            pedidoProductos: [],
+            pregunta: false,
+
+
         }
     },
     created() {
         this.loadCategories();
         this.current();
-        //this.loadProducts();
+        this.getClients();
     },
     computed: {
-        
+
 
 
 
@@ -57,8 +61,6 @@ createApp({
             } else if (this.search.length > 0 && this.listaCheck.length === 0) {
 
                 this.filterProducts = this.products.filter(product => product.name.toLowerCase().includes(this.search.toLowerCase()) || product.platform.toLowerCase().includes(this.search.toLowerCase()))
-                console.log(this.products);
-                console.log(this.filterProducts);
             } else if (this.search.length === 0 && this.listaCheck.length > 0) {
 
                 this.filterProducts = [];
@@ -98,58 +100,55 @@ createApp({
             this.pedidoActivo.products.forEach(pedido => {
                 this.totalPedidoActivo = this.totalPedidoActivo + pedido.product.price * pedido.quantity
             })
+            this.pedidoProductos = this.pedidoActivo.products
         },
-        addToFaavorites(id){
-            axios.patch("/api/clients/current/favourites",`productId=${id}`)
-            .then((response) => {
-                console.log(response);
-                this.current()
-                this.loadProducts()
-            })
-            .catch((error) => console.log(error))
+
+
+        amountFixed(number) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(number);
         },
-        deleteFavorites(id){
+        addToFaavorites(id) {
+            axios.patch("/api/clients/current/favourites", `productId=${id}`)
+                .then((response) => {
+                    this.current()
+                    this.loadProducts()
+                })
+        },
+        deleteFavorites(id) {
             let arrayFavorites = this.clientInformation.favouritesProducts
-            console.log(arrayFavorites)
 
             for (let i = 0; i < arrayFavorites.length; i++) {
 
-                if (arrayFavorites[i].product.id==id) {
-                    this.favouritesId=arrayFavorites[i].id
-                    console.log(this.favouritesId)
-                    axios.post("/api/clients/current/favourites",`favouriteProductId=${this.favouritesId}`)
-                    .then((response) => {
-                        console.log(response);
-                        window.location.reload();
-                    })
+                if (arrayFavorites[i].product.id == id) {
+                    this.favouritesId = arrayFavorites[i].id
+                    axios.post("/api/clients/current/favourites", `favouriteProductId=${this.favouritesId}`)
+                        .then((response) => {
+                            window.location.reload();
+                        })
                 }
             }
-            
+
         },
-        deleteListFavorites(id){
-            axios.post("/api/clients/current/favourites",`favouriteProductId=${id}`)
-                    .then((response) => {
-                        console.log(response);
-                        window.location.reload();
-            })
+        deleteListFavorites(id) {
+            axios.post("/api/clients/current/favourites", `favouriteProductId=${id}`)
+                .then((response) => {
+                    window.location.reload();
+                })
         },
-        logOut(){
+        logOut() {
             axios.post("/api/logout")
-            .then(response => {
-                this.existClient = false
-                console.log("logged out")
-                window.location.href = "/index.html"
-            })
+                .then(response => {
+                    this.existClient = false
+                    window.location.href = "/index.html"
+                })
         },
-        loginUser(){
-            axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
-            
-            .then(response => {
-                console.log("registrado")
-                console.log(response)
-                
-                window.location.href = "/index.html"
-            })
+        loginUser() {
+            axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+
+                .then(response => {
+
+                    window.location.href = "/index.html"
+                })
         },
         current() {
             axios.get("/api/clients/current")
@@ -178,121 +177,55 @@ createApp({
         loadProducts() {
             axios.get("/api/products").then(response => {
                 this.products = response.data;
-                this.products.forEach(product=>{
-                    product.favourite=false;
+                this.products.forEach(product => {
+                    product.favourite = false;
                 })
 
-                if (this.listaJuegos == null || this.listaJuegos.length != this.products.length ) {
+                if (this.listaJuegos == null || this.listaJuegos.length != this.products.length) {
                     this.products.forEach(product => {
                         product.carrito = false;
                     })
 
                     this.filterProducts = this.products
-                } else  {
-                    console.log(this.listaJuegos.length)
+                } else {
                     this.products = this.listaJuegos;
                     this.filterProducts = this.products
-                    this.filterProducts.forEach(product=>{
-                        product.favourite=false;
+                    this.filterProducts.forEach(product => {
+                        product.favourite = false;
                     })
 
                 }
 
-                console.log(this.filterProducts);
 
-            }).then(response=>{
+            }).then(response => {
                 this.filterProducts.forEach(e => {
-                 this.listIdFavourites.forEach(element => {
-                    if (e.id==element) {
-                        e.favourite=true;
-                     }
+                    this.listIdFavourites.forEach(element => {
+                        if (e.id == element) {
+                            e.favourite = true;
+                        }
 
-                 });
+                    });
 
 
 
                 });
 
-            }).catch(error => console.log(error));
-
-        },
-        /*
-        loadProducts() {
-                
-            
-            axios.get("/api/products").then(response => {
-                
-                console.log(idFavourite)
-                this.products = response.data;
-                
-                console.log(this.products)
-                if (this.listaJuegos == null || this.listaJuegos.length != this.products.length) {
-
-                    this.products.forEach(product => {
-                        product.carrito = false;
-                        
-
-                    })
-                    this.filterProducts = this.products
-                    this.filterProducts.forEach(product => {
-                        idFavourite.forEach(res =>{
-                            if (product.id == res) {
-                                product.favourite = true
-                                localStorage.removeItem("productos")
-                                console.log(product.favourite,product.name,product.id)
-                            }else{
-    
-                                product.favourite = false
-                                console.log(product.favourite)
-                            }
-                        })
-                    })
-                    
-                } else  {
-                    console.log(this.listaJuegos.length)
-                    this.products = this.listaJuegos;
-                    
-                    this.filterProducts = this.products
-                    this.filterProducts.forEach(product => {
-                        idFavourite.forEach(res =>{
-                            if (product.id == res) {
-                                product.favourite = true
-                                console.log(product.favourite,product.name,product.id)
-                            }else{
-                                product.favourite = false
-                                console.log(product.favourite)
-                            }
-                        })
-                    })
-                }
-
-                console.log(this.filterProducts);
-
             })
 
-                .catch(error => console.log(error));
+        },
 
-        },*/
         addToCart(addGame) {
-            console.log(addGame);
             //let producto = this.listaJuegos.filter(item => item.id === addGame.id)
             index = this.filterProducts.findIndex(item => item.id === addGame.id);
             let filtrado = this.filterProducts;
-            console.log("added")
             filtrado[index].cantidad = 1;
             filtrado[index].carrito = true
-            //console.log(this.listaJuegos);
-
             localStorage.setItem('productos', JSON.stringify(filtrado));
-
-
-
         },
 
         deleteToCart(deleteGame) {
             index = this.filterProducts.findIndex(item => item.id === deleteGame.id);
             let filtrado = this.filterProducts;
-            console.log("deleted")
             filtrado[index].carrito = false;
 
             localStorage.setItem('productos', JSON.stringify(filtrado));
@@ -315,10 +248,7 @@ createApp({
         },
 
         deleteFromCart(deleteGame) {
-
-            console.log(this.listaJuegos);
             this.listaJuegos = this.listaJuegos.filter(game => game.id !== deleteGame.id);
-            console.log(this.listaJuegos);
             localStorage.setItem('seleccion', JSON.stringify(this.listaJuegos));
         },
 
@@ -329,10 +259,10 @@ createApp({
 
                 this.categories = response.data;
 
-            }).then(response => this.loadProducts()).catch(error => console.log(error));
+            }).then(response => this.loadProducts())
 
         },
-        select(option){
+        select(option) {
             if (option == "menos") {
                 this.filterProducts.sort((a, b) => {
                     if (a.price > b.price) { return 1 }
@@ -418,11 +348,26 @@ createApp({
             }).format(number);
         },
 
-
+        getClients() {
+            axios.get("http://localhost:8080/api/admin/clients").then(response => {
+                this.allClients = response.data
+            })
+        },
+        obtenerProductosCliente(id) {
+            this.totalPedidoActivo = 0
+            this.pregunta = true
+            this.clienteSeleccionado = this.allClients.filter(cliente => cliente.id == id)[0]
+            this.pedidosClienteSeleccionado = this.clienteSeleccionado.pedidos
+            console.log(this.pedidosClienteSeleccionado)
+        }
 
 
     },
 
-
-
 }).mount('#app')
+
+
+window.onload = function () {
+    $("#onload").fadeOut();
+    $("body").removeClass("hidden")
+}
