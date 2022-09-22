@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- meta -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- pestaña -->
+    <title>REBEL - Search</title>
+    <link rel="icon" href="./resources/logo/REBEL.png">
+
+    <!-- fuentes / heroicons.com (SVG) / tablericons.com (SVG) -->
+    <!-- F O N T A W E S O M E -->
+    <script src="https://kit.fontawesome.com/db55518b9d.js" crossorigin="anonymous"></script>
+    <!-- css -->
+    
+    <link rel="stylesheet" href="./css/tailwind.css">
+    
+</head>
+
+<body>
+
+    <!-- P A G I N A -->
+    <div id="app">
+        <div class="contenedor-tabla">
+            <h1>hola</h1>
+
+        <table bgcolor="#00FFFF" >
+            <thead>
+                <th>pedido</th>
+                <th>cantidad</th>
+                <th>total</th>
+            </thead>
+            <tbody>
+                <tr v-for="producto in pedido.products">
+                    <td>
+                        {{producto.product.name}}
+                    </td>
+                    <td>{{producto.quantity}}</td>
+                    <td>{{producto.product.price * producto.quantity}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        
+
+    </div>
+
+
+    <!-- S C R I P T S -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- michalsnik.github.io/aos/ -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- sweetalert2.github.io -->
+    <script src="https://unpkg.com/vue@3"></script>
+    <!-- vue -->
+    <script src="./js/main.js"></script>
+    <!-- js -->
+
+</body>
+
+</html>
