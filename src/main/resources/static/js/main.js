@@ -87,18 +87,15 @@ createApp({
             if (this.existClient) {
                 axios.patch("/api/clients/current/favourites",`productId=${id}`)
                 .then((response) => {
-                    console.log(response);
                     this.current()
                     this.loadProducts()
-    
                 })
                 .catch((error) => console.log(error))
             }
         },
         deleteFavorites(id){
-            console.log(id)
+
                 let arrayFavorites = this.clientInformation.favouritesProducts
-                console.log(arrayFavorites)
 
                 for (let i = 0; i < arrayFavorites.length; i++) {
                     if (arrayFavorites[i].product.id==id) {
@@ -106,11 +103,11 @@ createApp({
                     }
                 }
                 
-                console.log(this.favouritesId)
+
 
             axios.delete("/api/clients/current/favourites",`favouriteProductId=${this.favouritesId}`)
             .then((response) => {
-                console.log(response);
+
                 this.current()
                 this.loadProducts()
             })
@@ -137,7 +134,7 @@ createApp({
         current(){
             axios.get("/api/clients/current")
             .then(response => { 
-                console.log(response)
+                            
                 this.existClient = true
                 this.clientInformation = response.data
                 let listFavourites= this.clientInformation.favouritesProducts
@@ -173,7 +170,6 @@ createApp({
                     })
                     this.filterProducts = this.products
                 } else  {
-                    console.log(this.listaJuegos.length)
                     this.products = this.listaJuegos;
                     this.filterProducts = this.products
                 }
