@@ -28,7 +28,9 @@ createApp({
             listFavorites: [],
             pedido: [],
             monto: 0,
-            numeroTarjeta: ""
+            numeroTarjeta: "",
+            totalPrice: 0,
+            totalQuantity: 0,
         }
     },
     created() {
@@ -37,6 +39,7 @@ createApp({
         //this.loadProducts();
     },
     computed: {
+        
 
 
 
@@ -86,6 +89,7 @@ createApp({
 
     },
     methods: {
+
 
         submitUrl() {
             axios.get('/api/data', { params: { url: `http://localhost:8085/api/pay?amount=${this.monto}&cardNumber=${this.numeroTarjeta}` } })
@@ -174,6 +178,14 @@ createApp({
                 console.log(listPedido)
                 this.pedido = listPedido[0]
                 console.log(this.pedido)
+                let product = this.pedido.products
+                for (let i = 0; i < product.length; i++) {
+                    let total = product[i].quantity * product[i].product.price
+                    console.log(total)
+                    this.totalPrice = this.totalPrice +  total
+                    this.totalQuantity = this.totalQuantity + product[i].quantity
+                }
+                console.log(this.totalPrice)
 
             })
             .catch(err => console.error(err))

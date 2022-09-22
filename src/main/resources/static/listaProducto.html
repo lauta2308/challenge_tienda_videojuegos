@@ -16,7 +16,7 @@
     <script src="https://kit.fontawesome.com/db55518b9d.js" crossorigin="anonymous"></script>
     <!-- css -->
     
-    <link rel="stylesheet" href="./css/tailwind.css">
+    <link rel="stylesheet" href="./css/listProduct.css">
     
 </head>
 
@@ -25,12 +25,63 @@
     <!-- P A G I N A -->
     <div id="app">
         <div class="contenedor-tabla">
-            <h1>hola</h1>
+            <img class="logo-tabla" src="/resources/logo/REBEL_logo_vertical.png" alt="">
+            <div class="contenedor-informacion-tabla">
 
-        <table bgcolor="#00FFFF" >
+                <h2>
+                    Client : {{clientInformation.name}} {{clientInformation.lastName}}
+                </h2>
+                <div class="general-information to-black">
+                    <h3>
+                        general information:
+                    </h3>
+                    <div class="contenedor-general">
+                        <div>
+
+                            <p>
+                                Shipping Date: {{pedido.deliveryDate}}
+                            </p>
+        
+                            <p>
+                                Delivery Date: {{pedido.deliveryDate}}
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                amount payable: ${{totalPrice}}
+                            </p>
+                            <p>
+                                method Payment: {{pedido.paymentMethod}}
+                            </p>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="general-information">
+                    <h3>Personal Information</h3>
+                    <div class="contenedor-general">
+                        <div>
+                            <p>
+                                Shipping Addres: {{pedido.shippingAddress}}
+                            </p>
+                            <p>
+                                Shipping City: {{pedido.shippingCity}}
+                            </p>
+                            
+                        </div>
+                        <div>
+                            <p>Zip Code: {{pedido.zipCode}} </p>
+                            <p>Total Quantity: {{totalQuantity}}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        <table >
             <thead>
-                <th>pedido</th>
-                <th>cantidad</th>
+                <th>order</th>
+                <th>quantity</th>
                 <th>total</th>
             </thead>
             <tbody>

@@ -3094,19 +3094,3 @@ section,
     -o-border-radius: var(--border-radius-2);
 }
 
-.pedido-img {
-    height: 10rem;
-}
-table{
-    color: black;
-}
-td{
-    color: #8105D8;
-}
-.contenedor-tabla{
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}

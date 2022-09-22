@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/postnet.css">
+</head>
+<body>
+    
+    <div class="container">
+        <div class="card">
+            <div class="form">
+                <div class="left-side">
+                    <span class="success">Success</span>
+                    <div class="image">
+                        
+                        <img src="./Best_Games_Best_Prices_Poster_vertical_Post_para_Facebook_Tarjeta_horizontal_Poster_vertical_Post_para_Facebook.png">
+                    </div>
+                    <div class="debit-card">
+                        <div class="card_name">
+                           <small>Cardholder name</small>
+                           <span class="user_name">John Doe</span>
+                        </div>
+                            <div class="num_expiry">
+                                <div class="card_number">
+                                   <small>Card Number</small>
+                                   <span class="set_card_number">0000 0000 0000 0000</span>
+                                </div>
+                                <div class="card_cvv">
+                                   <small>Valid upto</small>
+                                   <span class="user_card_cvv">MM/YYYY</span>
+                               </div>
+                        
+                            </div>
+                    </div> 
+                     
+    
+                    
+                </div>
+                <div class="right-side">
+                    <h3>Payment details</h3>
+                    <div class="input-text">
+                        <input type="text" id="user_name_input" onkeyup="userName(this.value)" placeholder="Username" require>
+                        <span>Cardholder name</span>
+                    </div>
+                    <div class="input-text">
+                        <input type="text" id="user_card_number_input" placeholder="0000 0000 0000 0000" onkeyup="userCardNumber(this.value)" data-slots="0" data-accept="\d" require>
+                        <span>Card number</span>
+                    </div> 
+                    <div class="input-div">
+                        <div class="input-text">
+                            <input type="text" onkeyup="usercardcvv(this.value)" placeholder="MM/YYYY" data-slots="MY" require>
+                            <span>Valid upto</span>
+                        </div>
+                        <div class="input-text ">
+                            <input type="text" placeholder="000" data-slots="0" data-accept="\d" size="3" require>
+                            <span>CVV</span>
+                        </div>
+                    </div>
+                    <div class="input-text">
+                        <input type="text" id="shippingAddress" placeholder="Shipping Address" require>
+                        <span>Shipping Address</span>
+                    </div>
+                    <div class="input-text">
+                        
+                        <input type="text" id="shippingCity" placeholder="Shipping City" require>
+                        <span>Shipping City</span>
+                        
+                    </div>  
+                    <div class="input-div">
+                        <div class="input-text">
+                            <input type="text"  placeholder="zip code" data-slots="MY" require>
+                            <span>Zip code</span>
+                        </div>
+                        <div class="select ">
+                            <select>
+                                <option disabled>select a payment method</option>
+                                <option value="PAYPAL">Paypal</option>
+                                <option value="CASH">Cash</option>
+                                <option value="CREDITCARD">Credit Card</option>
+                            </select>
+                            <span>pay method</span>
+                            
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button class="click-pay">Pay $25.99</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <script src="/js/postnet.js"></script>
+</body>
+</html>
