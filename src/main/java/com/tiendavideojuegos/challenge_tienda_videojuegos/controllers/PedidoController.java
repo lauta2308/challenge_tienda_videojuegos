@@ -33,10 +33,10 @@ public class PedidoController {
     PedidoService pedidoService;
 
     @PostMapping("/api/clients/current/pedido")
-    public ResponseEntity<Object> addPedido(@RequestBody RequestPedido requestPedido, Authentication authentication,@RequestParam String codeDiscount){
+    public ResponseEntity<Object> addPedido(@RequestBody RequestPedido requestPedido, Authentication authentication){
 
 
-        return pedidoService.addPedido(requestPedido, authentication, codeDiscount );
+        return pedidoService.addPedido(requestPedido, authentication );
     }
 
     @GetMapping("/api/admin/orderstatus")
