@@ -24,6 +24,8 @@ createApp({
             productsFilter: [],
             existClient: false,
             listIdFavourites: [],
+            listProductsFavorites: [],
+            listFavorites: [],
         }
     },
     created() {
@@ -32,7 +34,6 @@ createApp({
         //this.loadProducts();
     },
     computed: {
-
 
 
 
@@ -82,11 +83,15 @@ createApp({
     },
     methods: {
         addToFaavorites(id){
-            axios.patch("/api/clients/current/favourites",`productId=${id}`)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => console.log(error))
+            if (this.existClient) {
+                axios.patch("/api/clients/current/favourites",`productId=${id}`)
+                .then((response) => {
+                    console.log(response);
+                    window.location.reload();
+    
+                })
+                .catch((error) => console.log(error))
+            }
         },
         deleteFavorites(id){
             axios.delete("/api/clients/current/favourites",`favouriteProductId=${id}`)
@@ -121,24 +126,34 @@ createApp({
                 this.clientInformation = response.data
                 let listFavourites= this.clientInformation.favouritesProducts
                 listFavourites.forEach(response => {
-                    let pro = response
-                    console.log(pro)
-                    pro.forEach(response=>{
-                        console.log(response.product)
-                    })
+                    this.listProductsFavorites.push(response)
                 })
-                console.log(this.listIdFavourites)
-                console.log(this.clientInformation)
+
+                console.log(this.listProductsFavorites)
+                this.listProductsFavorites.forEach(response => {
+                    this.listFavorites.push(response.product)
+                })
+
+                this.listFavorites.forEach(response => {
+                    this.listIdFavourites.push(response.id)
+                })
+                
             })
             .catch(err => console.error(err))
         },
         loadProducts() {
             axios.get("/api/products").then(response => {
                 this.products = response.data;
-                if (this.listaJuegos == null || this.listaJuegos.length != this.products.length ) {
+                if (this.listaJuegos == null || this.listaJuegos.length != this.products.length || this.listIdFavourites.length == 0 || this.listIdFavourites.length != 0) {
 
                     this.products.forEach(product => {
                         product.carrito = false;
+                        this.listIdFavourites.forEach(idFavourite => {
+                            if (product.id == idFavourite) {
+                                product.favourite = true;
+                                
+                            }
+                        })
                     })
                     this.filterProducts = this.products
                 } else  {
