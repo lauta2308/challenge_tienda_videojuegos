@@ -19,7 +19,14 @@ createApp({
             shippingCity: "",
             zipCode: "",
             paymentMethod: "",
-            discountCode: ""
+            discountCode: "",
+            existClient: false,
+            totalPrice: 0,
+            totalQuantity: 0,
+            monto: 0,
+            numeroTarjeta: "",
+            pedido: [],
+            clientInformation: [],
 
         }
     },
@@ -27,6 +34,7 @@ createApp({
 
 
         this.productos();
+        this.current()
 
 
 
@@ -39,6 +47,84 @@ createApp({
 
     },
     methods: {
+        submitUrl() {
+            let numero = this.numeroTarjeta.slice(0,19).split(' ')
+            let numeroTarjeta = ""
+            for (let i = 0; i < numero.length; i++) {
+                numeroTarjeta += numero[i] + "-"
+            }
+            numeroTarjetaCompleto = numeroTarjeta.slice(0,19)
+            
+            axios.get('/api/data', { params: { url: `http://localhost:8085/api/pay?amount=${this.totalPrice}&cardNumber=${numeroTarjetaCompleto}` } })
+                .then(
+                    this.realizarCompra(),
+                    console.log("se envió la petición")
+                )
+            .catch(err => {
+                console.log(err.response.data);
+            })
+        },
+        realizarCompra() {
+            let buyProducts = [];
+
+            this.listaJuegos.forEach(juego => {
+                let productCart = new Object();
+
+                productCart.idProducto = juego.id,
+
+                    productCart.productQuantity = juego.cantidad;
+
+                buyProducts.push(productCart);
+
+            })
+
+            let discountCode = "";
+            if (this.discountCode.length === 0) {
+                discountCode = "SinDescuento"
+            } else {
+                discountCode = this.discountCode;
+            }
+
+            axios.post("/api/clients/current/pedido", {
+                "shippingAddress": this.shippingAddress,
+                "shippingCity": this.shippingCity,
+                "zipCode": this.zipCode,
+                "paymentMethod": this.paymentMethod,
+                "products": buyProducts,
+                "codeDiscount": discountCode
+            }).then( response => {
+                
+                this.vaciarCarrito()
+                window.location.href = "/listaProducto.html"
+            })
+            .catch(err => {
+                console.log(err.response.data);
+            })
+
+
+        },
+        current(){
+            console.log("funciona")
+            axios.get("/api/clients/current")
+            .then(response => {
+                this.existClient = true
+                console.log(this.existClient)
+                this.clientInformation = response.data
+                let listPedido = this.clientInformation.pedidos.sort((a,b) => b.id - a.id)
+                console.log(listPedido)
+                this.pedido = listPedido[0]
+                console.log(this.pedido)
+                let product = this.pedido.products
+                for (let i = 0; i < product.length; i++) {
+                    let total = product[i].quantity * product[i].product.price
+                    console.log(total)
+                    this.totalPrice = this.totalPrice +  total
+                    this.totalQuantity = this.totalQuantity + product[i].quantity
+                }
+                console.log(this.totalPrice)
+            })
+            .catch(error => this.existClient = false)
+        },
         vaciarCarrito() {
             let todosProductos = JSON.parse(localStorage.getItem("productos"))
             todosProductos.forEach(response => {
@@ -201,63 +287,15 @@ createApp({
 
             if (this.listaJuegos.length === 0) {
                 alert("El carrito está vacío!")
-            } else if (this.shippingAddress.length === 0 || this.shippingCity.length === 0 || this.zipCode.length === 0 || this.paymentMethod.length === 0) {
-                alert("Hay campos vacios")
-            } else {
-                this.realizarCompra();
+            } else if (this.existClient == false) {
+                alert("no esta autenticado")
+            }else{
+                window.location.href = "/postnet.html"
             }
 
         },
 
-        realizarCompra() {
-
-            let buyProducts = [];
-
-            this.listaJuegos.forEach(juego => {
-                let productCart = new Object();
-
-                productCart.idProducto = juego.id,
-                    productCart.productQuantity = juego.cantidad;
-
-                buyProducts.push(productCart);
-
-            })
-
-
-
-            let discountCode = "";
-            if (this.discountCode.length === 0) {
-                discountCode = "SinDescuento"
-            } else {
-                discountCode = this.discountCode;
-            }
-
-            axios.post("/api/clients/current/pedido", {
-
-
-
-                "shippingAddress": this.shippingAddress,
-                "shippingCity": this.shippingCity,
-                "zipCode": this.zipCode,
-                "paymentMethod": this.paymentMethod,
-                "products": buyProducts,
-                "codeDiscount": discountCode
-
-
-
-
-            }).then(
-                this.vaciarCarrito()
-
-            )
-
-            .catch(err => {
-                console.log(err.response.data);
-
-            })
-
-
-        },
+        
 
         async prueba() {
             localStorage.setItem("buscar", this.texto)

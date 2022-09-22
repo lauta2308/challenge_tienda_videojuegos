@@ -1,6 +1,6 @@
-/* T A I L W I N D (npx tailwindcss -i ./css/style.css -o ./css/tailwind.css --watch)*/
-
-/* ! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com*/
+/*
+! tailwindcss v3.1.8 | MIT License | https://tailwindcss.com
+*/
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -1755,11 +1755,6 @@ video {
   margin: -1rem;
 }
 
-.my-5 {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1828,6 +1823,10 @@ video {
 
 .resize {
   resize: both;
+}
+
+.flex-row {
+  flex-direction: row;
 }
 
 .flex-col {
@@ -3771,7 +3770,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 aside {
   width: 190px;
-  margin-right: 2rem;
 }
 
 .section-search input {
@@ -4446,7 +4444,7 @@ aside {
   margin-top: 1rem;
 }
 
-.checkboxs h4 {
+.section-search h4 {
   color: var(--color-fondo-2);
   font-size: 1.5rem;
   margin-bottom: .5rem
@@ -4721,8 +4719,7 @@ section,
 }
 
 .producto-carrito-info {
-  margin-top: auto;
-  margin-bottom: auto;
+  margin: 0px;
   display: flex;
   flex-direction: column;
 }
@@ -4818,7 +4815,7 @@ section,
   }
 }
 
-@media (max-width:400px) {
+@media (max-width:400){
   .contenedor-objetos-carrito {
     width: 300px;
     height: 350px;
@@ -4993,7 +4990,6 @@ section,
   -moz-border-radius: var(--border-radius-1);
   -ms-border-radius: var(--border-radius-1);
   -o-border-radius: var(--border-radius-1);
-  padding: 10px 15px;
   display: flex;
   align-items: center
 }
@@ -5092,8 +5088,6 @@ section,
 }
 
 .producto-carrito-info {
-  margin-top: 1.25rem;
-  margin-bottom: 1.25rem;
   display: flex;
   flex-direction: column;
 }
@@ -5439,26 +5433,151 @@ section,
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
+  }
+
+  .cntr {
+    margin-right: .3rem
+  }
+
+  .cntr label {
+    font-size: .8rem !important
+  }
+
+  #select {
+    width: 15rem;
+    margin: .5rem
+  }
+
+  .checkboxs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 10vh;
+    margin: 0 0 1rem;
+  }
+
+  .searched {
+    display: flex;
+    justify-content: center;
+  }
+
+  .peliculas * {
+    width: 10rem;
+  }
+
+  .peliculas img {
+    width: 14rem;
+    margin-bottom: .5rem;
+  }
+
+  .peliculas h2 {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .erick {
+    align-items: center;
+    width: 33rem;
+  }
+
+  .erick * {
+    text-align: center;
+  }
+
+  .presentation ul {
+    width: 100%;
+    margin: 0;
+  }
+
+  @media (max-width: 600px) {
+    .erick {
+      width: 15rem;
+    }
+  }
+
+  .pedidos {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 50vh;
+  }
+
+  .info-user {
+    padding: 0;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+
+  .info-user .client {
+    padding: 5px 10px;
+  }
+
+  *::-webkit-scrollbar {
+    width: .45rem;
+    background: transparent;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--color-fondo-2);
+    border-radius: var(--border-radius-2);
+    -webkit-border-radius: var(--border-radius-2);
+    -moz-border-radius: var(--border-radius-2);
+    -ms-border-radius: var(--border-radius-2);
+    -o-border-radius: var(--border-radius-2);
+  }
+
+  .pedido-img {
+    height: 10rem;
+  }
+
+  table {
+    color: black;
+  }
+
+  td {
+    color: #8105D8;
+  }
+
+  .contenedor-tabla {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
-.searched {
-  display: flex;
-  justify-content: center;
+.pedidos {
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 50vh;
 }
 
-.peliculas * {
-  width: 10rem;
+.info-user {
+  padding: 5px 10px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
-.peliculas img {
-  width: 14rem;
-  margin-bottom: .5rem;
+.info-user .client {
+  padding: 5px 10px;
 }
 
-.peliculas h2 {
-  font-size: 1rem;
-  text-align: center;
+*::-webkit-scrollbar {
+  width: .45rem;
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-fondo-2);
+  border-radius: var(--border-radius-2);
+  -webkit-border-radius: var(--border-radius-2);
+  -moz-border-radius: var(--border-radius-2);
+  -ms-border-radius: var(--border-radius-2);
+  -o-border-radius: var(--border-radius-2);
 }
 
 .erick {
@@ -5481,34 +5600,39 @@ section,
   }
 }
 
-.pedidos {
-  overflow: hidden;
-  overflow-y: scroll;
-  height: 50vh;
+@media (max-width:630px) {
+  .section-search {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  aside {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
-.info-user {
-  padding: 0;
-  overflow: hidden;
-  overflow-y: scroll;
+.searched {
+  display: flex;
+  justify-content: center;
 }
 
-.info-user .client {
-  padding: 5px 10px;
+.peliculas {
+  width: 100%;
+  margin: auto 0;
 }
 
-*::-webkit-scrollbar {
-  width: .45rem;
-  background: transparent;
+.peliculas img {
+  width: 12rem;
+  margin-bottom: .5rem;
 }
 
-*::-webkit-scrollbar-thumb {
-  background-color: var(--color-fondo-2);
-  border-radius: var(--border-radius-2);
-  -webkit-border-radius: var(--border-radius-2);
-  -moz-border-radius: var(--border-radius-2);
-  -ms-border-radius: var(--border-radius-2);
-  -o-border-radius: var(--border-radius-2);
+.peliculas h2 {
+  font-size: 1rem;
+  text-align: center;
 }
 
 .hover\:bg-blue-700:hover {
@@ -5604,4 +5728,3 @@ section,
     justify-content: flex-start;
   }
 }
-

@@ -72,11 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
          validate_inputs.forEach(function(input_valid){
          input_valid.classList.remove('warning');
          if(input_valid.hasAttribute('require')){
-             if(input_valid.value.length==0){
-                 validate=false;
-                 input_valid.classList.add('warning');
-             }
-         }
+            if(input_valid.value.length==0){
+                validate=false;
+                input_valid.classList.add('warning');
+            }
+        }
     });
       return validate;
     }

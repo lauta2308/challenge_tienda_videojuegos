@@ -26,11 +26,14 @@ createApp({
             listIdFavourites: [],
             listProductsFavorites: [],
             listFavorites: [],
+            rolClient: "",
+            pedidos: [],
             pedido: [],
-            monto: 0,
-            numeroTarjeta: "",
-            totalPrice: 0,
-            totalQuantity: 0,
+            pedidoActivo: {},
+            totalPedidoActivo: 0,
+            
+            
+            
         }
     },
     created() {
@@ -89,19 +92,13 @@ createApp({
 
     },
     methods: {
-
-
-        submitUrl() {
-            axios.get('/api/data', { params: { url: `http://localhost:8085/api/pay?amount=${this.monto}&cardNumber=${this.numeroTarjeta}` } })
-                .then(
-                    console.log("se envió la petición")
-                )
-
-            .catch(err => {
-                console.log(err.response.data);
+        changeActiveOrder(orderId) {
+            this.pedidoActivo = this.pedidos.filter(pedido => pedido.id == orderId)[0]
+            this.totalPedidoActivo = 0
+            this.pedidoActivo.products.forEach(pedido => {
+                this.totalPedidoActivo = this.totalPedidoActivo + pedido.product.price * pedido.quantity
             })
         },
-        
         addToFaavorites(id){
             axios.patch("/api/clients/current/favourites",`productId=${id}`)
             .then((response) => {
@@ -154,41 +151,29 @@ createApp({
                 window.location.href = "/index.html"
             })
         },
-        current(){
+        current() {
             axios.get("/api/clients/current")
-            .then(response => { 
-                console.log(response)
-                this.existClient = true
-                this.clientInformation = response.data
-                let listFavourites= this.clientInformation.favouritesProducts
-                listFavourites.forEach(response => {
-                    this.listProductsFavorites.push(response)
+                .then(response => {
+                    this.rolClient = response.data.rol
+                    this.pedidos = response.data.pedidos;
+                    this.existClient = true
+                    this.clientInformation = response.data
+                    let listFavourites = this.clientInformation.favouritesProducts
+                    listFavourites.forEach(response => {
+                        this.listProductsFavorites.push(response)
+                    })
+                    this.listProductsFavorites.forEach(response => {
+                        this.listFavorites.push(response.product)
+                    })
+
+                    this.listFavorites.forEach(response => {
+                        this.listIdFavourites.push(response.id)
+                    })
+
+                    let listPedido = this.clientInformation.pedidos.sort((a, b) => b.id - a.id)
+                    this.pedido = listPedido[0]
+
                 })
-
-                console.log(this.listProductsFavorites)
-                this.listProductsFavorites.forEach(response => {
-                    this.listFavorites.push(response.product)
-                })
-
-                this.listFavorites.forEach(response => {
-                    this.listIdFavourites.push(response.id)
-                })
-
-                let listPedido = this.clientInformation.pedidos.sort((a,b) => b.id - a.id)
-                console.log(listPedido)
-                this.pedido = listPedido[0]
-                console.log(this.pedido)
-                let product = this.pedido.products
-                for (let i = 0; i < product.length; i++) {
-                    let total = product[i].quantity * product[i].product.price
-                    console.log(total)
-                    this.totalPrice = this.totalPrice +  total
-                    this.totalQuantity = this.totalQuantity + product[i].quantity
-                }
-                console.log(this.totalPrice)
-
-            })
-            .catch(err => console.error(err))
         },
         loadProducts() {
             axios.get("/api/products").then(response => {
