@@ -107,6 +107,7 @@ public class ClientController {
 
 
     @RequestMapping("/api/clients/current/favourites")
+
     public ResponseEntity<Object> deleteFavourite(Authentication authentication, @RequestParam Long favouriteProductId) {
 
 
