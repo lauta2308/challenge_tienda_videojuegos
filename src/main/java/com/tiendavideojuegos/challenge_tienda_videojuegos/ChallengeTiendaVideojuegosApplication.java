@@ -45,7 +45,7 @@ public class ChallengeTiendaVideojuegosApplication {
 
 			productRepository.save(productTwo);
 
-			Discount discountOne = new Discount("Sin Descuento", 0.00, "Sin Descuento",LocalDate.now().plusYears(999),99999999);
+			Discount discountOne = new Discount("SinDescuento", 0.00, "SinDescuento",LocalDate.now().plusYears(999),99999999);
 			discountRepository.save(discountOne);
 
 

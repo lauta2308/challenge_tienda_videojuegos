@@ -11,7 +11,13 @@ public class RequestPedido {
     private String shippingCity;
     private String zipCode;
     private PaymentMethod paymentMethod;
+
+    private String codeDiscount;
     private List<ProductOrderDto> products;
+
+    public String getCodeDiscount() {
+        return codeDiscount;
+    }
 
     public String getShippingAddress() {
         return shippingAddress;
@@ -24,6 +30,7 @@ public class RequestPedido {
     public String getZipCode() {
         return zipCode;
     }
+
 
     public PaymentMethod getPaymentMethod() {
         return paymentMethod;

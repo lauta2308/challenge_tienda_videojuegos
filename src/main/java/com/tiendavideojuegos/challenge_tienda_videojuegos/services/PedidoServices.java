@@ -37,7 +37,7 @@ public class PedidoServices implements PedidoService {
     DiscountRepository discountRepository;
 
     @Override
-    public ResponseEntity<Object> addPedido(RequestPedido requestPedido, Authentication authentication, String codeDiscount) {
+    public ResponseEntity<Object> addPedido(RequestPedido requestPedido, Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
 
         if(requestPedido.getShippingAddress().isEmpty() || requestPedido.getShippingCity().isEmpty() || requestPedido.getZipCode().isEmpty() || requestPedido.getProducts().isEmpty() || requestPedido.getPaymentMethod() == null){
@@ -61,7 +61,7 @@ public class PedidoServices implements PedidoService {
             }
         }
 
-        Discount discount= discountRepository.findByCode(codeDiscount);
+        Discount discount= discountRepository.findByCode(requestPedido.getCodeDiscount());
 
 
 
