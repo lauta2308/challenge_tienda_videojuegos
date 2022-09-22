@@ -166,8 +166,8 @@
 
         <section class="section-cart contenedor">
 
-            <div class="contenedor-objetos-carrito">
-                <div class="gif-carrito">
+            <div class="contenedor-objetos-carrito" >
+                <div v-if="listProductsFavorites.length == 0" class="gif-carrito">
                     <div class="contenedor-producto-info">
 
                         <img class="gif"
@@ -181,36 +181,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="producto-carrito">
+                <div v-else v-for="producto in listProductsFavorites.sort((a,b) => b.id - a.id)" class="producto-carrito">
                     <div class="contenedor-producto-info">
                         <div class="producto-carrito-img"
-                            style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                        :style="{ 'background-image': 'url(' + producto.product.image + ')' }" >
                         </div>
                         <div class="producto-carrito-info">
-                            <h3>Call of duty</h3>
-                            <span>Play Station</span>
-                            <span class="price">$ 3.000</span>
+                            <h3>{{producto.product.name}}</h3>
+                            <span>{{producto.product.platform}}</span>
+                            <span class="price"></span>
                         </div>
                     </div>
 
                     <div class="producto-carrito-opciones">
                         <div class="sumar-restar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus"
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus"
                                 width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <circle cx="12" cy="12" r="9" />
                                 <line x1="9" y1="12" x2="15" y2="12" />
                                 <line x1="12" y1="9" x2="12" y2="15" />
-                            </svg>
-                            <span>1</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-minus"
+                            </svg> -->
+                            <h3>Stock {{producto.product.stock}}</h3>
+                            <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-minus"
                                 width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                 fill="none" stroke-linecap="round" stroke-linejoin="round">
                                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                 <circle cx="12" cy="12" r="9" />
                                 <line x1="9" y1="12" x2="15" y2="12" />
-                            </svg>
+                            </svg> -->
                         </div>
                         <div class="borrar-total">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x"
@@ -227,98 +227,7 @@
 
                     </div>
                 </div>
-                <div class="producto-carrito">
-                    <div class="contenedor-producto-info">
-                        <div class="producto-carrito-img"
-                            style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                        </div>
-                        <div class="producto-carrito-info">
-                            <h3>Call of duty</h3>
-                            <span>Play Station</span>
-                            <span class="price">$ 3.000</span>
-                        </div>
-                    </div>
-
-                    <div class="producto-carrito-opciones">
-                        <div class="sumar-restar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="12" cy="12" r="9" />
-                                <line x1="9" y1="12" x2="15" y2="12" />
-                                <line x1="12" y1="9" x2="12" y2="15" />
-                            </svg>
-                            <span>1</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-minus"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="12" cy="12" r="9" />
-                                <line x1="9" y1="12" x2="15" y2="12" />
-                            </svg>
-                        </div>
-                        <div class="borrar-total">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 7h16" />
-                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                <path d="M10 12l4 4m0 -4l-4 4" />
-                            </svg>
-                        </div>
-
-
-                    </div>
-                </div>
-                <div class="producto-carrito">
-                    <div class="contenedor-producto-info">
-                        <div class="producto-carrito-img"
-                            style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                        </div>
-                        <div class="producto-carrito-info">
-                            <h3>Call of duty</h3>
-                            <span>Play Station</span>
-                            <span class="price">$ 3.000</span>
-                        </div>
-                    </div>
-
-                    <div class="producto-carrito-opciones">
-                        <div class="sumar-restar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-plus"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="12" cy="12" r="9" />
-                                <line x1="9" y1="12" x2="15" y2="12" />
-                                <line x1="12" y1="9" x2="12" y2="15" />
-                            </svg>
-                            <span>1</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-minus"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <circle cx="12" cy="12" r="9" />
-                                <line x1="9" y1="12" x2="15" y2="12" />
-                            </svg>
-                        </div>
-                        <div class="borrar-total">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash-x"
-                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M4 7h16" />
-                                <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                <path d="M10 12l4 4m0 -4l-4 4" />
-                            </svg>
-                        </div>
-
-
-                    </div>
-                </div>
+                
             </div>
 
         </section>
