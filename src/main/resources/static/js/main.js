@@ -105,6 +105,7 @@ createApp({
                         this.favouritesId=arrayFavorites[i].id
                     }
                 }
+                
                 console.log(this.favouritesId)
 
             axios.delete("/api/clients/current/favourites",`favouriteProductId=${this.favouritesId}`)
