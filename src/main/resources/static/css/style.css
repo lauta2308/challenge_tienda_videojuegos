@@ -2597,9 +2597,7 @@ section,
 }
 
 @media (max-width:630px) {
-    .section-search aside {
-        display: none;
-    }
+    
 
     .section-search-2 {
         @apply flex flex-col;
@@ -2827,5 +2825,242 @@ section,
     .pedido-seleccionado {
         width: 100%;
         margin-top: 2rem;
+    }
+}
+.hidden {
+    display: none;
+}
+
+#onload {
+    @apply sticky flex items-center justify-center flex-col;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9122018;
+    background: var(--color-fondo-1);
+}
+
+#onload img {
+    width: 10rem;
+    margin-bottom: 1rem;
+}
+
+.loader {
+    width: 44px;
+    height: 44px;
+    position: relative;
+}
+
+.loader:before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    position: absolute;
+    display: block;
+    background: var(--color-detalles-1);
+    top: 37px;
+    left: 19px;
+    transform: translate(-18px, -18px);
+    animation: dotRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    -webkit-animation: dotRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.loader svg rect,
+.loader svg polygon,
+.loader svg circle {
+    fill: none;
+    stroke: var(--color-fondo-2);
+    stroke-width: 10px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+.loader svg polygon {
+    stroke-dasharray: 145 76 145 76;
+    stroke-dashoffset: 0;
+    animation: pathTriangle 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg rect {
+    stroke-dasharray: 192 64 192 64;
+    stroke-dashoffset: 0;
+    animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader svg circle {
+    stroke-dasharray: 150 50 150 50;
+    stroke-dashoffset: 75;
+    animation: pathCircle 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+    -webkit-animation: pathCircle 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+.loader.triangle {
+    width: 48px;
+}
+
+.loader.triangle:before {
+    left: 21px;
+    transform: translate(-10px, -18px);
+    animation: dotTriangle 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+}
+
+@keyframes pathTriangle {
+    33% {
+        stroke-dashoffset: 74;
+    }
+
+    66% {
+        stroke-dashoffset: 147;
+    }
+
+    100% {
+        stroke-dashoffset: 221;
+    }
+}
+
+@keyframes dotTriangle {
+    33% {
+        transform: translate(0, 0);
+    }
+
+    66% {
+        transform: translate(10px, -18px);
+    }
+
+    100% {
+        transform: translate(-10px, -18px);
+    }
+}
+
+@keyframes pathRect {
+    25% {
+        stroke-dashoffset: 64;
+    }
+
+    50% {
+        stroke-dashoffset: 128;
+    }
+
+    75% {
+        stroke-dashoffset: 192;
+    }
+
+    100% {
+        stroke-dashoffset: 256;
+    }
+}
+
+@keyframes dotRect {
+    25% {
+        transform: translate(0, 0);
+    }
+
+    50% {
+        transform: translate(18px, -18px);
+    }
+
+    75% {
+        transform: translate(0, -36px);
+    }
+
+    100% {
+        transform: translate(-18px, -18px);
+    }
+}
+
+@keyframes pathCircle {
+    25% {
+        stroke-dashoffset: 125;
+    }
+
+    50% {
+        stroke-dashoffset: 175;
+    }
+
+    75% {
+        stroke-dashoffset: 225;
+    }
+
+    100% {
+        stroke-dashoffset: 275;
+    }
+}
+
+.loader {
+    display: inline-block;
+    margin: 0 16px;
+}
+
+@media (max-width: 700px) {
+
+    #onload img {
+        width: 7rem;
+    }
+
+}
+*::-webkit-scrollbar {
+    width: .7rem;
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--color-fondo-2);
+    border-radius: 1rem;
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
+@media (max-width:630px) {
+
+    .section-search {
+        @apply flex-col justify-center;
+    }
+
+    aside {
+        @apply flex items-center flex-col mx-auto
+    }
+}
+
+.searched {
+    @apply flex justify-center
+}
+
+.peliculas * {
+    width: 10rem;
+}
+
+.peliculas img {
+    width: 14rem;
+    margin-bottom: .5rem;
+}
+
+.peliculas h2 {
+    font-size: 1rem;
+    text-align: center;
+}
+.erick {
+    @apply items-center;
+    width: 33rem;
+}
+
+.erick * {
+    text-align: center;
+}
+
+.presentation ul {
+    width: 100%;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .erick {
+        width: 15rem;
     }
 }

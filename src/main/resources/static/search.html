@@ -24,6 +24,29 @@
 
     <!-- P A G I N A -->
     <div id="app">
+        <!-- O N L O A D -->
+        <div id="onload">
+            <img src="./resources/logo/REBEL.png" alt="">
+            <div>
+                <div class="loader">
+                    <svg viewBox="0 0 80 80">
+                        <circle id="test" cx="40" cy="40" r="32"></circle>
+                    </svg>
+                </div>
+
+                <div class="loader triangle">
+                    <svg viewBox="0 0 86 80">
+                        <polygon points="43 8 79 72 7 72"></polygon>
+                    </svg>
+                </div>
+
+                <div class="loader">
+                    <svg viewBox="0 0 80 80">
+                        <rect x="8" y="8" width="64" height="64"></rect>
+                    </svg>
+                </div>
+            </div>
+        </div>
 
 
         <!-- E N C A B E Z A D O -->
@@ -339,12 +362,13 @@
                                     </svg>
                                     
                                     
+                                    
                                     <svg v-if="product.favourite" @click="deleteFavorites(product.id)" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart" width="44" height="44"
-                                        viewBox="0 0 24 24" stroke-width="5px!important" stroke="#FE59D7" fill="none" stroke-linecap="round"
+                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round"
                                         stroke-linejoin="round">
                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                         <path d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
-                                        <path d="M10 12l2 2l4 -4" />
+                                        <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                     </svg>
                                     
                                     <svg v-else @click="addToFaavorites(product.id)" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-heart"
