@@ -15,6 +15,11 @@ createApp({
             totalPrice: 0,
             productosCarrito: [],
             cantidadProductosCarrito: 0,
+            shippingAddress: "",
+            shippingCity: "",
+            zipCode: "",
+            paymentMethod: "",
+            discountCode: ""
 
         }
     },
@@ -34,15 +39,15 @@ createApp({
 
     },
     methods: {
-        vaciarCarrito(){
+        vaciarCarrito() {
             let todosProductos = JSON.parse(localStorage.getItem("productos"))
-            todosProductos.forEach(response =>{
+            todosProductos.forEach(response => {
                 if (response.carrito == true) {
                     response.carrito = false
                     this.productos()
                 }
             })
-            localStorage.setItem("productos", JSON.stringify(todosProductos) )
+            localStorage.setItem("productos", JSON.stringify(todosProductos))
         },
         amountFixed(number) {
             return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 }).format(number);
@@ -188,6 +193,68 @@ createApp({
 
 
             //window.location.reload();
+
+
+        },
+
+        solicitudRealizarCompra() {
+
+            if (this.listaJuegos.length === 0) {
+                alert("El carrito está vacío!")
+            } else if (this.shippingAddress.length === 0 || this.shippingCity.length === 0 || this.zipCode.length === 0 || this.paymentMethod.length === 0) {
+                alert("Hay campos vacios")
+            } else {
+                this.realizarCompra();
+            }
+
+        },
+
+        realizarCompra() {
+
+            let buyProducts = [];
+
+            this.listaJuegos.forEach(juego => {
+                let productCart = new Object();
+
+                productCart.idProducto = juego.id,
+                    productCart.productQuantity = juego.cantidad;
+
+                buyProducts.push(productCart);
+
+            })
+
+
+
+            let discountCode = "";
+            if (this.discountCode.length === 0) {
+                discountCode = "SinDescuento"
+            } else {
+                discountCode = this.discountCode;
+            }
+
+            axios.post("/api/clients/current/pedido", {
+
+
+
+                "shippingAddress": this.shippingAddress,
+                "shippingCity": this.shippingCity,
+                "zipCode": this.zipCode,
+                "paymentMethod": this.paymentMethod,
+                "products": buyProducts,
+                "codeDiscount": discountCode
+
+
+
+
+            }).then(
+                this.vaciarCarrito()
+
+            )
+
+            .catch(err => {
+                console.log(err.response.data);
+
+            })
 
 
         },
