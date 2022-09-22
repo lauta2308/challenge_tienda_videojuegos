@@ -26,6 +26,7 @@ createApp({
             listIdFavourites: [],
             listProductsFavorites: [],
             listFavorites: [],
+            favouritesId: 0,
         }
     },
     created() {
@@ -87,18 +88,32 @@ createApp({
                 axios.patch("/api/clients/current/favourites",`productId=${id}`)
                 .then((response) => {
                     console.log(response);
-                    window.location.reload();
+                    this.current()
+                    this.loadProducts()
     
                 })
                 .catch((error) => console.log(error))
             }
         },
         deleteFavorites(id){
-            axios.delete("/api/clients/current/favourites",`favouriteProductId=${id}`)
+            console.log(id)
+                let arrayFavorites = this.clientInformation.favouritesProducts
+                console.log(arrayFavorites)
+
+                for (let i = 0; i < arrayFavorites.length; i++) {
+                    if (arrayFavorites[i].product.id==id) {
+                        this.favouritesId=arrayFavorites[i].id
+                    }
+                }
+                console.log(this.favouritesId)
+
+            axios.delete("/api/clients/current/favourites",`favouriteProductId=${this.favouritesId}`)
             .then((response) => {
                 console.log(response);
+                this.current()
+                this.loadProducts()
             })
-            .catch((error) => console.log(error))
+            .catch((error) => console.log(error) )
         },
         logOut(){
             axios.post("/api/logout")
