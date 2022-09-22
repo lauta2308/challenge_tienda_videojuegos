@@ -44,42 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var left_side = document.querySelector(".left-side");
     var right_side = document.querySelector(".right-side");
     var success = document.querySelector(".success");
-    click_pay.addEventListener('click',function(){
-        
-        
-        if(!validateform()){ 
-            return false;
-        } 
-      right_side.style.display="none";
-      left_side.classList.toggle('wide');
-      left_side.style.display="block";
-      card.classList.add('d-none');
-         
-      setTimeout(function(){
-        success.classList.add('success_done');
-    }, 2000);
-      
-    setTimeout(function(){
-        success.classList.add('success_final');
-    }, 4000);
-       
-    });
     
-    function validateform(){
-        validate=true;
-    var validate_inputs=document.querySelectorAll(".right-side input");  
-         
-         validate_inputs.forEach(function(input_valid){
-         input_valid.classList.remove('warning');
-         if(input_valid.hasAttribute('require')){
-            if(input_valid.value.length==0){
-                validate=false;
-                input_valid.classList.add('warning');
-            }
-        }
-    });
-      return validate;
-    }
     
     //  validate_inputs.classList.remove('warning');
     //  if(validate_inputs has)

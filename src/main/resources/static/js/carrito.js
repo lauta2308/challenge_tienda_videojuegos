@@ -27,6 +27,7 @@ createApp({
             numeroTarjeta: "",
             pedido: [],
             clientInformation: [],
+            checkImprimir: [],
 
         }
     },
@@ -47,6 +48,10 @@ createApp({
 
     },
     methods: {
+        imprimir(){
+            return print()
+        },
+        
         submitUrl() {
             let numero = this.numeroTarjeta.slice(0,19).split(' ')
             let numeroTarjeta = ""
@@ -54,6 +59,7 @@ createApp({
                 numeroTarjeta += numero[i] + "-"
             }
             numeroTarjetaCompleto = numeroTarjeta.slice(0,19)
+            console.log(numeroTarjetaCompleto)
             
             axios.get('/api/data', { params: { url: `http://localhost:8085/api/pay?amount=${this.totalPrice}&cardNumber=${numeroTarjetaCompleto}` } })
                 .then(
@@ -84,23 +90,44 @@ createApp({
             } else {
                 discountCode = this.discountCode;
             }
+            
 
             axios.post("/api/clients/current/pedido", {
                 "shippingAddress": this.shippingAddress,
                 "shippingCity": this.shippingCity,
                 "zipCode": this.zipCode,
-                "paymentMethod": this.paymentMethod,
+                "paymentMethod": "PAYPAL",
                 "products": buyProducts,
                 "codeDiscount": discountCode
             }).then( response => {
                 
+                
                 this.vaciarCarrito()
                 window.location.href = "/listaProducto.html"
+                
             })
             .catch(err => {
-                console.log(err.response.data);
+                console.log(err);
             })
 
+
+        },
+        descargarReporte: function() {
+
+            var doc = new jsPDF('p', 'pt', 'letter');
+            var margin = 10;
+            var scale = (doc.internal.pageSize.width - margin * 2) / document.body.scrollWidth;
+            doc.html(document.querySelector(".contenedor-tabla"), {
+                x: margin,
+                y: margin,
+                html2canvas: {
+                    scale: scale,
+                },
+                callback: function(doc) {
+                    //doc.output("dataurlnewwindow", { filename: "comprobante de pago.pdf" });
+                    doc.save("comprobante.pdf")
+                }
+            })
 
         },
         current(){
@@ -147,8 +174,8 @@ createApp({
 
             if (productosAgregados) {
                 if (productosAgregados.length > 0) {
-                    window.location.reload();
                     this.productosCarrito = productosAgregados;
+                    window.location.reload();
                     console.log(productosAgregados === true)
                     console.log("funciona prod agregados")
                 } else {
@@ -161,7 +188,7 @@ createApp({
 
             if (this.productosCarrito === null) {
                 console.log("no funciona");
-
+                
             } else {
                 console.log(this.productosCarrito)
 

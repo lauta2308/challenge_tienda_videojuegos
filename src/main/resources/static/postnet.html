@@ -91,9 +91,15 @@
                             <span>Code Discount</span>
                             
                         </div>  
-                        <div class="button">
-                            <button @click="submitUrl()" class="click-pay">Pay {{amountFixed(totalPrice)}}</button>
+                        <div>
+                            <div class="button">
+                                <button @click="submitUrl()" class="click-pay">Pay{{amountFixed(totalPrice)}}</button>
+                            </div>
+                            <div class="input-text">
+                                <input type="checkbox" v-model="checkImprimir" value="checkeado" name="" id="">
+                            </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>

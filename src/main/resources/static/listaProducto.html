@@ -25,77 +25,80 @@
     <!-- P A G I N A -->
     <div id="app">
         <div class="contenedor-tabla">
-            <img class="logo-tabla" src="/resources/logo/REBEL_logo_vertical.png" alt="">
-            <div class="contenedor-informacion-tabla">
+                <img class="logo-tabla" src="/resources/logo/REBEL_logo_vertical.png" alt="">
+                <div class="contenedor-informacion-tabla">
 
-                <h2>
-                    Client : {{clientInformation.name}} {{clientInformation.lastName}}
-                </h2>
-                <div class="general-information to-black">
-                    <h3>
-                        general information:
-                    </h3>
-                    <div class="contenedor-general">
-                        <div>
+                    <h2>
+                        Client : {{clientInformation.name}} {{clientInformation.lastName}}
+                    </h2>
+                    <div class="general-information to-black">
+                        <h3>
+                            general information:
+                        </h3>
+                        <div class="contenedor-general">
+                            <div>
 
-                            <p>
-                                Shipping Date: {{pedido.deliveryDate}}
-                            </p>
-        
-                            <p>
-                                Delivery Date: {{pedido.deliveryDate}}
-                            </p>
+                                <p>
+                                    Shipping Date: {{pedido.deliveryDate}}
+                                </p>
+            
+                                <p>
+                                    Delivery Date: {{pedido.deliveryDate}}
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    amount payable: ${{totalPrice}}
+                                </p>
+                                <p>
+                                    method Payment: {{pedido.paymentMethod}}
+                                </p>
+                            </div>
                         </div>
-                        <div>
-                            <p>
-                                amount payable: ${{totalPrice}}
-                            </p>
-                            <p>
-                                method Payment: {{pedido.paymentMethod}}
-                            </p>
+                        
+                    </div>
+                    <div class="general-information">
+                        <h3>Personal Information</h3>
+                        <div class="contenedor-general">
+                            <div>
+                                <p>
+                                    Shipping Addres: {{pedido.shippingAddress}}
+                                </p>
+                                <p>
+                                    Shipping City: {{pedido.shippingCity}}
+                                </p>
+                                
+                            </div>
+                            <div>
+                                <p>Zip Code: {{pedido.zipCode}} </p>
+                                <p>Total Quantity: {{totalQuantity}}</p>
+                            </div>
                         </div>
                     </div>
                     
+                    
                 </div>
-                <div class="general-information">
-                    <h3>Personal Information</h3>
-                    <div class="contenedor-general">
-                        <div>
-                            <p>
-                                Shipping Addres: {{pedido.shippingAddress}}
-                            </p>
-                            <p>
-                                Shipping City: {{pedido.shippingCity}}
-                            </p>
-                            
-                        </div>
-                        <div>
-                            <p>Zip Code: {{pedido.zipCode}} </p>
-                            <p>Total Quantity: {{totalQuantity}}</p>
-                        </div>
-                    </div>
-                </div>
-                
-                
-            </div>
-        <table >
-            <thead>
-                <th>order</th>
-                <th>quantity</th>
-                <th>total</th>
-            </thead>
-            <tbody>
-                <tr v-for="producto in pedido.products">
-                    <td>
-                        {{producto.product.name}}
-                    </td>
-                    <td>{{producto.quantity}}</td>
-                    <td>{{producto.product.price * producto.quantity}}</td>
-                </tr>
-            </tbody>
-        </table>
+                <table >
+                    <thead>
+                        <th>order</th>
+                        <th>quantity</th>
+                        <th>total</th>
+                    </thead>
+                    <tbody>
+                        <tr v-for="producto in pedido.products">
+                            <td>
+                                {{producto.product.name}}
+                            </td>
+                            <td>{{producto.quantity}}</td>
+                            <td>{{producto.product.price * producto.quantity}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            
         </div>
-        
+        <button class="boton"  @click="descargarReporte()">download resume</button>
+        <a href="./index.html">go to home</a>
 
     </div>
 
@@ -103,16 +106,36 @@
     <!-- S C R I P T S -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <!-- cdn -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <!-- axios -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- michalsnik.github.io/aos/ -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- J S P D F -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.js"></script>
+    <!-- I M P R I M I R -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- axios -->
     <!-- sweetalert2.github.io -->
     <script src="https://unpkg.com/vue@3"></script>
     <!-- vue -->
     <script src="./js/carrito.js"></script>
     <!-- js -->
+    <script>
+         function imprimirPdf() {
+
+            var pdf = new jsPDF('p', 'pt', 'letter');
+            pdf.canvas.height = 72 * 11;
+            pdf.canvas.width = 72 * 8.5;
+
+            pdf.fromHTML(document.querySelector(".contenedor-tabla"));
+
+            pdf.save('test.pdf');
+
+
+        }
+    </script>
+
+    
 
 </body>
 
