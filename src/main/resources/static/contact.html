@@ -151,7 +151,7 @@
             <div class="contenedor-login contact">
                 <div class="login-box register">
                     <h4>Contact us here!</h4>
-                    <form>
+                    <form @submit.prevent="alertaOne">
                         <div class="user-box">
                             <input type="email" name="" required="" v-model="clientInformation.email">
                             <label>Email</label>

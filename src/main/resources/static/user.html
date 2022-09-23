@@ -137,7 +137,7 @@
         </header>
 
         <!-- C O N T E N T -->
-        <section v-if='rolClient == "USER"' class="contenedor section-user">
+        <section class="contenedor section-user">
             <div class="info-user">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user-circle" width="44"
                     height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
@@ -162,34 +162,48 @@
                 </svg>
             </div>
             <div class="cartera"></div>
-            <div class="dale">
+            <div v-if='rolClient == "USER"' class="dale">
                 <div class="pedidos">
-                    <div v-for="pedido in pedidos" class="contenedor-pedido">
-                        <div class="producto-carrito-info">
-                            <h3>order number {{pedido.id}}</h3>
-                            <span>{{pedido.orderStatus}}</span>
+                    <div v-if="pedidos.length != 0">
+                        <div v-for="pedido in pedidos" class="contenedor-pedido">
+                            <div class="producto-carrito-info">
+                                <h3>order number {{pedido.id}}</h3>
+                                <span>{{pedido.orderStatus}}</span>
+                            </div>
+                            <svg @click="changeActiveOrder(pedido.id)" xmlns="http://www.w3.org/2000/svg"
+                                class="icon icon-tabler icon-tabler-click" width="44" height="44" viewBox="0 0 24 24"
+                                stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <line x1="3" y1="12" x2="6" y2="12" />
+                                <line x1="12" y1="3" x2="12" y2="6" />
+                                <line x1="7.8" y1="7.8" x2="5.6" y2="5.6" />
+                                <line x1="16.2" y1="7.8" x2="18.4" y2="5.6" />
+                                <line x1="7.8" y1="16.2" x2="5.6" y2="18.4" />
+                                <path d="M12 12l9 3l-4 2l-2 4l-3 -9" />
+                            </svg>
                         </div>
-                        <svg @click="changeActiveOrder(pedido.id)" xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-click" width="44" height="44" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="#FE59D7" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <line x1="3" y1="12" x2="6" y2="12" />
-                            <line x1="12" y1="3" x2="12" y2="6" />
-                            <line x1="7.8" y1="7.8" x2="5.6" y2="5.6" />
-                            <line x1="16.2" y1="7.8" x2="18.4" y2="5.6" />
-                            <line x1="7.8" y1="16.2" x2="5.6" y2="18.4" />
-                            <path d="M12 12l9 3l-4 2l-2 4l-3 -9" />
-                        </svg>
+                    </div>
+                    <div v-else>
+                        <h3 class="padeame">select a product to see in detail</h3>
                     </div>
                 </div>
-                <div class="pedido-seleccionado">
+                <div v-if="totalPedidoActivo != 0" class="pedido-seleccionado">
                     <div class="producto-carrito-info">
                         <h3>Order number {{pedidoActivo.id}}</h3>
                         <div class="wacho">
-                            <span class="price">{{totalPedidoActivo}}</span>
+                            <span class="price">{{amountFixed(totalPedidoActivo)}}</span>
                         </div>
                         <span>Order Status: {{pedidoActivo.orderStatus}}</span>
+                    </div>
+                    <div class="productos-pedido" v-for="producto in pedidoProductos">
+                        <span>{{producto.product.name}} x {{producto.quantity}}</span>
+                        <span class="ml-6">{{amountFixed(producto.product.price)}}</span>
+                    </div>
+                </div>
+                <div v-else class="pedido-seleccionado">
+                    <div class="producto-carrito-info">
+                        <h3>select a product to see in detail</h3>
                     </div>
                 </div>
             </div>

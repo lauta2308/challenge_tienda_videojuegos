@@ -210,42 +210,41 @@
                 <div class="div-cards">
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(0,2)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                    
-                                                            <span class="price">$ 3.200,0</span>
-                                    
-                                                        </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -253,10 +252,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -267,102 +278,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                            <circle cx="6" cy="19" r="2" />
-                                                            <circle cx="17" cy="19" r="2" />
-                                                            <path d="M17 17h-11v-14h-2" />
-                                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                            <path d="M17 3l4 4" />
-                                                            <path d="M21 3l-4 4" />
-                                                        </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                                
-                                                                                <span class="price">$ 3.200,0</span>
-                                                
-                                                                            </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                <circle cx="6" cy="19" r="2" />
-                                                                                <circle cx="17" cy="19" r="2" />
-                                                                                <path d="M17 17h-11v-14h-2" />
-                                                                                <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                                <path d="M17 3l4 4" />
-                                                                                <path d="M21 3l-4 4" />
-                                                                            </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -380,42 +311,41 @@
                     </div>
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(2,4)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                                
-                                                                                <span class="price">$ 3.200,0</span>
-                                                
-                                                                            </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -423,10 +353,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -437,102 +379,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                <circle cx="6" cy="19" r="2" />
-                                                                                <circle cx="17" cy="19" r="2" />
-                                                                                <path d="M17 17h-11v-14h-2" />
-                                                                                <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                                <path d="M17 3l4 4" />
-                                                                                <path d="M21 3l-4 4" />
-                                                                            </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                                
-                                                                                <span class="price">$ 3.200,0</span>
-                                                
-                                                                            </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                <circle cx="6" cy="19" r="2" />
-                                                                                <circle cx="17" cy="19" r="2" />
-                                                                                <path d="M17 17h-11v-14h-2" />
-                                                                                <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                                <path d="M17 3l4 4" />
-                                                                                <path d="M21 3l-4 4" />
-                                                                            </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -554,42 +416,41 @@
                 <div class="div-cards">
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(4,6)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                        
-                                                <span class="price">$ 3.200,0</span>
-                        
-                                            </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -597,10 +458,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -611,102 +484,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                <circle cx="6" cy="19" r="2" />
-                                                <circle cx="17" cy="19" r="2" />
-                                                <path d="M17 17h-11v-14h-2" />
-                                                <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                <path d="M17 3l4 4" />
-                                                <path d="M21 3l-4 4" />
-                                            </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                    
-                                                                    <span class="price">$ 3.200,0</span>
-                                    
-                                                                </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                    <circle cx="6" cy="19" r="2" />
-                                                                    <circle cx="17" cy="19" r="2" />
-                                                                    <path d="M17 17h-11v-14h-2" />
-                                                                    <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                    <path d="M17 3l4 4" />
-                                                                    <path d="M21 3l-4 4" />
-                                                                </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -724,42 +517,41 @@
                     </div>
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(6,8)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                    
-                                                                    <span class="price">$ 3.200,0</span>
-                                    
-                                                                </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -767,10 +559,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -781,102 +585,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                    <circle cx="6" cy="19" r="2" />
-                                                                    <circle cx="17" cy="19" r="2" />
-                                                                    <path d="M17 17h-11v-14h-2" />
-                                                                    <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                    <path d="M17 3l4 4" />
-                                                                    <path d="M21 3l-4 4" />
-                                                                </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                    
-                                                                    <span class="price">$ 3.200,0</span>
-                                    
-                                                                </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                    <circle cx="6" cy="19" r="2" />
-                                                                    <circle cx="17" cy="19" r="2" />
-                                                                    <path d="M17 17h-11v-14h-2" />
-                                                                    <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                    <path d="M17 3l4 4" />
-                                                                    <path d="M21 3l-4 4" />
-                                                                </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -895,9 +619,9 @@
 
                 </div>
 
-                <div class="div-button">
+                <a href="search.html" class="div-button">
                     <button> More details...</button>
-                </div>
+                </a>
 
             </section>
 
@@ -948,43 +672,41 @@
                 <div class="div-cards">
 
                     <div class="div-card2">
+                        <div v-for="product in products.slice(8,10)" class="div-card">
 
-                        <div class="div-card">
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                
-                                                        <span class="price">$ 3.200,0</span>
-                                
-                                                    </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -992,10 +714,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1006,102 +740,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                        width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                        <circle cx="6" cy="19" r="2" />
-                                                        <circle cx="17" cy="19" r="2" />
-                                                        <path d="M17 17h-11v-14h-2" />
-                                                        <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                        <path d="M17 3l4 4" />
-                                                        <path d="M21 3l-4 4" />
-                                                    </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                            
-                                                                            <span class="price">$ 3.200,0</span>
-                                            
-                                                                        </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                            <circle cx="6" cy="19" r="2" />
-                                                                            <circle cx="17" cy="19" r="2" />
-                                                                            <path d="M17 17h-11v-14h-2" />
-                                                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                            <path d="M17 3l4 4" />
-                                                                            <path d="M21 3l-4 4" />
-                                                                        </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -1119,42 +773,41 @@
                     </div>
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(10,12)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                            
-                                                                            <span class="price">$ 3.200,0</span>
-                                            
-                                                                        </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -1162,10 +815,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1176,102 +841,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                            <circle cx="6" cy="19" r="2" />
-                                                                            <circle cx="17" cy="19" r="2" />
-                                                                            <path d="M17 17h-11v-14h-2" />
-                                                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                            <path d="M17 3l4 4" />
-                                                                            <path d="M21 3l-4 4" />
-                                                                        </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                            
-                                                                            <span class="price">$ 3.200,0</span>
-                                            
-                                                                        </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                            width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                            <circle cx="6" cy="19" r="2" />
-                                                                            <circle cx="17" cy="19" r="2" />
-                                                                            <path d="M17 17h-11v-14h-2" />
-                                                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                            <path d="M17 3l4 4" />
-                                                                            <path d="M21 3l-4 4" />
-                                                                        </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -1290,10 +875,9 @@
 
                 </div>
 
-                <div class="div-button">
+                <a href="search.html" class="div-button">
                     <button> More details...</button>
-                </div>
-
+                </a>
             </section>
 
             <!-- C A T E G O R I E S -->
@@ -1375,42 +959,41 @@
                 <div class="div-cards">
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(12,14)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                        
-                                                                <span class="price">$ 3.200,0</span>
-                                        
-                                                            </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -1418,10 +1001,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1432,102 +1027,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                <circle cx="6" cy="19" r="2" />
-                                                                <circle cx="17" cy="19" r="2" />
-                                                                <path d="M17 17h-11v-14h-2" />
-                                                                <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                <path d="M17 3l4 4" />
-                                                                <path d="M21 3l-4 4" />
-                                                            </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                                    
-                                                                                    <span class="price">$ 3.200,0</span>
-                                                    
-                                                                                </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                    <circle cx="6" cy="19" r="2" />
-                                                                                    <circle cx="17" cy="19" r="2" />
-                                                                                    <path d="M17 17h-11v-14h-2" />
-                                                                                    <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                                    <path d="M17 3l4 4" />
-                                                                                    <path d="M21 3l-4 4" />
-                                                                                </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -1545,42 +1060,41 @@
                     </div>
 
                     <div class="div-card2">
-                        <div class="div-card">
+                        <div v-for="product in products.slice(14,16)" class="div-card">
+
                             <article class="card">
 
                                 <div class="image-holder">
 
                                     <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
+                                        :style="{ 'background-image': 'url(' + product.image + ')' }">
                                     </div>
 
                                 </div>
 
                                 <div class="product-description">
 
-                                    <!-- title -->
                                     <h1 class="title">
-                                        Call of duty modern warfare II
+                                        {{product.name}}
                                     </h1>
 
-                                    <!-- category and price -->
                                     <div class="row category-price">
 
                                         <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
+                                            <div class="categpries">{{product.category[0]}}</div>
                                         </div>
 
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                                    
-                                                                                    <span class="price">$ 3.200,0</span>
-                                                    
-                                                                                </div> -->
+                                        <div v-if="product.discount == 0" class="col-xs-12 col-sm-4 prices original">
 
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
+                                            <span class="price">{{moneyFormat(product.price, 1)}}</span>
 
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
+                                        </div>
+
+                                        <div v-else class="col-xs-12 col-sm-4 prices offer">
+
+                                            <span class="price">{{moneyFormat(product.price, 1) }}</span>
+                                            <span class="discounted">{{moneyFormat(discountedPrice(product.price,
+                                                product.discount), 1)}}</span>
 
                                         </div>
 
@@ -1588,10 +1102,22 @@
 
                                     <hr />
 
-                                    <!-- descripcion -->
                                     <div class="description">
 
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-if="product.carrito=== true" @click="deleteToCart(product)"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-shopping-cart-x" width="44" height="44"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
+                                            stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="6" cy="19" r="2" />
+                                            <circle cx="17" cy="19" r="2" />
+                                            <path d="M17 17h-11v-14h-2" />
+                                            <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
+                                            <path d="M17 3l4 4" />
+                                            <path d="M21 3l-4 4" />
+                                        </svg>
+                                        <svg v-else @click="addToCart(product)" xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
                                             height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -1602,102 +1128,22 @@
                                             <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
                                             <path d="M15 6h6m-3 -3v6" />
                                         </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                    <circle cx="6" cy="19" r="2" />
-                                                                                    <circle cx="17" cy="19" r="2" />
-                                                                                    <path d="M17 17h-11v-14h-2" />
-                                                                                    <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                                    <path d="M17 3l4 4" />
-                                                                                    <path d="M21 3l-4 4" />
-                                                                                </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+
+
+
+                                        <svg v-if="product.favourite" @click="deleteFavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <path
                                                 d="M19.5 13.572l-7.5 7.428l-7.5 -7.428m0 0a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
+                                            <path d="M10.3 10.4l4 4m0 -4l-4 4" />
                                         </svg>
 
-                                    </div>
-
-                                </div>
-
-                            </article>
-                        </div>
-
-                        <div class="div-card">
-                            <article class="card">
-
-                                <div class="image-holder">
-
-                                    <div class="image-holder"
-                                        style="background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2022/01/call-of-duty.jpeg?fit=1920%2C1080&quality=50&strip=all&ssl=1')">
-                                    </div>
-
-                                </div>
-
-                                <div class="product-description">
-
-                                    <!-- title -->
-                                    <h1 class="title">
-                                        Call of duty modern warfare II
-                                    </h1>
-
-                                    <!-- category and price -->
-                                    <div class="row category-price">
-
-                                        <div class="col-xs-12 col-sm-8 category">
-                                            <div class="categpries">Acción</div>
-                                        </div>
-
-                                        <!-- <div class="col-xs-12 col-sm-4 prices original">
-                                                    
-                                                                                    <span class="price">$ 3.200,0</span>
-                                                    
-                                                                                </div> -->
-
-                                        <!-- Precio con descuento -->
-                                        <div class="col-xs-12 col-sm-4 prices offer">
-
-                                            <span class="price">$ 3.200,0</span>
-                                            <span class="discounted">$ 3.000,0</span>
-
-                                        </div>
-
-                                    </div>
-
-                                    <hr />
-
-                                    <!-- descripcion -->
-                                    <div class="description">
-
-                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                            class="icon icon-tabler icon-tabler-shopping-cart-plus" width="44"
-                                            height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="6" cy="19" r="2" />
-                                            <circle cx="17" cy="19" r="2" />
-                                            <path d="M17 17h-11v-14h-2" />
-                                            <path d="M6 5l6.005 .429m7.138 6.573l-.143 .998h-13" />
-                                            <path d="M15 6h6m-3 -3v6" />
-                                        </svg>
-                                        <!-- <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart-x"
-                                                                                    width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7"
-                                                                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                                                                    <circle cx="6" cy="19" r="2" />
-                                                                                    <circle cx="17" cy="19" r="2" />
-                                                                                    <path d="M17 17h-11v-14h-2" />
-                                                                                    <path d="M6 5l7.999 .571m5.43 4.43l-.429 2.999h-13" />
-                                                                                    <path d="M17 3l4 4" />
-                                                                                    <path d="M21 3l-4 4" />
-                                                                                </svg> -->
-                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                        <svg v-else @click="addToFaavorites(product.id)"
+                                            xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-heart" width="44" height="44"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="#FE59D7" fill="none"
                                             stroke-linecap="round" stroke-linejoin="round">
@@ -1716,9 +1162,9 @@
 
                 </div>
 
-                <div class="div-button">
+                <a href="search.html" class="div-button">
                     <button> More details...</button>
-                </div>
+                </a>
 
             </section>
         </div>

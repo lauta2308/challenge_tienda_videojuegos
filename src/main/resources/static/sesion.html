@@ -150,37 +150,32 @@
             </div>
             <!-- L O G   I N -->
             <div class="contenedor-login">
-                <div class="login-box register">
+                <div class="login-box register none">
                     <h3>Register</h3>
-                    <form>
-
+                    <form @submit.prevent="registrada">
                         <div class="nombre-apellido">
                             <div class="user-box">
-                                <input type="text" name="" required="">
+                                <input v-model="register.name" type="text" required="">
                                 <label>Name</label>
                             </div>
                             <div class="user-box">
-                                <input type="text" name="" required="">
+                                <input v-model="register.lastName" type="text" required="">
                                 <label>Last name</label>
                             </div>
                         </div>
                         <div class="user-box">
-                            <input type="text" name="" required="">
+                            <input v-model="register.email" type="text" required="">
                             <label>Mail</label>
                         </div>
                         <div class="genero-fecha">
                             <div class="w-g">
                                 <span class="position-absolute">Nacimiento</span>
-                                <input required type="date">
+                                <input v-model="register.nacimiento" required type="date">
                             </div>
                         </div>
                         <div class="user-box">
-                            <input type="password" name="" required="">
+                            <input v-model="register.password" type="password" required="">
                             <label>Password</label>
-                        </div>
-                        <div class="user-box last">
-                            <input type="password" name="" required="">
-                            <label>Confirm password</label>
                         </div>
 
                         <p>If you already have an account <b @click="turnLogIn">click here</b></p>
@@ -190,15 +185,15 @@
                         </button>
                     </form>
                 </div>
-                <div class="login-box login none loginardo">
+                <div class="login-box login loginardo">
                     <h3>Login</h3>
                     <form>
                         <div class="user-box">
-                            <input type="text" name="" required="" v-model="emailLogin">
+                            <input type="text" required="" v-model="emailLogin">
                             <label>Mail</label>
                         </div>
                         <div class="user-box last">
-                            <input type="password" name="" required="" v-model="passwordLogin">
+                            <input type="password" required="" v-model="passwordLogin">
                             <label>Password</label>
                         </div>
 

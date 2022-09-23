@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* npx tailwindcss -i ./css/style.css -o ./css/tailwind.css --watch */
 
 /* F O N T S */
 @font-face {
@@ -585,10 +585,11 @@ h2.subtitle {
     color: var(--color-letra-2);
     white-space: nowrap;
     font-size: 15px;
-    line-height: 1.1;
+    line-height: 1.6;
 }
 
 .product-description .categpries {
+    font-size: .6rem !important;
     color: var(--color-letra-2);
     opacity: .3;
 }
@@ -2787,6 +2788,10 @@ section,
     overflow-y: scroll;
 }
 
+.padeame {
+    padding: 10px;
+}
+
 .pedido-img {
     width: 100%;
     height: 12rem;
@@ -3281,4 +3286,28 @@ section,
 
 .sin-borde {
     border: none !important;
+}
+
+.icon-tabler-click {
+    cursor: pointer;
+}
+
+.swal2-popup {
+    background-color: var(--color-fondo-2) !important;
+}
+
+.swal2-title {
+    color: white !important;
+}
+
+.swal2-html-container {
+    color: white !important;
+}
+
+button.swal2-confirm {
+    background-color: var(--color-detalles-1) !important;
+}
+
+button.swal2-cancel {
+    background-color: var(--color-fondo-3) !important;
 }

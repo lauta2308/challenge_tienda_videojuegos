@@ -37,6 +37,13 @@ createApp({
             pedidoProductos: [],
             pregunta: false,
 
+            register: {
+                name: "",
+                lastName: "",
+                email: "",
+                nacimiento: "",
+                password: "",
+            },
 
         }
     },
@@ -94,8 +101,38 @@ createApp({
 
     },
     methods: {
+        registrada() {
+
+            axios.post("/api/clients?name=" + this.register.name + "&lastName=" + this.register.lastName + "&email=" + this.register.email + "&birthDate=" + this.register.nacimiento + "&password=" + this.register.password)
+
+            swal.fire({
+                title: "Welcome to REBEL " + this.register.name,
+                text: "We will send you to the home page",
+                icon: 'success',
+                confirmButtonText: 'Continue',
+            }).then(result => {
+                axios.post("/api/login", `email=${this.register.email}&password=${this.register.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+                .then(response => {
+                    
+                        window.location.href = "/user.html"
+                    
+
+                })
+            })
+
+
+        },
+
         changeActiveOrder(orderId) {
-            this.pedidoActivo = this.pedidosClienteSeleccionado.filter(pedido => pedido.id == orderId)[0]
+
+            if (this.rolClient == "ADMIN") {
+                this.pedidoActivo = this.pedidosClienteSeleccionado.filter(pedido => pedido.id == orderId)[0]
+            }
+
+            if (this.rolClient == "USER") {
+                this.pedidoActivo = this.pedidos.filter(pedido => pedido.id == orderId)[0]
+            }
+
             this.totalPedidoActivo = 0
             this.pedidoActivo.products.forEach(pedido => {
                 this.totalPedidoActivo = this.totalPedidoActivo + pedido.product.price * pedido.quantity
@@ -112,6 +149,23 @@ createApp({
                 .then((response) => {
                     this.current()
                     this.loadProducts()
+                }).then(() => {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Added to favorites'
+                    })
                 })
         },
         deleteFavorites(id) {
@@ -128,6 +182,23 @@ createApp({
                 }
             }
 
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: 'Deleted of favorites'
+            })
         },
         deleteListFavorites(id) {
             axios.post("/api/clients/current/favourites", `favouriteProductId=${id}`)
@@ -135,19 +206,43 @@ createApp({
                     window.location.reload();
                 })
         },
+
         logOut() {
-            axios.post("/api/logout")
-                .then(response => {
-                    this.existClient = false
-                    window.location.href = "/index.html"
-                })
+
+            swal.fire({
+                title: "Are you sure?",
+                text: "You are about to log out of REBEL",
+                icon: 'question',
+                confirmButtonText: 'Accept',
+                showCancelButton: "true",
+                cancelButtonText: 'Cancel',
+            }).then(result => {
+                if (result.isConfirmed) {
+                    axios.post("/api/logout")
+                        .then(response => {
+                            this.existClient = false
+                            window.location.href = "/index.html"
+                        })
+                }
+            })
+
+
         },
+
         loginUser() {
             axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
 
                 .then(response => {
 
-                    window.location.href = "/index.html"
+                    swal.fire({
+                        title: "Welcome back to REBEL",
+                        text: "We will send you to the home page",
+                        icon: 'success',
+                        confirmButtonText: 'Continue',
+                    }).then(result => {
+                        window.location.href = "/index.html"
+                    })
+
                 })
         },
         current() {
@@ -215,12 +310,32 @@ createApp({
         },
 
         addToCart(addGame) {
+
+
             //let producto = this.listaJuegos.filter(item => item.id === addGame.id)
             index = this.filterProducts.findIndex(item => item.id === addGame.id);
             let filtrado = this.filterProducts;
             filtrado[index].cantidad = 1;
             filtrado[index].carrito = true
             localStorage.setItem('productos', JSON.stringify(filtrado));
+
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Added to favorites'
+            })
         },
 
         deleteToCart(deleteGame) {
@@ -229,6 +344,23 @@ createApp({
             filtrado[index].carrito = false;
 
             localStorage.setItem('productos', JSON.stringify(filtrado));
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: 'Deleted of cart'
+            })
 
         },
 
@@ -358,7 +490,25 @@ createApp({
             this.pregunta = true
             this.clienteSeleccionado = this.allClients.filter(cliente => cliente.id == id)[0]
             this.pedidosClienteSeleccionado = this.clienteSeleccionado.pedidos
-        }
+        },
+
+        alertaOne() {
+            swal.fire({
+                title: 'Your message has been sent',
+                text: "Thank you for your help collaborating with the page, we will answer your question as soon as possible",
+                icon: 'success',
+                confirmButtonText: 'Accept',
+            })
+        },
+
+        alertaTwo() {
+            swal.fire({
+                title: 'Your message has been sent',
+                text: "Thank you for your help collaborating with the page, we will answer your question as soon as possible",
+                icon: 'success',
+                confirmButtonText: 'Accept',
+            })
+        },
 
 
     },

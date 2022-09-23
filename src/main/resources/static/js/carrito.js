@@ -48,27 +48,27 @@ createApp({
 
     },
     methods: {
-        imprimir(){
+        imprimir() {
             return print()
         },
-        
+
         submitUrl() {
-            let numero = this.numeroTarjeta.slice(0,19).split(' ')
+            let numero = this.numeroTarjeta.slice(0, 19).split(' ')
             let numeroTarjeta = ""
             for (let i = 0; i < numero.length; i++) {
                 numeroTarjeta += numero[i] + "-"
             }
-            numeroTarjetaCompleto = numeroTarjeta.slice(0,19)
+            numeroTarjetaCompleto = numeroTarjeta.slice(0, 19)
             console.log(numeroTarjetaCompleto)
-            
+
             axios.get('/api/data', { params: { url: `http://localhost:8085/api/pay?amount=${this.totalPrice}&cardNumber=${numeroTarjetaCompleto}` } })
                 .then(
                     this.realizarCompra(),
                     console.log("se envió la petición")
                 )
-            .catch(err => {
-                console.log(err.response.data);
-            })
+                .catch(err => {
+                    console.log(err.response.data);
+                })
         },
         realizarCompra() {
             let buyProducts = [];
@@ -90,7 +90,7 @@ createApp({
             } else {
                 discountCode = this.discountCode;
             }
-            
+
 
             axios.post("/api/clients/current/pedido", {
                 "shippingAddress": this.shippingAddress,
@@ -99,20 +99,17 @@ createApp({
                 "paymentMethod": "PAYPAL",
                 "products": buyProducts,
                 "codeDiscount": discountCode
-            }).then( response => {
-                
-                
+            }).then(response => {
                 this.vaciarCarrito()
                 window.location.href = "/listaProducto.html"
-                
             })
-            .catch(err => {
-                console.log(err);
-            })
+                .catch(err => {
+                    console.log(err);
+                })
 
 
         },
-        descargarReporte: function() {
+        descargarReporte: function () {
 
             var doc = new jsPDF('p', 'pt', 'letter');
             var margin = 10;
@@ -123,34 +120,34 @@ createApp({
                 html2canvas: {
                     scale: scale,
                 },
-                callback: function(doc) {
+                callback: function (doc) {
                     //doc.output("dataurlnewwindow", { filename: "comprobante de pago.pdf" });
                     doc.save("comprobante.pdf")
                 }
             })
 
         },
-        current(){
+        current() {
             console.log("funciona")
             axios.get("/api/clients/current")
-            .then(response => {
-                this.existClient = true
-                console.log(this.existClient)
-                this.clientInformation = response.data
-                let listPedido = this.clientInformation.pedidos.sort((a,b) => b.id - a.id)
-                console.log(listPedido)
-                this.pedido = listPedido[0]
-                console.log(this.pedido)
-                let product = this.pedido.products
-                for (let i = 0; i < product.length; i++) {
-                    let total = product[i].quantity * product[i].product.price
-                    console.log(total)
-                    this.totalPriceProduct = this.totalPriceProduct +  total
-                    this.totalQuantity = this.totalQuantity + product[i].quantity
-                }
-                console.log(this.totalPrice)
-            })
-            .catch(error => this.existClient = false)
+                .then(response => {
+                    this.existClient = true
+                    console.log(this.existClient)
+                    this.clientInformation = response.data
+                    let listPedido = this.clientInformation.pedidos.sort((a, b) => b.id - a.id)
+                    console.log(listPedido)
+                    this.pedido = listPedido[0]
+                    console.log(this.pedido)
+                    let product = this.pedido.products
+                    for (let i = 0; i < product.length; i++) {
+                        let total = product[i].quantity * product[i].product.price
+                        console.log(total)
+                        this.totalPriceProduct = this.totalPriceProduct + total
+                        this.totalQuantity = this.totalQuantity + product[i].quantity
+                    }
+                    console.log(this.totalPrice)
+                })
+                .catch(error => this.existClient = false)
         },
         vaciarCarrito() {
             let todosProductos = JSON.parse(localStorage.getItem("productos"))
@@ -188,7 +185,7 @@ createApp({
 
             if (this.productosCarrito === null) {
                 console.log("no funciona");
-                
+
             } else {
                 console.log(this.productosCarrito)
 
@@ -245,6 +242,22 @@ createApp({
 
 
 
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'You deleted one unit'
+            })
 
 
         },
@@ -273,6 +286,22 @@ createApp({
 
 
 
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'You added one unit'
+            })
 
 
 
@@ -302,27 +331,50 @@ createApp({
             localStorage.setItem("productos", JSON.stringify(cantidadProductos))
             localStorage.setItem("carrito", JSON.stringify(this.listaJuegos));
 
-            console.log("activado");
 
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-            //window.location.reload();
+            Toast.fire({
+                icon: 'error',
+                title: 'Deleted of cart'
+            })
 
 
         },
 
         solicitudRealizarCompra() {
 
-            if (this.listaJuegos.length === 0) {
-                alert("El carrito está vacío!")
-            } else if (this.existClient == false) {
-                alert("no esta autenticado")
-            }else{
+            if (this.existClient == false) {
+                swal.fire({
+                    title: "You can't make the purchase",
+                    text: "You need to login or register to perform this action",
+                    icon: 'error',
+                    confirmButtonText: 'Accept',
+                })
+            } else if (this.listaJuegos.length === 0) {
+                swal.fire({
+                    title: "You can't make the purchase",
+                    text: "The shopping cart is empty",
+                    icon: 'error',
+                    confirmButtonText: 'Accept',
+                })
+            } else {
                 window.location.href = "/postnet.html"
             }
 
         },
 
-        
+
 
         async prueba() {
             localStorage.setItem("buscar", this.texto)
