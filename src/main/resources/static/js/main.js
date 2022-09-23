@@ -69,7 +69,7 @@ createApp({
 
                     this.products.forEach(product => {
                         product.category.forEach(category => {
-                            if (category === this.listaCheck[i]) {
+                            if (category.includes(this.listaCheck[i])) {
                                 this.filterProducts.push(product)
 
                             }

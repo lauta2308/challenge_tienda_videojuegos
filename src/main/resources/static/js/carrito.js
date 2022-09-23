@@ -13,6 +13,7 @@ createApp({
             texto: "",
             todosArticulos: [],
             totalPrice: 0,
+            totalPriceProduct: 0,
             productosCarrito: [],
             cantidadProductosCarrito: 0,
             shippingAddress: "",
@@ -21,7 +22,6 @@ createApp({
             paymentMethod: "",
             discountCode: "",
             existClient: false,
-            totalPrice: 0,
             totalQuantity: 0,
             monto: 0,
             numeroTarjeta: "",
@@ -145,7 +145,7 @@ createApp({
                 for (let i = 0; i < product.length; i++) {
                     let total = product[i].quantity * product[i].product.price
                     console.log(total)
-                    this.totalPrice = this.totalPrice +  total
+                    this.totalPriceProduct = this.totalPriceProduct +  total
                     this.totalQuantity = this.totalQuantity + product[i].quantity
                 }
                 console.log(this.totalPrice)
