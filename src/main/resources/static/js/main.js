@@ -95,7 +95,7 @@ createApp({
     },
     methods: {
         changeActiveOrder(orderId) {
-            this.pedidoActivo = this.pedidos.filter(pedido => pedido.id == orderId)[0]
+            this.pedidoActivo = this.pedidosClienteSeleccionado.filter(pedido => pedido.id == orderId)[0]
             this.totalPedidoActivo = 0
             this.pedidoActivo.products.forEach(pedido => {
                 this.totalPedidoActivo = this.totalPedidoActivo + pedido.product.price * pedido.quantity
@@ -358,7 +358,6 @@ createApp({
             this.pregunta = true
             this.clienteSeleccionado = this.allClients.filter(cliente => cliente.id == id)[0]
             this.pedidosClienteSeleccionado = this.clienteSeleccionado.pedidos
-            console.log(this.pedidosClienteSeleccionado)
         }
 
 
