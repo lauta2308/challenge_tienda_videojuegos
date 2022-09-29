@@ -493,7 +493,7 @@ createApp({
         },
 
         getClients() {
-            axios.get("http://localhost:8080/api/admin/clients").then(response => {
+            axios.get("/api/admin/clients").then(response => {
                 this.allClients = response.data
 
             })
