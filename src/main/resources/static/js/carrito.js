@@ -66,12 +66,12 @@ createApp({
                 numeroTarjeta += numero[i] + "-"
             }
             numeroTarjetaCompleto = numeroTarjeta.slice(0, 19)
-            console.log(numeroTarjetaCompleto)
+
 
             axios.get('/api/data', { params: { url: `http://localhost:8085/api/pay?amount=${this.totalPrice}&cardNumber=${numeroTarjetaCompleto}` } })
                 .then(
                     this.realizarCompra(),
-                    console.log("se envió la petición")
+
                 )
                 .catch(err => {
                     console.log(err.response.data);
@@ -135,24 +135,24 @@ createApp({
 
         },
         current() {
-            console.log("funciona")
+
             axios.get("/api/clients/current")
                 .then(response => {
                     this.existClient = true
-                    console.log(this.existClient)
+
                     this.clientInformation = response.data
                     let listPedido = this.clientInformation.pedidos.sort((a, b) => b.id - a.id)
-                    console.log(listPedido)
+
                     this.pedido = listPedido[0]
-                    console.log(this.pedido)
+
                     let product = this.pedido.products
                     for (let i = 0; i < product.length; i++) {
                         let total = product[i].quantity * product[i].product.price
-                        console.log(total)
+
                         this.totalPriceProduct = this.totalPriceProduct + total
                         this.totalQuantity = this.totalQuantity + product[i].quantity
                     }
-                    console.log(this.totalPrice)
+
                 })
                 .catch(error => this.existClient = false)
         },
@@ -180,24 +180,23 @@ createApp({
                 if (productosAgregados.length > 0) {
                     this.productosCarrito = productosAgregados;
                     window.location.reload();
-                    console.log(productosAgregados === true)
-                    console.log("funciona prod agregados")
+
                 } else {
                     this.productosCarrito = JSON.parse(localStorage.getItem("productos"));
-                    console.log("funciona productos")
+
                 }
             }
 
-            console.log(this.productosCarrito);
+
 
             if (this.productosCarrito === null) {
-                console.log("no funciona");
+
 
             } else {
-                console.log(this.productosCarrito)
+
 
                 let productos = this.productosCarrito.filter(producto => producto.carrito === true);
-                console.log(this.productosCarrito)
+
                 for (let i = 0; i < productos.length; i++) {
                     let productosM = new Object();
 
@@ -223,7 +222,7 @@ createApp({
             }
 
 
-            console.log(this.listaJuegos);
+
         },
 
 
@@ -236,7 +235,7 @@ createApp({
                 this.listaJuegos[index]["cantidad"] -= 1;
                 this.listaJuegos[index]["total"] -= this.listaJuegos[index]["price"];
                 this.totalPrice -= this.listaJuegos[index]["price"];
-                console.log(this.listaJuegos[index])
+
                 localStorage.setItem("productos", JSON.stringify(this.productosCarrito));
                 this.cantidadProductosCarrito -= 1;
             } else {
@@ -276,19 +275,18 @@ createApp({
             let indexx = this.listaJuegos.findIndex(articulo => articulo.id === game.id);
 
             if ((this.productosCarrito[index]["cantidad"] + 1) <= this.productosCarrito[index]["stock"]) {
-                console.log(this.listaJuegos);
-                console.log(this.productosCarrito);
+
                 this.productosCarrito[index]["cantidad"] += 1
                 this.listaJuegos[indexx]["cantidad"] += 1;
                 this.listaJuegos[indexx]["total"] += this.listaJuegos[indexx]["price"];
                 this.totalPrice += this.listaJuegos[indexx]["price"];
-                console.log(this.listaJuegos[indexx])
+
                 this.cantidadProductosCarrito += 1;
 
             }
 
             localStorage.setItem("productos", JSON.stringify(this.productosCarrito));
-            console.log(this.productosCarrito);
+
             localStorage.setItem("carrito", JSON.stringify(this.listaJuegos));
 
 
@@ -320,7 +318,7 @@ createApp({
             this.cantidadProductosCarrito -= this.listaJuegos[index].cantidad;
             let cantidadProductos = JSON.parse(localStorage.getItem("productos"))
 
-            console.log(cantidadProductos);
+
 
 
 
@@ -331,9 +329,7 @@ createApp({
 
 
             this.totalPrice -= this.listaJuegos[index].total
-            console.log(this.listaJuegos[index].cantidad)
-            console.log(this.listaJuegos[index]["price"])
-            console.log(this.totalPrice);
+
             this.listaJuegos = this.listaJuegos.filter(response => response != info)
             localStorage.setItem("productos", JSON.stringify(cantidadProductos))
             localStorage.setItem("carrito", JSON.stringify(this.listaJuegos));
