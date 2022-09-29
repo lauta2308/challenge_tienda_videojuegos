@@ -36,6 +36,7 @@ createApp({
             pedidosClienteSeleccionado: [],
             pedidoProductos: [],
             pregunta: false,
+            infoClientAlRecargar: JSON.parse(localStorage.getItem(`clientEmail`)),
 
             register: {
                 name: "",
@@ -49,8 +50,14 @@ createApp({
     },
     created() {
         this.loadCategories();
-        this.current();
-        this.getClients();
+
+        if (this.infoClientAlRecargar) {
+            if (this.infoClientAlRecargar.length > 0) {
+                this.current();
+            }
+        }
+
+
     },
     computed: {
 
@@ -112,12 +119,12 @@ createApp({
                 confirmButtonText: 'Continue',
             }).then(result => {
                 axios.post("/api/login", `email=${this.register.email}&password=${this.register.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
-                .then(response => {
-                    
-                        window.location.href = "/user.html"
-                    
+                    .then(response => {
 
-                })
+                        window.location.href = "/user.html"
+
+
+                    })
             })
 
 
@@ -220,6 +227,7 @@ createApp({
                 if (result.isConfirmed) {
                     axios.post("/api/logout")
                         .then(response => {
+                            localStorage.setItem('clientEmail', JSON.stringify(""));
                             this.existClient = false
                             window.location.href = "/index.html"
                         })
@@ -232,23 +240,27 @@ createApp({
         loginUser() {
             axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
 
-                .then(response => {
+            .then(response => {
 
-                    swal.fire({
-                        title: "Welcome back to REBEL",
-                        text: "We will send you to the home page",
-                        icon: 'success',
-                        confirmButtonText: 'Continue',
-                    }).then(result => {
-                        window.location.href = "/index.html"
-                    })
-
+                swal.fire({
+                    title: "Welcome back to REBEL",
+                    text: "We will send you to the home page",
+                    icon: 'success',
+                    confirmButtonText: 'Continue',
+                }).then(result => {
+                    localStorage.setItem('clientEmail', JSON.stringify(this.emailLogin));
+                    window.location.href = "/index.html"
                 })
+
+            })
         },
         current() {
             axios.get("/api/clients/current")
                 .then(response => {
                     this.rolClient = response.data.rol
+                    if (this.rolClient === "ADMIN") {
+                        this.getClients();
+                    }
                     this.pedidos = response.data.pedidos;
                     this.existClient = true
                     this.clientInformation = response.data
@@ -334,7 +346,7 @@ createApp({
 
             Toast.fire({
                 icon: 'success',
-                title: 'Added to favorites'
+                title: 'Added to cart'
             })
         },
 
@@ -483,6 +495,7 @@ createApp({
         getClients() {
             axios.get("http://localhost:8080/api/admin/clients").then(response => {
                 this.allClients = response.data
+
             })
         },
         obtenerProductosCliente(id) {
@@ -516,7 +529,7 @@ createApp({
 }).mount('#app')
 
 
-window.onload = function () {
+window.onload = function() {
     $("#onload").fadeOut();
     $("body").removeClass("hidden")
 }

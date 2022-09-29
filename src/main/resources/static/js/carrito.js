@@ -28,6 +28,7 @@ createApp({
             pedido: [],
             clientInformation: [],
             checkImprimir: [],
+            infoClientAlRecargar: JSON.parse(localStorage.getItem(`clientEmail`))
 
         }
     },
@@ -35,7 +36,13 @@ createApp({
 
 
         this.productos();
-        this.current()
+
+        if (this.infoClientAlRecargar) {
+            if (this.infoClientAlRecargar.length > 0) {
+                this.current();
+            }
+        }
+
 
 
 
@@ -93,23 +100,23 @@ createApp({
 
 
             axios.post("/api/clients/current/pedido", {
-                "shippingAddress": this.shippingAddress,
-                "shippingCity": this.shippingCity,
-                "zipCode": this.zipCode,
-                "paymentMethod": "PAYPAL",
-                "products": buyProducts,
-                "codeDiscount": discountCode
-            }).then(response => {
-                this.vaciarCarrito()
-                window.location.href = "/listaProducto.html"
-            })
+                    "shippingAddress": this.shippingAddress,
+                    "shippingCity": this.shippingCity,
+                    "zipCode": this.zipCode,
+                    "paymentMethod": "PAYPAL",
+                    "products": buyProducts,
+                    "codeDiscount": discountCode
+                }).then(response => {
+                    this.vaciarCarrito()
+                    window.location.href = "/listaProducto.html"
+                })
                 .catch(err => {
                     console.log(err);
                 })
 
 
         },
-        descargarReporte: function () {
+        descargarReporte: function() {
 
             var doc = new jsPDF('p', 'pt', 'letter');
             var margin = 10;
@@ -120,7 +127,7 @@ createApp({
                 html2canvas: {
                     scale: scale,
                 },
-                callback: function (doc) {
+                callback: function(doc) {
                     //doc.output("dataurlnewwindow", { filename: "comprobante de pago.pdf" });
                     doc.save("comprobante.pdf")
                 }
