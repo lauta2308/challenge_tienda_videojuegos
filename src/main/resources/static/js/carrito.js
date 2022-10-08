@@ -28,7 +28,7 @@ createApp({
             pedido: [],
             clientInformation: [],
             checkImprimir: [],
-            infoClientAlRecargar: JSON.parse(localStorage.getItem(`clientEmail`))
+            infoClientAlRecargar: JSON.parse(localStorage.getItem(`logged-in`))
 
         }
     },

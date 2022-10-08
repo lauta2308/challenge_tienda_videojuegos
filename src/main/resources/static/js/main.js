@@ -36,7 +36,7 @@ createApp({
             pedidosClienteSeleccionado: [],
             pedidoProductos: [],
             pregunta: false,
-            infoClientAlRecargar: JSON.parse(localStorage.getItem(`clientEmail`)),
+            infoClientAlRecargar: JSON.parse(localStorage.getItem(`logged-in`)),
 
             register: {
                 name: "",
@@ -129,7 +129,7 @@ createApp({
 
                 axios.post("/api/login", `email=${this.register.email}&password=${this.register.password}`, )
                     .then(response => {
-                        localStorage.setItem('clientEmail', JSON.stringify(this.register.email));
+                        localStorage.setItem('logged-in', JSON.stringify("Welcome to REBEL"));
                         window.location.href = "/index.html"
 
 
@@ -237,7 +237,7 @@ createApp({
                 if (result.isConfirmed) {
                     axios.post("/api/logout")
                         .then(response => {
-                            localStorage.setItem('clientEmail', JSON.stringify(""));
+                            localStorage.setItem('logged-in', JSON.stringify(""));
                             this.existClient = false
                             window.location.href = "/index.html"
                         })
@@ -259,7 +259,7 @@ createApp({
                     icon: 'success',
                     confirmButtonText: 'Continue',
                 }).then(result => {
-                    localStorage.setItem('clientEmail', JSON.stringify(this.emailLogin));
+                    localStorage.setItem('logged-in', JSON.stringify("Welcome to REBEL"));
                     window.location.href = "/index.html"
                 })
 
