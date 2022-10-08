@@ -51,11 +51,14 @@ createApp({
     created() {
         this.loadCategories();
 
+
+
         if (this.infoClientAlRecargar) {
             if (this.infoClientAlRecargar.length > 0) {
                 this.current();
             }
         }
+
 
 
     },
@@ -110,7 +113,10 @@ createApp({
     methods: {
         registrada() {
 
+
+
             axios.post("/api/clients?name=" + this.register.name + "&lastName=" + this.register.lastName + "&email=" + this.register.email + "&birthDate=" + this.register.nacimiento + "&password=" + this.register.password)
+
 
             swal.fire({
                 title: "Welcome to REBEL " + this.register.name,
@@ -118,13 +124,17 @@ createApp({
                 icon: 'success',
                 confirmButtonText: 'Continue',
             }).then(result => {
-                axios.post("/api/login", `email=${this.register.email}&password=${this.register.password}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
-                    .then(response => {
 
-                        window.location.href = "/user.html"
+
+
+                axios.post("/api/login", `email=${this.register.email}&password=${this.register.password}`, )
+                    .then(response => {
+                        localStorage.setItem('clientEmail', JSON.stringify(this.register.email));
+                        window.location.href = "/index.html"
 
 
                     })
+
             })
 
 
@@ -238,7 +248,8 @@ createApp({
         },
 
         loginUser() {
-            axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+
+            axios.post("/api/login", `email=${this.emailLogin}&password=${this.passwordLogin}`)
 
             .then(response => {
 
